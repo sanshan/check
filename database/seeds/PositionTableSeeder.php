@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TypeOfGasStationSeeder extends Seeder
+class PositionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TypeOfGasStationSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\TypeOfGasStation::class, 10)->create();
+        factory(App\Position::class, 10)->create();
     }
 }

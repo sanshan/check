@@ -21,6 +21,8 @@ trait RequestMessages
             'to_rate.required' => 'Поле "Оценка" обязательно для заполнения',
             'type_of_gas_station_id.required' => 'Не указан ID типа АЗС',
             'type_of_gas_station_id.exists'  => 'ID ипа АЗС не найден',
+            'type_of_checklists_id.required' => 'Не указан ID типа чеклиста',
+            'type_of_checklists_id.exists' => 'ID типа чеклиста не найден',
         ];
     }
 }

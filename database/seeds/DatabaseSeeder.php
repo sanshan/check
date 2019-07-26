@@ -13,9 +13,10 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
              UserTableSeeder::class,
-             RegionsTableSeeder::class,
-             PositionsTableSeeder::class,
-             TypeOfGasStationSeeder::class,
+             RegionTableSeeder::class,
+             PositionTableSeeder::class,
+             TypeOfGasStationTableSeeder::class,
+             TypeOfChecklistTableSeeder::class,
          ]);
     }
 }

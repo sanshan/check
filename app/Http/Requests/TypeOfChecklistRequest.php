@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\RequestMessages;
+use Illuminate\Foundation\Http\FormRequest;
 
-class TypeOfGasStationRequest extends FormRequest
+class TypeOfChecklistRequest extends FormRequest
 {
-
     use RequestMessages;
 
     /**
@@ -28,8 +27,7 @@ class TypeOfGasStationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'required|string|max:100|unique:type_of_gas_stations,title',
-            'abbreviation' => 'required|string|max:10',
+            'title' => 'required|string|max:100|unique:type_of_checklists,title',
         ];
 
         switch($this->getMethod())
@@ -39,8 +37,8 @@ class TypeOfGasStationRequest extends FormRequest
             case 'PATCH':
             case 'PUT':
                 return [
-                    'type_of_gas_station_id' => 'required|integer|exists:type_of_gas_stations,id',
-                    'title' => 'required|string|max:100|unique:type_of_gas_stations,title,'.$this->type_of_gas_station_id,
+                    'type_of_checklist_id' => 'required|integer|exists:type_of_checklists,id',
+                    'title' => 'required|string|max:100|unique:type_of_checklists,title,'.$this->type_of_checklist_id,
                 ] + $rules;
             //case 'DELETE':
         }

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PositionsTableSeeder extends Seeder
+class TypeOfChecklistTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PositionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Position::class, 10)->create();
+        factory(App\TypeOfChecklist::class, 10)->create();
     }
 }

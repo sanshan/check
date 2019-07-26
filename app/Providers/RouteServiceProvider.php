@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::model('typeofgasstation', \App\TypeOfGasStation::class);
+        Route::model('typeofchecklist', \App\TypeOfChecklist::class);
     }
 
     /**

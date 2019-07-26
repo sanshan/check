@@ -2,20 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfGasStationResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/RequestMessages.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/TypeOfGasStation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/TypeOfGasStationFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_26_094641_create_type_of_gas_stations_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/TypeOfGasStationSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklistRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklistResource.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/TypeOfChecklist.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/TypeOfChecklistFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_26_113443_create_type_of_checklists_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/TypeOfChecklistTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStationRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStationRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Region.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/RequestMessages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/RequestMessages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TypeOfGasStation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TypeOfGasStation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/PositionsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/PositionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RegionsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RegionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TypeOfGasStationSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TypeOfGasStationTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -199,7 +203,7 @@
       <workItem from="1563968307663" duration="362000" />
       <workItem from="1563968683959" duration="50000" />
       <workItem from="1563968748424" duration="13242000" />
-      <workItem from="1564120448935" duration="15983000" />
+      <workItem from="1564120448935" duration="20518000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -222,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564134215485</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add TypeOfGasStation">
+      <created>1564140568828</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1564140568828</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -255,6 +266,7 @@
     <MESSAGE value="Install Laravel" />
     <MESSAGE value="Add template" />
     <MESSAGE value="Add Position &amp; Region" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Position &amp; Region" />
+    <MESSAGE value="Add TypeOfGasStation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add TypeOfGasStation" />
   </component>
 </project>

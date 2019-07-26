@@ -17,6 +17,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\TypeOfGasStation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\TypeOfGasStation withoutTrashed()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $title
+ * @property string $abbreviation
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereAbbreviation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TypeOfGasStation whereUpdatedAt($value)
  */
 class TypeOfGasStation extends Model
 {
