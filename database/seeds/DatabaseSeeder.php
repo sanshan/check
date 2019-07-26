@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
              PositionTableSeeder::class,
              TypeOfGasStationTableSeeder::class,
              TypeOfChecklistTableSeeder::class,
+             RoleTableSeeder::class,
          ]);
     }
 }

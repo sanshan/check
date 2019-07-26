@@ -22,3 +22,4 @@ Route::apiResource('regions', 'Api\RegionController');
 Route::apiResource('positions', 'Api\PositionController');
 Route::apiResource('typeofgasstations', 'Api\TypeOfGasStationController');
 Route::apiResource('typeofchecklists', 'Api\TypeOfChecklistController');
+Route::apiResource('roles', 'Api\RoleController');

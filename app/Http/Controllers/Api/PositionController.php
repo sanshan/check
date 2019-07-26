@@ -11,7 +11,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PositionController extends Controller
 {
-
     /**
      * @return AnonymousResourceCollection
      */

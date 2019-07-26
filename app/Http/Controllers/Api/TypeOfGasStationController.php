@@ -11,7 +11,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TypeOfGasStationController extends Controller
 {
-
     /**
      * @return AnonymousResourceCollection
      */

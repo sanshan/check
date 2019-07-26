@@ -11,7 +11,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TypeOfChecklistController extends Controller
 {
-
     /**
      * @return AnonymousResourceCollection
      */

@@ -23,6 +23,8 @@ trait RequestMessages
             'type_of_gas_station_id.exists'  => 'ID ипа АЗС не найден',
             'type_of_checklists_id.required' => 'Не указан ID типа чеклиста',
             'type_of_checklists_id.exists' => 'ID типа чеклиста не найден',
+            'role_id.required' => 'Не указан ID роли',
+            'role_id.exists' => 'ID роли не найден',
         ];
     }
 }

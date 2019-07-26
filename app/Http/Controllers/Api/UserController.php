@@ -10,8 +10,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
-
-
     /**
      * @return AnonymousResourceCollection
      */

@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Profile;
+use App\Role;
 use Faker\Generator as Faker;
 
-$factory->define(Profile::class, function (Faker $faker) {
+$factory->define(Role::class, function (Faker $faker) {
     return [
-        'mobile' => $faker->phoneNumber,
+        'title' => $faker->text(100),
     ];
 });
