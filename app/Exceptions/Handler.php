@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -26,11 +29,11 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+
     /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
+     * @param Exception $exception
+     * @return mixed|void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -46,6 +49,43 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
+
         return parent::render($request, $exception);
+    }
+
+
+    /**
+
+     * Convert an authentication exception into an unauthenticated response.
+
+     *
+
+     * @param  \Illuminate\Http\Request  $request
+
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+
+     * @return \Illuminate\Http\Response
+
+     */
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+
+    {
+
+        if ($request->expectsJson()) {
+
+            /** return response()->json(['error' => 'Unauthenticated.'], 401); */
+
+            $response = ['status' => 'error','message' => 'You pass invalid token'];
+
+            return response()->json($response, 401);
+
+        }
+
+        return redirect()->guest('login');
+
     }
 }
