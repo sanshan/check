@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\RequestMessages;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class RegionRequest extends FormRequest
 {
+
+    use RequestMessages;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -41,16 +44,5 @@ class RegionRequest extends FormRequest
             //case 'DELETE':
         }
 
-    }
-
-    public function messages()
-    {
-        return [
-            'title.required' => 'Поле "Название" обязательно для заполнения',
-            'title.max'  => 'В поле "Название" может быть не более 100 символов',
-            'title.unique'  => 'Такое название уже существует',
-            'region_id.required'  => 'Не указан ID региона',
-            'region_id.exists'  => 'ID региона не найден',
-        ];
     }
 }

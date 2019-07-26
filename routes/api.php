@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('users', 'Api\UserController');
 Route::apiResource('regions', 'Api\RegionController');
 Route::apiResource('positions', 'Api\PositionController');
+Route::apiResource('typeofgasstations', 'Api\TypeOfGasStationController');

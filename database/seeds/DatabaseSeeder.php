@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
              UserTableSeeder::class,
              RegionsTableSeeder::class,
              PositionsTableSeeder::class,
+             TypeOfGasStationSeeder::class,
          ]);
     }
 }

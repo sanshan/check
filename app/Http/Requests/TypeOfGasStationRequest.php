@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Traits\RequestMessages;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\RequestMessages;
 
-class PositionRequest extends FormRequest
+class TypeOfGasStationRequest extends FormRequest
 {
 
     use RequestMessages;
@@ -28,9 +28,8 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'required|string|max:100|unique:positions,title',
-            'code' => 'required|string|max:10',
-            'to_rate' => 'required|boolean',
+            'title' => 'required|string|max:100|unique:type_of_gas_stations,title',
+            'abbreviation' => 'required|string|max:10',
         ];
 
         switch($this->getMethod())
@@ -40,8 +39,8 @@ class PositionRequest extends FormRequest
             case 'PATCH':
             case 'PUT':
                 return [
-                    'position_id' => 'required|integer|exists:positions,id',
-                    'title' => 'required|string|max:100|unique:positions,title,'.$this->position_id,
+                    'title' => 'required|string|max:100|unique:type_of_gas_stations,title,'.$this->type_of_gas_station_id,
+                    'type_of_gas_station_id' => 'required|integer|exists:type_of_gas_stations,id',
                 ] + $rules;
             //case 'DELETE':
         }
