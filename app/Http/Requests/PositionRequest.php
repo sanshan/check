@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PositionRequest extends FormRequest
 {
-
     use RequestMessages;
 
     /**

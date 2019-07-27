@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
 {
-
     use RequestMessages;
 
     /**

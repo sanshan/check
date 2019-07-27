@@ -2,20 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RoleController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/RoleResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/RoleFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_26_125221_create_roles_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/RoleTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/GasStation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStationRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStationResource.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/GasStationFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/GasStationTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/RequestMessages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/RequestMessages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/factories/ProfileFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_26_125221_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_23_133746_create_roles_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -200,7 +209,7 @@
       <workItem from="1563968307663" duration="362000" />
       <workItem from="1563968683959" duration="50000" />
       <workItem from="1563968748424" duration="13242000" />
-      <workItem from="1564120448935" duration="24529000" />
+      <workItem from="1564120448935" duration="32971000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -237,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564145446065</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add Role">
+      <created>1564149661236</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1564149661236</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -272,6 +288,7 @@
     <MESSAGE value="Add Position &amp; Region" />
     <MESSAGE value="Add TypeOfGasStation" />
     <MESSAGE value="Add TypeOfChecklist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add TypeOfChecklist" />
+    <MESSAGE value="Add Role" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Role" />
   </component>
 </project>

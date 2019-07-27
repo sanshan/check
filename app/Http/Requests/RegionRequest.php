@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegionRequest extends FormRequest
 {
-
     use RequestMessages;
 
     /**

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -17,6 +18,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Role withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Role withoutTrashed()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $title
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereUpdatedAt($value)
  */
 class Role extends Model
 {
@@ -24,4 +35,5 @@ class Role extends Model
 
     protected $fillable = ['title'];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
 }

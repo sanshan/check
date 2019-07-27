@@ -25,6 +25,23 @@ trait RequestMessages
             'type_of_checklists_id.exists' => 'ID типа чеклиста не найден',
             'role_id.required' => 'Не указан ID роли',
             'role_id.exists' => 'ID роли не найден',
+            'number.required' => 'Не заполнен номер',
+            'number.max' => 'Номер может быть не более 10 символов',
+            'number.unique' => 'Такой номер уже существует',
+            'address.required' => 'Не заполнен адрес',
+            'address.max' => 'Адрес может быть не более 500 символов',
+            'is_shop.required' => 'Не указано наличие магазина',
+            'it_works.required' => 'Не указано работает ли АЗС',
+            'dir_name.required' => 'Не указано имя диретора',
+            'dir_name.max' => 'Имя директора не может быть более 20 символов',
+            'dir_patronymic.required' => 'Не указано отчество директора',
+            'dir_patronymic.max' => 'Отчество диретора не может быть более 20 символов',
+            'dir_surname.required' => 'Не указана фамилия директора',
+            'dir_surname.max' => 'Фамилия диреткора не может быть более 20 символов',
+            'email.required' => 'Не указан email АЗС',
+            'email.max' => 'Email не может быть более 50 символов',
+            'phone.required' => 'Не указан телефон АЗС',
+            'phone.max' => 'Телефон не может быть более 20 символов',
         ];
     }
 }
