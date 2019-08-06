@@ -3,6 +3,12 @@
 <body class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading" >
 @include('shared.layout._page-loader')
 @include('shared.page.page-base')
+
+<!--begin::Global Theme Bundle(used by all pages) -->
+<script src="{{ URL::asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
+<!--end::Global Theme Bundle -->
+
 <!-- begin::Global Config(global config for global JS sciprts) -->
 <script>
     var KTAppOptions = {
@@ -36,11 +42,6 @@
 </script>
 @stack('global-config')
 <!-- end::Global Config -->
-
-<!--begin::Global Theme Bundle(used by all pages) -->
-<script src="{{ URL::asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
-<!--end::Global Theme Bundle -->
 
 <!--begin::Page Vendors(used by this page) -->
 @stack('vendors-scripts')

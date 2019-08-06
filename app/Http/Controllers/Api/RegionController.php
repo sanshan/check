@@ -7,17 +7,23 @@ use App\Http\Resources\RegionResource;
 use App\Http\Controllers\Controller;
 use App\Region;
 use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RegionController extends Controller
 {
-    /**
-     * @return AnonymousResourceCollection
-     */
-    public function index() : AnonymousResourceCollection
+
+    public function index(RegionRequest $request)
     {
-        $regions = Region::all();
-        return RegionResource::collection($regions);
+        if($title = $request->input('title')) {
+            $regions = Region::where('title', 'LIKE', "%$title%")->get();
+            return RegionResource::collection($regions);
+        }
+        else {
+            $regions = Region::all();
+            return datatables()->of(RegionResource::collection($regions))
+                ->addColumn('DT_RowId', function($row){
+                    return 'row_'.$row['id'];
+                })->toJson();
+        }
     }
 
     /**

@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('lists/positions', 'PositionController');
+Route::get('lists/regions', 'RegionController');
+Route::get('lists/typeofchecklists', 'TypeOfChecklistController');
+Route::get('lists/typeofgasstations', 'TypeOfGasStationController');
+Route::get('lists/users', 'UserController');
+Route::get('lists/gasstations', 'GasStationController');

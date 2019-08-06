@@ -37,5 +37,8 @@ class Position extends Model
     use SoftDeletes;
 
     protected $fillable = ['title', 'code', 'to_rate'];
-    protected $hidden =['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $casts = [
+        'to_rate' => 'boolean',
+    ];
 }

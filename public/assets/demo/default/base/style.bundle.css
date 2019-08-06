@@ -70,7 +70,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Roboto, Poppins";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -4881,7 +4881,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Roboto, Poppins";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -4966,7 +4966,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Poppins";
+  font-family: "Roboto, Poppins";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -8309,14 +8309,14 @@ a.text-dark:hover, a.text-dark:focus {
 .toast .toast-title {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #6c7293;
+  color: #ffffff !important;
   margin-right: auto !important; }
 
 .toast .toast-time {
   margin-left: 0.5rem;
   font-size: 0.85rem;
   font-weight: 400;
-  color: #6c7293; }
+  color: #adb1c7; }
 
 .toast .toast-icon {
   margin-right: 0.5rem;
@@ -16057,7 +16057,7 @@ body {
   padding: 0px;
   font-size: 13px;
   font-weight: 300;
-  font-family: Poppins;
+  font-family: Roboto, Poppins;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -18871,6 +18871,12 @@ strong {
   color: #ffffff !important; }
   .kt-bg-fill-danger > i {
     color: #ffffff !important; }
+
+.kt-label-font-color-0 {
+  color: #ffffff !important; }
+
+.kt-label-bg-color-0 {
+  background-color: #ffffff !important; }
 
 .kt-label-font-color-1 {
   color: #adb1c7 !important; }
@@ -24638,7 +24644,7 @@ strong {
   box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
   border-radius: 4px;
   border: 0;
-  font-family: Poppins;
+  font-family: Roboto, Poppins;
   z-index: 95; }
   .modal-open .daterangepicker {
     z-index: 1051; }
@@ -25480,7 +25486,7 @@ strong {
   padding: 0;
   min-width: 125px;
   font-size: 1rem;
-  font-family: Poppins;
+  font-family: Roboto, Poppins;
   border-radius: 4px; }
   .vakata-context li,
   .vakata-context ul li {

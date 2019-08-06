@@ -15,6 +15,3 @@
 </div>
 <!-- end:: Page -->
 @include('shared.layout._scrolltop')
-@include('shared.layout._toolbar')
-@include('shared.layout._panel')
-<!--[html-partial:include:{"file":"partials\/_layout-chat.html"}]/-->

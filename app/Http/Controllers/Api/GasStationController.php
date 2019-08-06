@@ -7,17 +7,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GasStationRequest;
 use App\Http\Resources\GasStationResource;
 use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection as AnonymousResourceCollectionAlias;
 
 class GasStationController extends Controller
 {
     /**
-     * @return AnonymousResourceCollection
+     * @param GasStationRequest $request
+     * @return AnonymousResourceCollectionAlias
+     * @throws Exception
      */
-    public function index() : AnonymousResourceCollection
+    public function index(GasStationRequest $request)
     {
-        $gasStations = GasStation::all();
-        return GasStationResource::collection($gasStations);
+        if($number = $request->input('number')) {
+            $gasStations = GasStation::where('number', 'LIKE', "%$number%")->take(100)->get();
+            return GasStationResource::collection($gasStations);
+        }
+        else {
+            $gasStations = GasStation::with('region', 'type', 'users')->get();
+            return datatables()->of(GasStationResource::collection($gasStations))
+                ->addColumn('DT_RowId', function ($row) {
+                    return 'row_' . $row['id'];
+                })->toJson();
+        }
     }
 
     /**
@@ -36,6 +47,7 @@ class GasStationController extends Controller
      */
     public function show(GasStation $gasStation) : GasStationResource
     {
+        $gasStation->load('region', 'type');
         return GasStationResource::make($gasStation);
     }
 

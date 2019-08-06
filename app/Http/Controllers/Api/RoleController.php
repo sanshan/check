@@ -12,11 +12,15 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class RoleController extends Controller
 {
     /**
+     * @param RoleRequest $request
      * @return AnonymousResourceCollection
      */
-    public function index() : AnonymousResourceCollection
+    public function index(RoleRequest $request) : AnonymousResourceCollection
     {
-        $roles = Role::all();
+        if($title = $request->input('title'))
+            $roles = Role::where('title', 'LIKE', "%$title%")->get();
+        else
+            $roles = Role::take(5)->get();
         return RoleResource::collection($roles);
     }
 

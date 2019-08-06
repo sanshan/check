@@ -7,17 +7,21 @@ use App\Http\Resources\PositionResource;
 use App\Position;
 use Exception;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 
 class PositionController extends Controller
 {
     /**
-     * @return AnonymousResourceCollection
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function index() : AnonymousResourceCollection
+    public function index() : JsonResponse
     {
         $positions = Position::all();
-        return PositionResource::collection($positions);
+        return datatables()->of(PositionResource::collection($positions))
+            ->addColumn('DT_RowId', function($row){
+                return 'row_'.$row['id'];
+            })->toJson();
     }
 
     /**

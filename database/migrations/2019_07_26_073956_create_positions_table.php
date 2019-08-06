@@ -17,7 +17,7 @@ class CreatePositionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 100);
             $table->string('code', 10);
-            $table->boolean('to_rate');
+            $table->boolean('to_rate')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

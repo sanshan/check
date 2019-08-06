@@ -145,6 +145,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'to_rate' => 'Оценка',
+    ],
 
 ];

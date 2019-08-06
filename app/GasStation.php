@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -26,7 +27,12 @@ class GasStation extends Model
     use SoftDeletes;
 
     protected $fillable = ['region_id', 'type_of_gas_station_id', 'number', 'address', 'is_shop', 'it_works', 'dir_name', 'dir_patronymic', 'dir_surname', 'email', 'phone'];
-    protected $hidden = ['region_id', 'type_of_gas_station_id', 'dir_name', 'dir_patronymic', 'dir_surname', 'created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['region_id', 'type_of_gas_station_id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $casts = [
+        'is_shop' => 'integer',
+        'it_works' => 'integer',
+    ];
+    protected $appends = ['full_name'];
 
     /**
      * @return BelongsTo
@@ -41,6 +47,17 @@ class GasStation extends Model
      */
     public function type() : BelongsTo
     {
-        return $this->belongsTo(TypeOfGasStation::class);
+        return $this->belongsTo(TypeOfGasStation::class, 'type_of_gas_station_id');
     }
+
+    public function users() : belongsToMany
+    {
+        return $this->belongsToMany(Profile::class);
+    }
+
+    public function getFullNameAttribute() : string
+    {
+        return $this->dir_surname.' '.$this->dir_name.' '.$this->dir_patronymic;
+    }
+
 }

@@ -7,17 +7,23 @@ use App\Http\Requests\TypeOfGasStationRequest;
 use App\Http\Resources\TypeOfGasStationResource;
 use App\TypeOfGasStation;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TypeOfGasStationController extends Controller
 {
+
     /**
-     * @return AnonymousResourceCollection
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function index() : AnonymousResourceCollection
+    public function index() : JsonResponse
     {
-        $typeOfGasStation = TypeOfGasStation::all();
-        return TypeOfGasStationResource::collection($typeOfGasStation);
+        $typeOfGasStations = TypeOfGasStation::all();
+        return datatables()->of(TypeOfGasStationResource::collection($typeOfGasStations))
+            ->addColumn('DT_RowId', function($row){
+                return 'row_'.$row['id'];
+            })->toJson();
     }
 
     /**

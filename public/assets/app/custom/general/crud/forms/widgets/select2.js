@@ -168,7 +168,7 @@ var KTSelect2 = function() {
             $('#kt_select2_4_modal').select2({
                 placeholder: "Select a state",
                 allowClear: true
-            }); 
+            });
         });
     }
 

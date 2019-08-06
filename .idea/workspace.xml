@@ -2,31 +2,70 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/GasStation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStationResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/GasStationFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/GasStationTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lihih.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/GasStationController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PositionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/RegionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/TypeOfChecklistController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/TypeOfGasStationController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/UserRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_29_071745_create_profile_region_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_07_29_083202_create_gas_station_profile_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/base/fonts/flaticon2/Flaticon2.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/base/fonts/flaticon2/Flaticon2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/base/fonts/flaticon2/Flaticon2.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/base/fonts/flaticon2/Flaticon2.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/base/fonts/flaticon2/Flaticon2.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/layouts/base.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/check.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/check.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/GasStation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GasStation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/GasStationRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/GasStationRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PositionResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PositionResource.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Position.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/RequestMessages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/RequestMessages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Region.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ProfileFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/GasStationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/GasStationFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_26_125221_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_23_133746_create_roles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_26_073956_create_positions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_26_073956_create_positions_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/GasStationTableSeeder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RegionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RegionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/app/custom/general/crud/forms/widgets/select2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/app/custom/general/crud/forms/widgets/select2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/demo/default/base/style.bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/demo/default/base/style.bundle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/vendors/base/vendors.bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/vendors/base/vendors.bundle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/vendors/base/vendors.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/vendors/base/vendors.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shared/layout/base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/layout/base.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/aside/_aside-menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/aside/_aside-menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/page-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/page-base.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +78,20 @@
     <execution>
       <executable path="composer" />
     </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -143,13 +196,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
     </include_path>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="864" />
-    <option name="y" value="27" />
-    <option name="width" value="886" />
-    <option name="height" value="1000" />
   </component>
   <component name="ProjectId" id="1OXONRO2buPDBkvcUjhZLnNTocN" />
   <component name="ProjectLevelVcsManager">
@@ -161,18 +209,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers/Api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/lists/gas_stations" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Api" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/lists/gas_stations" />
+      <recent name="$PROJECT_DIR$/resources/views/lists/users" />
+      <recent name="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations" />
+      <recent name="$PROJECT_DIR$/resources/views/lists/type_of_checklists" />
+      <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -209,7 +261,11 @@
       <workItem from="1563968307663" duration="362000" />
       <workItem from="1563968683959" duration="50000" />
       <workItem from="1563968748424" duration="13242000" />
-      <workItem from="1564120448935" duration="32971000" />
+      <workItem from="1564120448935" duration="53464000" />
+      <workItem from="1564403029303" duration="2876000" />
+      <workItem from="1564406407236" duration="69185000" />
+      <workItem from="1564651458121" duration="6778000" />
+      <workItem from="1564666553747" duration="14450000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -253,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564149661236</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add GasStation">
+      <created>1564215084237</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1564215084237</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -273,7 +336,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -289,6 +354,7 @@
     <MESSAGE value="Add TypeOfGasStation" />
     <MESSAGE value="Add TypeOfChecklist" />
     <MESSAGE value="Add Role" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Role" />
+    <MESSAGE value="Add GasStation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add GasStation" />
   </component>
 </project>

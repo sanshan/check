@@ -12,13 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
-             RoleTableSeeder::class,
-             UserTableSeeder::class,
-             RegionTableSeeder::class,
-             PositionTableSeeder::class,
              TypeOfGasStationTableSeeder::class,
              TypeOfChecklistTableSeeder::class,
-             GasStationTableSeeder::class,
+             RoleTableSeeder::class,
+             RegionTableSeeder::class,
+             UserTableSeeder::class,
+             PositionTableSeeder::class,
          ]);
     }
 }

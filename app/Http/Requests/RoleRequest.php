@@ -32,6 +32,10 @@ class RoleRequest extends FormRequest
 
         switch($this->getMethod())
         {
+            case 'GET':
+                return [
+                    'number' => 'nullable|string|max:10'
+                ];
             case 'POST':
                 return $rules;
             case 'PATCH':

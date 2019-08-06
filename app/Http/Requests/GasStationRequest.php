@@ -29,7 +29,7 @@ class GasStationRequest extends FormRequest
         $rules = [
             'region_id' => 'required|integer|exists:regions,id',
             'type_of_gas_station_id' => 'required|integer|exists:type_of_gas_stations,id',
-            'number' => 'required|string|max:10|unique:gas_stations,number',
+            'number' => 'required|integer|unique:gas_stations,number',
             'address' => 'required|string|max:500',
             'is_shop' => 'required|boolean',
             'it_works' => 'required|boolean',
@@ -42,13 +42,17 @@ class GasStationRequest extends FormRequest
 
         switch($this->getMethod())
         {
+            case 'GET':
+                return [
+                    'title' => 'nullable|string|max:100'
+                ];
             case 'POST':
                 return $rules;
             case 'PATCH':
             case 'PUT':
                 return [
                     'gas_station_id' => 'required|integer|exists:gas_stations,id',
-                    'number' => 'required|string|max:10|unique:gas_stations,number,'.$this->gas_station_id,
+                    'number' => 'required|integer|unique:gas_stations,number,'.$this->gas_station_id,
                 ] + $rules;
             //case 'DELETE':
         }

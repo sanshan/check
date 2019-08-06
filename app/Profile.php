@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Profile
@@ -39,7 +41,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Profile extends Model
 {
-    protected $hidden = ['id', 'user_id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['id', 'user_id', 'role_id', 'created_at', 'updated_at', 'deleted_at',];
+    protected $fillable = ['phone', 'name', 'patronymic', 'surname', 'role_id',];
+    protected $appends = ['full_name',];
 
     /**
      * @return BelongsTo
@@ -49,11 +53,23 @@ class Profile extends Model
         return $this->belongsTo(Role::class);
     }
 
+    public function regions() : BelongsToMany
+    {
+        return $this->belongsToMany(Region::class);
+    }
+
+    public function stations() : BelongsToMany
+    {
+        return $this->belongsToMany(GasStation::class);
+    }
+
     /**
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute() : string
     {
         return $this->name.' '.$this->patronymic.' '.$this->surname;
     }
+
+
 }

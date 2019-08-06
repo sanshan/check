@@ -7,17 +7,22 @@ use App\Http\Requests\TypeOfChecklistRequest;
 use App\Http\Resources\TypeOfChecklistResource;
 use App\TypeOfChecklist;
 use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 
 class TypeOfChecklistController extends Controller
 {
+
     /**
-     * @return AnonymousResourceCollection
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function index() : AnonymousResourceCollection
+    public function index() : JsonResponse
     {
         $typeOfChecklists = TypeOfChecklist::all();
-        return TypeOfChecklistResource::collection($typeOfChecklists);
+        return datatables()->of(TypeOfChecklistResource::collection($typeOfChecklists))
+            ->addColumn('DT_RowId', function($row){
+                return 'row_'.$row['id'];
+            })->toJson();
     }
 
     /**
