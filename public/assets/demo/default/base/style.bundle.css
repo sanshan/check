@@ -11494,6 +11494,7 @@ code {
     -webkit-writing-mode: vertical-rl;
     -ms-writing-mode: tb-rl;
     writing-mode: vertical-rl;
+    -webkit-text-orientation: mixed;
     text-orientation: mixed;
     font-size: 1.3rem;
     font-weight: 700;
@@ -13768,6 +13769,10 @@ code {
     width: 100%;
     padding: 0.3rem 0;
     margin: 0.5rem 0; }
+    .kt-list-timeline .kt-list-timeline__items .kt-list-timeline__item.single {
+      padding: 0.8rem 0 !important; }
+    .kt-list-timeline .kt-list-timeline__items .kt-list-timeline__item.not-last:before {
+      background-color: #ebedf2 !important; }
     .kt-list-timeline .kt-list-timeline__items .kt-list-timeline__item:first-child:before, .kt-list-timeline .kt-list-timeline__items .kt-list-timeline__item:last-child:before {
       background-color: white;
       position: absolute;
@@ -13847,7 +13852,7 @@ code {
       display: table-cell;
       text-align: right;
       vertical-align: middle;
-      width: 80px;
+      width: 180px;
       padding: 0 0 0 5px;
       font-size: 0.9rem;
       color: #a7abc3; }

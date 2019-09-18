@@ -23,6 +23,10 @@
     </script>
     <!--end::Fonts -->
 
+    <!--begin::Page Custom Styles(used by this page) -->
+    @stack('page-css')
+    <!--end::Page Custom Styles -->
+
     <!--begin::Page Vendors Styles(used by this page) -->
     @stack('vendors-css')
     <!--end::Page Vendors Styles -->

@@ -28,16 +28,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Region whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Region whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Region whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GasStation[] $stations
  */
 class Region extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['title'];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['pivot', 'created_at', 'updated_at', 'deleted_at'];
 
     public function stations() : HasMany
     {
         return $this->hasMany(GasStation::class);
+    }
+
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class);
     }
 }

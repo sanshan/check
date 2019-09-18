@@ -21,6 +21,38 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\GasStation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\GasStation withoutTrashed()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $region_id
+ * @property int $type_of_gas_station_id
+ * @property string $number
+ * @property string $address
+ * @property int $is_shop
+ * @property int $it_works
+ * @property string $dir_name
+ * @property string $dir_patronymic
+ * @property string $dir_surname
+ * @property string $email
+ * @property string $phone
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Profile[] $users
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereDirName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereDirPatronymic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereDirSurname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereIsShop($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereItWorks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereRegionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereTypeOfGasStationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GasStation whereUpdatedAt($value)
  */
 class GasStation extends Model
 {

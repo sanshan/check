@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\GasStation;
+use App\Http\Requests\getUsersFromRegionRequest;
 use App\Http\Requests\RegionRequest;
 use App\Http\Resources\RegionResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\usersFromRegionResource;
 use App\Region;
 use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RegionController extends Controller
 {
 
+    /**
+     * @param RegionRequest $request
+     * @return AnonymousResourceCollection
+     * @throws Exception
+     */
     public function index(RegionRequest $request)
     {
         if($title = $request->input('title')) {
@@ -66,5 +75,22 @@ class RegionController extends Controller
     {
         $region->delete();
         return RegionResource::make($region);
+    }
+
+    /**
+     * @param getUsersFromRegionRequest $request
+     * @return AnonymousResourceCollection
+     */
+    public function getUsers(getUsersFromRegionRequest $request)
+    {
+        $title = $request->input('title');
+        $gasStation = GasStation::findOrFail($request->gas_station_id);
+        $region = $gasStation->region;
+
+        $users = $region->profiles()->when('title', function ($query) use ($title){
+            return $query->where('full_name', 'LIKE', "%{$title}%");
+        })->get();
+
+        return usersFromRegionResource::collection($users);
     }
 }

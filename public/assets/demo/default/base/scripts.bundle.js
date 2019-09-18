@@ -1728,7 +1728,7 @@ var KTApp = function() {
             var spinner = '<div class="kt-spinner ' + version + ' ' + state + ' ' + size + '"></div';
 
             if (options.message && options.message.length > 0) {
-                var classes = 'blockui ' + (options.shadow === false ? 'blockui' : '');
+                var classes = 'test blockui ' + (options.shadow === false ? 'blockui' : '');
 
                 html = '<div class="' + classes + '"><span>' + options.message + '</span><span>' + spinner + '</span></div>';
 
@@ -1800,10 +1800,13 @@ var KTApp = function() {
         progress: function(target, options) {
             var skin = (options && options.skin) ? options.skin : 'light';
             var alignment = (options && options.alignment) ? options.alignment : 'right';
-            var size = (options && options.size) ? 'kt-spinner--' + options.size : '';
-            var classes = 'kt-loader ' + 'kt-loader--' + skin + ' kt-loader--' + alignment + ' kt-loader--' + size;
+            var size = (options && options.size) ? ' kt-spinner--' + options.size : '';
+            //var size = (options && options.size) ? 'kt-spinner--' + options.size : '';
+            //var classes = 'kt-loader ' + 'kt-loader--' + skin + ' kt-loader--' + alignment + ' kt-loader--' + size;
+            var classes = 'kt-spinner ' + 'kt-spinner--' + skin + ' kt-spinner--' + alignment + size;
 
             KTApp.unprogress(target);
+            KTUtil.attr(target, 'disabled', true);
 
             $(target).addClass(classes);
             $(target).data('progress-classes', classes);
@@ -1827,6 +1830,7 @@ var KTApp = function() {
 $(document).ready(function() {
     KTApp.init(KTAppOptions);
 });
+
 'use strict';
 (function($) {
 

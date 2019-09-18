@@ -227,12 +227,12 @@
                     },
                     columns: [
                         {data: 'id'},
-                        {data: 'profile.full_name'},
-                        {data: 'profile.phone'},
+                        {data: 'profile.resource.full_name'},
+                        {data: 'profile.resource.phone'},
                         {data: 'email'},
-                        {data: 'profile.role.title'},
+                        {data: 'profile.resource.role.title'},
                         {
-                            data: 'profile.regions',
+                            data: 'profile.resource.regions',
                             render: function(d){
                                 if(d !== null){
                                     let temp_table = '';
@@ -246,7 +246,7 @@
                             }
                         },
                         {
-                            data: 'profile.stations',
+                            data: 'profile.resource.stations',
                             render: function(d){
                                 if(d !== null){
                                     let temp_table = '';
@@ -399,7 +399,6 @@
                                 KTApp.block(modal);
                             },
                             success: function(response) {
-                                console.log(response.data);
                                 let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
@@ -407,10 +406,18 @@
                                 toastr.success(values, "Отлично!");
                             },
                             error: function(xhr, status, errorThrown) {
-                                console.log(xhr.responseJSON);
-                                let errors = xhr.responseJSON.errors;
-                                let values = Object.keys(errors).map(function (key) { return errors[key] + '<br>'; });
-                                toastr.error(values, 'Ошибка');
+                                let toastrTitle = 'Неопознанная ошибка!';
+                                let toastrMessage = '';
+                                if (xhr.hasOwnProperty('responseJSON')) {
+                                    toastrTitle = errorThrown;
+                                    if(xhr.responseJSON.hasOwnProperty('errors')) {
+                                        toastrMessage = Object.keys(xhr.responseJSON.errors).map(function (key) { return xhr.responseJSON.errors[key] + '<br>'; });
+                                    }
+                                    else{
+                                        toastrMessage = (xhr.responseJSON.hasOwnProperty('message')) ? xhr.responseJSON.message : '';
+                                    }
+                                }
+                                toastr.error(toastrMessage, toastrTitle);
                                 KTApp.unblock(modal);
                             }
                         });
@@ -442,7 +449,6 @@
             };
 
             let deletePosition = function(DTtable) {
-
                 table.on('click', '.positionsDelete', function(e){
                     let record_id = this.closest('tr').getAttribute('id').slice(4);
                     if (confirm("Удалить элемент")) {
@@ -497,7 +503,6 @@
                                 }
                             });
                         }
-                        console.log(response.data.profile.stations);
                         stations.val(null).trigger('change');
                         if(response.data.profile.stations) {
                             response.data.profile.stations.forEach(function(d) {
@@ -538,7 +543,7 @@
                                 results: res
                             };
                         },
-                        cache: true
+                        cache: false
                     }
                 });
             };

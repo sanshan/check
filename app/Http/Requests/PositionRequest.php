@@ -34,6 +34,10 @@ class PositionRequest extends FormRequest
 
         switch($this->getMethod())
         {
+            case 'GET':
+                return [
+                    'title' => 'nullable|string|max:100',
+                ];
             case 'POST':
                 return $rules;
             case 'PATCH':

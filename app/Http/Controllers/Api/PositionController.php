@@ -8,20 +8,32 @@ use App\Position;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 class PositionController extends Controller
 {
     /**
-     * @return JsonResponse
+     * @param PositionRequest $request
+     * @return mixed
      * @throws Exception
      */
-    public function index() : JsonResponse
+    public function index(PositionRequest $request)
     {
-        $positions = Position::all();
-        return datatables()->of(PositionResource::collection($positions))
-            ->addColumn('DT_RowId', function($row){
-                return 'row_'.$row['id'];
-            })->toJson();
+        $title = $request->input('title');
+
+        $positions = Position::when($title, function ($query) use ($title){
+           return $query->where('title', 'LIKE', "%$title%")->take(10);
+        })
+        ->get();
+
+        return
+            $title
+                ? PositionResource::collection($positions)
+            : datatables()->of(PositionResource::collection($positions))
+                ->addColumn('DT_RowId', function($row){
+                    return 'row_'.$row['id'];
+                })->toJson();
     }
 
     /**

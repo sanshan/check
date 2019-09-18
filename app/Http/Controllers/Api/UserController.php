@@ -7,25 +7,32 @@ use App\Http\Resources\UserResource;
 use DB;
 use Exception;
 use Hash;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\User;
+use Log;
 use Throwable;
 
 
 class UserController extends Controller
 {
-    /**
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function index() : JsonResponse
+
+    public function index(UserRequest $request)
     {
-        $users = User::with('profile', 'profile.role', 'profile.regions', 'profile.stations')->get();
-        return datatables()->of(UserResource::collection($users))
-            ->addColumn('DT_RowId', function($row){
-                return 'row_'.$row['id'];
-            })->toJson();
+        $title = $request->input('title');
+        $users = User::when($title, function ($query) use ($title){
+            return $query->whereHas('profile', function($query) use ($title){
+                return $query->where('full_name', 'LIKE', "%$title%");
+            })
+            ->take(10);
+        })->with('profile', 'profile.role', 'profile.regions', 'profile.stations')->get();
+
+        return
+            $title
+                ? UserResource::collection($users)
+                : datatables()->of(UserResource::collection($users))
+                ->addColumn('DT_RowId', function($row){
+                    return 'row_'.$row['id'];
+                })->toJson();
     }
 
     /**
@@ -47,6 +54,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'patronymic' => $request->patronymic,
                 'surname' => $request->surname,
+                'full_name' => $request->name. ' '.$request->patronymic.' '.$request->surname,
                 'role_id' => $request->role_id,
             ]);
             $user->profile->regions()->attach($request->region_id);
@@ -101,4 +109,5 @@ class UserController extends Controller
         $user->delete();
         return UserResource::make($user);
     }
+
 }

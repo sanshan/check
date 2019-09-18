@@ -38,12 +38,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Profile wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Profile whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Profile whereSurname($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Region[] $regions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GasStation[] $stations
  */
 class Profile extends Model
 {
     protected $hidden = ['id', 'user_id', 'role_id', 'created_at', 'updated_at', 'deleted_at',];
-    protected $fillable = ['phone', 'name', 'patronymic', 'surname', 'role_id',];
-    protected $appends = ['full_name',];
+    protected $fillable = ['phone', 'name', 'patronymic', 'surname', 'full_name', 'role_id',];
 
     /**
      * @return BelongsTo
@@ -51,6 +52,11 @@ class Profile extends Model
     public function role() : BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function regions() : BelongsToMany
@@ -62,14 +68,5 @@ class Profile extends Model
     {
         return $this->belongsToMany(GasStation::class);
     }
-
-    /**
-     * @return string
-     */
-    public function getFullNameAttribute() : string
-    {
-        return $this->name.' '.$this->patronymic.' '.$this->surname;
-    }
-
 
 }

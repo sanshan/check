@@ -235,11 +235,11 @@
                         {data: 'id'},
                         {data: 'number'},
                         {
-                            data: 'region.title',
+                            data: 'region.resource.title',
                             defaultContent: ''
                         },
                         {
-                            data: 'type.title',
+                            data: 'type.resource.abbreviation',
                             defaultContent: ''
                         },
                         {data: 'address'},

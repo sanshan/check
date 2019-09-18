@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -31,14 +32,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Position whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Position whereToRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Position whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Question[] $questions
  */
 class Position extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['title', 'code', 'to_rate'];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'pivot'];
     protected $casts = [
         'to_rate' => 'boolean',
     ];
+
+    /**
+     * @return BelongsToMany
+     */
+    public function questions() : BelongsToMany
+    {
+        return $this->belongsToMany(Question::class);
+    }
+
 }

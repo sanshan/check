@@ -8,21 +8,31 @@ use App\Http\Resources\TypeOfChecklistResource;
 use App\TypeOfChecklist;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TypeOfChecklistController extends Controller
 {
 
     /**
-     * @return JsonResponse
+     * @param TypeOfChecklistRequest $request
+     * @return mixed
      * @throws Exception
      */
-    public function index() : JsonResponse
+    public function index(TypeOfChecklistRequest $request)
     {
-        $typeOfChecklists = TypeOfChecklist::all();
-        return datatables()->of(TypeOfChecklistResource::collection($typeOfChecklists))
-            ->addColumn('DT_RowId', function($row){
-                return 'row_'.$row['id'];
-            })->toJson();
+        $title = $request->input('title');
+        $typeOfChecklists = TypeOfChecklist::when($title, function ($query) use ($title){
+            return $query->where('title', 'LIKE', "%$title%")->take(10);
+        })
+        ->get();
+
+        return
+            $title
+                ? TypeOfChecklistResource::collection($typeOfChecklists)
+                : datatables()->of(TypeOfChecklistResource::collection($typeOfChecklists))
+                ->addColumn('DT_RowId', function($row){
+                    return 'row_'.$row['id'];
+                })->toJson();
     }
 
     /**

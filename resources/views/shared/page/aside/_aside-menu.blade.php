@@ -20,19 +20,19 @@
                             <span class="kt-menu__link"><span class="kt-menu__link-text">Проведение аудита</span></span>
                         </li>
                         <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=layout/subheader/toolbar" class="kt-menu__link ">
+                            <a href="/audit/sections" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">Разделы</span>
                             </a>
                         </li>
                         <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=layout/subheader/actions" class="kt-menu__link ">
+                            <a href="/audit/templates" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">Шаблоны проверок</span>
                             </a>
                         </li>
                         <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=layout/subheader/tabbed" class="kt-menu__link ">
+                            <a href="/audit/tasks" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">Заявки на проверку</span>
                             </a>

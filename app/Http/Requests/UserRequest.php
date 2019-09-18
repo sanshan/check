@@ -31,11 +31,15 @@ class UserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'role_id' => 'required|integer|exists:roles,id',
             'region_id' => 'required|array|min:1|exists:regions,id',
-            'type_of_gas_station_id' => 'required|array|min:1|exists:type_of_gas_station_id,id'
+            'gas_station_id' => 'required|array|min:1|exists:gas_stations,id'
         ];
 
         switch($this->getMethod())
         {
+            case 'GET':
+                return [
+                    'title' => 'nullable|string|max:100',
+                ];
             case 'POST':
                 return $rules;
             case 'PATCH':

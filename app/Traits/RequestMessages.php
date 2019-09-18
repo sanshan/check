@@ -42,6 +42,14 @@ trait RequestMessages
             'email.max' => 'Email не может быть более 50 символов',
             'phone.required' => 'Не указан телефон АЗС',
             'phone.max' => 'Телефон не может быть более 20 символов',
+            'section_id.required' => 'Не указан ID раздела',
+            'section_id.exists' => 'ID раздела не найден',
+            'end_date.date' => 'Дата окончания не соответствует формату',
+            'start_date.date' => 'Дата начала не соответствует формату',
+            'gas_station_id.required' => 'Не указан ID АЗС',
+            'gas_station_id.exists'  => 'ID АЗС не найден в базе данных',
+            'user_id.required' => 'Не указан ID ответственного сотрудника',
+            'user_id.exists' => 'ID ответственного сотрудника не найден в базе данных',
         ];
     }
 }
