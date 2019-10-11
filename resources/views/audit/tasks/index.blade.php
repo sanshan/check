@@ -162,6 +162,7 @@
                                                         <!--begin: Form Wizard Form-->
                                                         <form action="{{ route('tasks.store') }}" method="POST" class="kt-form" id="kt_form">
                                                             @method('PUT')
+                                                            <input type="hidden" value="" name="region_id">
                                                             <!--begin: Form Wizard Step 1-->
                                                             <div class="kt-wizard-v4__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                                                                 <div class="kt-heading kt-heading--md"></div>
@@ -290,7 +291,7 @@
                                                                     Назад
                                                                 </div>
                                                                 <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-                                                                    submit
+                                                                    Сохранить
                                                                 </div>
                                                                 <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                                                     Вперёд
@@ -316,6 +317,7 @@
     <!--end::Modal-->
 @endsection
 
+
 @push('scripts')
     <script>
         "use strict";
@@ -340,7 +342,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('tasks.index') }}',
+                    ajax: '{{ route('tasks.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -369,7 +371,16 @@
                                 sort: 'timestamp'
                             }
                         },
-                        {data: 'region.title'},
+                        {
+                            data: 'region.title',
+                            render: function(d){
+                                if(d !== null){
+                                    return '<span class="kt-badge kt-shape-bg-color-1 kt-badge--inline">'+d+'</span>';
+                                }else{
+                                    return '';
+                                }
+                            }
+                        },
                         {data: 'station.number'},
                         {data: 'type.title'},
                         {data: 'user.profile.full_name'},
@@ -511,7 +522,6 @@
                 table.on('click', '.positionsEdit', function(e){
                     let record_id = this.closest('tr').getAttribute('id').slice(4);
                     $.get("{{ route('tasks.index') }}" +'/' + record_id, function (response) {
-                        console.log(formEl);
                         formEl.attr('action', '{{ route('tasks.index') }}' + '/' + response.data.id);
                         let el = '<input type="hidden" name="task_id" value="'+response.data.id+'" />';
                         formEl.append(el);
@@ -520,6 +530,7 @@
                         gasStationList.val(null).trigger('change');
                         if(response.data.hasOwnProperty('station')) {
                             let currentStation = new Option(response.data.station.number, response.data.station.id, true, true);
+                            currentStation.setAttribute('data-region', response.data.region.id);
                             gasStationList.append(currentStation).trigger('change');
                         }
                         typeOfChecklistList.val(null).trigger('change');
@@ -554,6 +565,12 @@
                 return $("#gasStation").select2({
                     language: "ru",
                     placeholder: "Выберите...",
+                    templateSelection: function (data, container) {
+                        console.log(data);
+                        // Add custom attributes to the <option> tag for the selected option
+                        $(data.element).attr('data-region', data.region);
+                        return data.text;
+                    },
                     ajax: {
                         url: "{{ route('gasstations.index') }}",
                         type: "get",
@@ -566,7 +583,7 @@
                         },
                         processResults: function (response) {
                             let res = response.data.map(function (item) {
-                                return {id: item.id, text: item.number};
+                                return {id: item.id, text: item.number, region: item.region.id};
                             });
                             return {
                                 results: res
@@ -576,8 +593,9 @@
                     }
                 });
             };
-            let getGasStation = function(GSList, usersList) {
-                GSList.on('select2:select', function (e) {
+            let getGasStation = function(GSList, usersList, form) {
+                GSList.on('select2:select', function (event) {
+                    $('input[name=region_id]', form).val(event.params.data.region);
                     usersList.val(null).trigger('change');
                 });
             };
@@ -597,7 +615,10 @@
                         },
                         processResults: function (response) {
                             let res = response.data.map(function (item) {
-                                return {id: item.id, text: item.title};
+                                return {
+                                    id: item.id,
+                                    text: item.title
+                                };
                             });
                             return {
                                 results: res
@@ -612,14 +633,18 @@
                     language: "ru",
                     placeholder: "Выберите...",
                     ajax: {
-                        url: "/api/regions/users",
+                        url: "/api/users",
                         type: "get",
                         dataType: 'json',
                         delay: 250,
                         data: function (params) {
+                            //console.log($('option:selected', GSList));
+                            //console.log(GSList);
+                            let region = $('option:selected', GSList).data('region');
+                            //console.log(region);
                             return {
                                 title: params.term,
-                                gas_station_id: $('option:selected', GSList).val(),
+                                region: region,
                             };
                         },
                         processResults: function (response) {
@@ -753,7 +778,7 @@
                     deletePosition(DTtable);
                     editPosition(DTtable, gasStationList, typeOfChecklistList, usersList, dateRange);
                     newPosition(gasStationList, typeOfChecklistList, usersList, dateRange);
-                    getGasStation(gasStationList, usersList);
+                    getGasStation(gasStationList, usersList, formEl);
                 },
 
             };

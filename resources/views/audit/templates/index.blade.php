@@ -173,7 +173,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('templates.index') }}',
+                    ajax: '{{ route('templates.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -659,6 +659,10 @@
                     columnDefs: [
                         {
                             targets: 0,
+                            width: '5%',
+                        },
+                        {
+                            targets: -2,
                             width: '5%',
                         },
                         {

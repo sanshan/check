@@ -214,7 +214,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('users.index') }}',
+                    ajax: '{{ route('users.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -233,6 +233,8 @@
                         {data: 'profile.resource.role.title'},
                         {
                             data: 'profile.resource.regions',
+                            searchable: false,
+                            orderable: false,
                             render: function(d){
                                 if(d !== null){
                                     let temp_table = '';
@@ -247,6 +249,8 @@
                         },
                         {
                             data: 'profile.resource.stations',
+                            searchable: false,
+                            orderable: false,
                             render: function(d){
                                 if(d !== null){
                                     let temp_table = '';
@@ -259,7 +263,12 @@
                                 }
                             }
                         },
-                        {data: '', responsivePriority: -1},
+                        {
+                            data: '',
+                            searchable: false,
+                            orderable: false,
+                            responsivePriority: -1
+                        },
                     ],
                     columnDefs: [
                         {
@@ -308,35 +317,35 @@
                             extend: 'print',
                             text: '<i class="kt-nav__link-icon la la-print"></i> <span class="kt-nav__link-text">Распечатать</span>',
                             exportOptions: {
-                                columns: [ 0, 1]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'copyHtml5',
                             text: '<i class="kt-nav__link-icon la la-copy"></i> <span class="kt-nav__link-text">Копировать</span>',
                             exportOptions: {
-                                columns: [ 0, 1]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             text: '<i class="kt-nav__link-icon la la-file-excel-o"></i> <span class="kt-nav__link-text">Excel</span>',
                             exportOptions: {
-                                columns: [ 0, 1]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'csvHtml5',
                             text: '<i class="kt-nav__link-icon la la-file-text-o"></i> <span class="kt-nav__link-text">CSV</span>',
                             exportOptions: {
-                                columns: [ 0, 1]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'pdfHtml5',
                             text: '<i class="kt-nav__link-icon la la-file-pdf-o"></i> <span class="kt-nav__link-text">PDF</span>',
                             exportOptions: {
-                                columns: [ 0, 1]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                     ]
@@ -403,7 +412,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Пользователь сохранён!");
                             },
                             error: function(xhr, status, errorThrown) {
                                 let toastrTitle = 'Неопознанная ошибка!';
@@ -459,7 +468,8 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.email, "Удалён элемент");
+                                let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
+                                toastr.success(values, "Удалён элемент");
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

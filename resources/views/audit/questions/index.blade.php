@@ -9,16 +9,16 @@
                 Управление вопросами. <br>
                 <u>Функционал:</u>
                 <ul>
-                    <li><s>Добавление / удаление / редактирование</s></li>
-                    <li><s>Просмотр вопросов по разделам</s></li>
-                    <li><s>Просмотр вопросов в разделе</s></li>
-                    <li><s>Проверка правильности заполнения формы (на клиенте и сервере)</s></li>
-                    <li><s>Постраничный вывод</s></li>
-                    <li><s>Поиск</s></li>
-                    <li><s>Сортировка</s></li>
-                    <li><s>Быстрая печать</s></li>
-                    <li><s>Копирование в буффер обмена</s></li>
-                    <li><s>Экспорт в Excel, CSV, PDF</s></li>
+                    <li>Добавление / удаление / редактирование</li>
+                    <li>Просмотр вопросов по разделам</li>
+                    <li>Просмотр вопросов в разделе</li>
+                    <li>Проверка правильности заполнения формы (на клиенте и сервере)</li>
+                    <li>Постраничный вывод</li>
+                    <li>Поиск</li>
+                    <li>Сортировка</li>
+                    <li>Быстрая печать</li>
+                    <li>Копирование в буффер обмена</li>
+                    <li>Экспорт в Excel, CSV, PDF</li>
                 </ul>
             </div>
         </div>
@@ -170,7 +170,8 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('questions.index', ['section' => !$section ?: $section->id]) }}',
+                    pageLength: 10,
+                    ajax: '{{ route('questions.index.datatable', ['section' => !$section ?: $section->id]) }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -186,6 +187,8 @@
                         {data: 'title'},
                         {
                             data: 'positions.resource',
+                            searchable: false,
+                            orderable: false,
                             render: function(d){
                                 if(d !== null){
                                     let temp_table = '';
@@ -200,7 +203,12 @@
                         },
                         {data: 'required'},
                         {data: 'partly'},
-                        {data: '', responsivePriority: -1},
+                        {
+                            data: '',
+                            searchable: false,
+                            orderable: false,
+                            responsivePriority: -1
+                        },
                     ],
                     columnDefs: [
                         {
@@ -322,7 +330,7 @@
                         title: {
                             required: true,
                             minlength: 3,
-                            maxlength: 100,
+                            maxlength: 500,
                         },
                         'position_id[]': {
                             required: true,
@@ -352,12 +360,21 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Вопрос сохранён!");
                             },
                             error: function(xhr, status, errorThrown) {
-                                let errors = xhr.responseJSON.errors;
-                                let values = Object.keys(errors).map(function (key) { return errors[key] + '<br>'; });
-                                toastr.error(values, 'Ошибка');
+                                let toastrTitle = 'Неопознанная ошибка!';
+                                let toastrMessage = '';
+                                if (xhr.hasOwnProperty('responseJSON')) {
+                                    toastrTitle = errorThrown;
+                                    if(xhr.responseJSON.hasOwnProperty('errors')) {
+                                        toastrMessage = Object.keys(xhr.responseJSON.errors).map(function (key) { return xhr.responseJSON.errors[key] + '<br>'; });
+                                    }
+                                    else{
+                                        toastrMessage = (xhr.responseJSON.hasOwnProperty('message')) ? xhr.responseJSON.message : '';
+                                    }
+                                }
+                                toastr.error(toastrMessage, toastrTitle);
                                 KTApp.unblock(modal);
                             }
                         });

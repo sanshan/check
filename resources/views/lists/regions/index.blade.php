@@ -124,7 +124,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('regions.index') }}',
+                    ajax: '{{ route('regions.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -253,7 +253,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Регион сохранён!");
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
@@ -294,7 +294,7 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.title, "Удалён элемент");
+                                toastr.success(response.data.title, "Регион удалён!");
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

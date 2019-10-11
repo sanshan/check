@@ -2,92 +2,91 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\GasStation;
-use App\Http\Requests\getUsersFromRegionRequest;
-use App\Http\Requests\RegionRequest;
-use App\Http\Resources\RegionResource;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\usersFromRegionResource;
-use App\Region;
-use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Http\Requests\Region\RegionIndexRequest;
+use App\Http\Requests\Region\RegionStoreRequest;
+use App\Http\Requests\Region\RegionUpdateRequest;
+use App\Http\Resources\Region\RegionInfoResource;
+use App\Http\Resources\Region\RegionResource;
+use App\Http\Resources\Region\RegionSelect2Resource;
+use App\Http\Resources\Region\usersFromRegionResource;
+use App\Models\Region;
+use Illuminate\Http\Request;
+
 
 class RegionController extends Controller
 {
 
-    /**
-     * @param RegionRequest $request
-     * @return AnonymousResourceCollection
-     * @throws Exception
-     */
-    public function index(RegionRequest $request)
+    public function index(RegionIndexRequest $request)
     {
-        if($title = $request->input('title')) {
-            $regions = Region::where('title', 'LIKE', "%$title%")->get();
-            return RegionResource::collection($regions);
-        }
-        else {
-            $regions = Region::all();
-            return datatables()->of(RegionResource::collection($regions))
-                ->addColumn('DT_RowId', function($row){
-                    return 'row_'.$row['id'];
-                })->toJson();
-        }
+        $regions = Region::filter($request)
+            ->take(10)
+            ->get();
+        return RegionSelect2Resource::collection($regions);
     }
 
     /**
-     * @param RegionRequest $request
-     * @return RegionResource
+     * @return mixed
+     * @throws \Exception
      */
-    public function store(RegionRequest $request) : RegionResource
+    public function dataTableIndex()
+    {
+        $regions = Region::all();
+        return datatables()->of(RegionResource::collection($regions))
+            ->addColumn('DT_RowId', function ($row) {
+                return 'row_' . $row['id'];
+            })->toJson();
+    }
+
+    /**
+     * @param RegionStoreRequest $request
+     * @return RegionInfoResource
+     */
+    public function store(RegionStoreRequest $request)
     {
         $region = Region::create($request->validated());
-        return RegionResource::make($region);
+        return RegionInfoResource::make($region);
     }
+
 
     /**
      * @param Region $region
      * @return RegionResource
      */
-    public function show(Region $region) : RegionResource
+    public function show(Region $region): RegionResource
     {
         return RegionResource::make($region);
     }
 
     /**
-     * @param RegionRequest $request
+     * @param RegionUpdateRequest $request
      * @param Region $region
-     * @return RegionResource
+     * @return RegionInfoResource
      */
-    public function update(RegionRequest $request, Region $region) : RegionResource
+    public function update(RegionUpdateRequest $request, Region $region)
     {
         $region->fill($request->except(['region_id']));
         $region->save();
-        return RegionResource::make($region);
+        return RegionInfoResource::make($region);
     }
 
     /**
      * @param Region $region
-     * @return RegionResource
-     * @throws Exception
+     * @return RegionInfoResource
+     * @throws \Exception
      */
-    public function destroy(Region $region) : RegionResource
+    public function destroy(Region $region)
     {
         $region->delete();
-        return RegionResource::make($region);
+        return RegionInfoResource::make($region);
     }
 
-    /**
-     * @param getUsersFromRegionRequest $request
-     * @return AnonymousResourceCollection
-     */
-    public function getUsers(getUsersFromRegionRequest $request)
+    // Этот метод не нужен. Надо добавить фильтр и использовать UserController@index
+    public function getUsers(Request $request, Region $region)
     {
         $title = $request->input('title');
-        $gasStation = GasStation::findOrFail($request->gas_station_id);
-        $region = $gasStation->region;
 
-        $users = $region->profiles()->when('title', function ($query) use ($title){
+        $users = $region->profiles()->when('title', function ($query) use ($title) {
             return $query->where('full_name', 'LIKE', "%{$title}%");
         })->get();
 

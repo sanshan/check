@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\TypeOfChecklist;
+use App\Models\TypeOfChecklist;
 use Faker\Generator as Faker;
 
 $factory->define(TypeOfChecklist::class, function (Faker $faker) {

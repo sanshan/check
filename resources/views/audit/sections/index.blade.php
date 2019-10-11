@@ -126,7 +126,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('sections.index') }}',
+                    ajax: '{{ route('sections.index.datatable') }}',
                     //order: [[3, 'asc']],
                     /*drawCallback: function(settings) {
                         var api = this.api();
@@ -167,6 +167,9 @@
                         {
                             targets: 0,
                             width: '5%',
+                        },                        {
+                            targets: -2,
+                            width: '10%',
                         },
                         {
                             targets: -1,
@@ -276,7 +279,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Раздел сохранён!");
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;

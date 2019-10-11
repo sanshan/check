@@ -3,15 +3,15 @@
     <div class="kt-container ">
         <div class="kt-subheader__main">
             <h3 class="kt-subheader__title">
-                Dashboard
+                Чек-лист
             </h3>
             <span class="kt-subheader__separator kt-hidden"></span>
             <div class="kt-subheader__breadcrumbs">
-                <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                <a href="/" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="" class="kt-subheader__breadcrumbs-link">Builder</a>
+                <a href="" class="kt-subheader__breadcrumbs-link">Ссылка</a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span>
+                <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Активная ссылка</span>
             </div>
         </div>
     </div>

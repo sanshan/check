@@ -152,7 +152,7 @@
                 searchDelay: 500,
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('positions.index') }}',
+                ajax: '{{ route('positions.index.datatable') }}',
                 language: {
                     buttons: {
                         copyTitle: 'Копировать в буфер обмена',
@@ -166,7 +166,16 @@
                 columns: [
                     {data: 'id'},
                     {data: 'title'},
-                    {data: 'code'},
+                    {
+                        data: 'code',
+                        render: function(d){
+                            if(d !== null){
+                                return '<abbr title="Код категории должности">' + d + '</abbr> ';
+                            }else{
+                                return '';
+                            }
+                        }
+                    },
                     {data: 'to_rate'},
                     {data: '', responsivePriority: -1},
                 ],
@@ -309,7 +318,7 @@
                             DTtable.ajax.reload(null, false);
                             modal.modal('hide');
                             KTApp.unblock(modal);
-                            toastr.success(values, "Отлично!");
+                            toastr.success(values, "Должность сохранена!");
                         },
                         error: function(xhr, status, errorThrown) {
                             let errors = xhr.responseJSON.errors;
@@ -353,7 +362,7 @@
                             _method: 'DELETE',
                         },
                         success: function(response) {
-                            toastr.success(response.data.title, "Удалён элемент");
+                            toastr.success(response.data.title, "Должность удалена!");
                             DTtable.ajax.reload(null, false);
                         },
                         error: function(xhr, status, errorThrown) {

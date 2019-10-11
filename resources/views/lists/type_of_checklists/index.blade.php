@@ -124,7 +124,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('typeofchecklists.index') }}',
+                    ajax: '{{ route('typeofchecklists.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -253,7 +253,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Тип чеклиста сохранён!");
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;

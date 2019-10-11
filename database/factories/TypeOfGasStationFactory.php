@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\TypeOfGasStation;
+use App\Models\TypeOfGasStation;
 use Faker\Generator as Faker;
 
 $factory->define(TypeOfGasStation::class, function (Faker $faker) {

@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QuestionRequest;
-use App\Section;
+use App\Models\Section;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
 
-
-    /**
-     * @param QuestionRequest $request
-     * @return View
-     */
-    public function __invoke(QuestionRequest $request) : View
+    public function __invoke(Request $request) : View
     {
         $section = ($request->exists('section')) ? Section::find($request->section) : false;
 

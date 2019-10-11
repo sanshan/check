@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form action="{{ route('tasks.store') }}" method="POST">
+        @method('PUT')
+        <div class="form-group">
+            <label for="countrySelect">Страна</label>
+            <select id="countrySelect" class="form-control m-select2" name="country_id">
+            </select>
+            <span class="form-text text-muted">Выберите страну из списка</span>
+        </div>
+
+        <div class="form-group">
+            <label for="regionSelect">Область</label>
+            <select id="regionSelect" class="form-control m-select2" name="region_id">
+            </select>
+            <span class="form-text text-muted">Выберите область</span>
+        </div>
+
+        <div class="form-group">
+            <label for="citySelect">Область</label>
+            <select id="citySelect" class="form-control m-select2" name="city_id">
+            </select>
+            <span class="form-text text-muted">Выберите область</span>
+        </div>
+    </form>
+<script>
+    "use strict";
+    let SelectAjax = function() {
+        let getCountryList = function() {
+$("#countryList").select2({
+    placeholder: "Выберите...",
+    templateSelection: function (data, container) {
+        $(data.element).attr('data-region', data.region);
+        return data.text;
+    },
+    ajax: {
+        url: "{{ route('gasstations.index') }}",
+        type: "get",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                number: params.term
+            };
+        },
+        processResults: function (response) {
+            let res = response.data.map(function (item) {
+                return {id: item.id, text: item.number, region: item.region.id};
+            });
+            return {
+                results: res
+            };
+        },
+        cache: false
+    }
+});
+        };
+        let getGasStation = function(GSList, usersList, form) {
+            GSList.on('select2:select', function (event) {
+                $('input[name=region_id]', form).val(event.params.data.region);
+                usersList.val(null).trigger('change');
+            });
+        };
+        let getUsersList = function(GSList) {
+$("#user").select2({
+    language: "ru",
+    placeholder: "Выберите...",
+    ajax: {
+        url: "/api/users",
+        type: "get",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            //console.log($('option:selected', GSList));
+            //console.log(GSList);
+            let region = $('option:selected', GSList).data('region');
+            //console.log(region);
+            return {
+                title: params.term,
+                region: region,
+            };
+        },
+        processResults: function (response) {
+            let res = response.data.map(function (item) {
+                return {id: item.id, text: item.full_name};
+            });
+            return {
+                results: res
+            };
+        },
+        cache: false
+    }
+});
+        };
+
+        return {
+            init: function() {
+                let formEl = $('#kt_form');
+                let gasStationList = getGasStationList();
+                let usersList = getUsersList(gasStationList);
+                getGasStation(gasStationList, usersList, formEl);
+            },
+
+        };
+
+    }();
+
+    jQuery(document).ready(function() {
+        KTDatatablesDataSourceAjaxServer.init();
+    });
+</script>
+</body>
+</html>

@@ -3,77 +3,83 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TypeOfChecklistRequest;
-use App\Http\Resources\TypeOfChecklistResource;
-use App\TypeOfChecklist;
-use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Http\Requests\TypeOfChecklist\TypeOfChecklistIndexRequest;
+use App\Http\Requests\TypeOfChecklist\TypeOfChecklistStoreRequest;
+use App\Http\Requests\TypeOfChecklist\TypeOfChecklistUpdateRequest;
+use App\Http\Resources\TypeOfChecklist\TypeOfChecklistInfoResource;
+use App\Http\Resources\TypeOfChecklist\TypeOfChecklistResource;
+use App\Http\Resources\TypeOfChecklist\TypeOfChecklistSelect2Resource;
+use App\Models\TypeOfChecklist;
 
 class TypeOfChecklistController extends Controller
 {
 
     /**
-     * @param TypeOfChecklistRequest $request
-     * @return mixed
-     * @throws Exception
+     * @param TypeOfChecklistIndexRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(TypeOfChecklistRequest $request)
+    public function index(TypeOfChecklistIndexRequest $request)
     {
-        $title = $request->input('title');
-        $typeOfChecklists = TypeOfChecklist::when($title, function ($query) use ($title){
-            return $query->where('title', 'LIKE', "%$title%")->take(10);
-        })
-        ->get();
+        $typeOfChecklists = TypeOfChecklist::filter($request)
+            ->take(10)
+            ->get();
 
-        return
-            $title
-                ? TypeOfChecklistResource::collection($typeOfChecklists)
-                : datatables()->of(TypeOfChecklistResource::collection($typeOfChecklists))
-                ->addColumn('DT_RowId', function($row){
-                    return 'row_'.$row['id'];
-                })->toJson();
+        return TypeOfChecklistSelect2Resource::collection($typeOfChecklists);
     }
 
     /**
-     * @param TypeOfChecklistRequest $request
-     * @return TypeOfChecklistResource
+     * @return mixed
+     * @throws \Exception
      */
-    public function store(TypeOfChecklistRequest $request) : TypeOfChecklistResource
+    public function dataTableIndex()
+    {
+        $typeOfChecklists = TypeOfChecklist::get();
+
+        return datatables()->of(TypeOfChecklistResource::collection($typeOfChecklists))
+            ->addColumn('DT_RowId', function ($row) {
+                return 'row_' . $row['id'];
+            })->toJson();
+    }
+
+    /**
+     * @param TypeOfChecklistStoreRequest $request
+     * @return TypeOfChecklistInfoResource
+     */
+    public function store(TypeOfChecklistStoreRequest $request): TypeOfChecklistInfoResource
     {
         $typeOfChecklist = TypeOfChecklist::create($request->validated());
-        return TypeOfChecklistResource::make($typeOfChecklist);
+        return TypeOfChecklistInfoResource::make($typeOfChecklist);
     }
 
     /**
      * @param TypeOfChecklist $typeOfChecklist
      * @return TypeOfChecklistResource
      */
-    public function show(TypeOfChecklist $typeOfChecklist) : TypeOfChecklistResource
+    public function show(TypeOfChecklist $typeOfChecklist): TypeOfChecklistResource
     {
         return TypeOfChecklistResource::make($typeOfChecklist);
     }
 
     /**
-     * @param TypeOfChecklistRequest $request
+     * @param TypeOfChecklistUpdateRequest $request
      * @param TypeOfChecklist $typeOfChecklist
-     * @return TypeOfChecklistResource
+     * @return TypeOfChecklistInfoResource
      */
-    public function update(TypeOfChecklistRequest $request, TypeOfChecklist $typeOfChecklist) : TypeOfChecklistResource
+    public function update(TypeOfChecklistUpdateRequest $request, TypeOfChecklist $typeOfChecklist): TypeOfChecklistInfoResource
     {
         $typeOfChecklist->fill($request->except('type_of_checklist_id'));
         $typeOfChecklist->save();
-        return TypeOfChecklistResource::make($typeOfChecklist);
+        return TypeOfChecklistInfoResource::make($typeOfChecklist);
     }
 
     /**
      * @param TypeOfChecklist $typeOfChecklist
-     * @return TypeOfChecklistResource
-     * @throws Exception
+     * @return TypeOfChecklistInfoResource
+     * @throws \Exception
      */
-    public function destroy(TypeOfChecklist $typeOfChecklist) : TypeOfChecklistResource
+    public function destroy(TypeOfChecklist $typeOfChecklist): TypeOfChecklistInfoResource
     {
         $typeOfChecklist->delete();
-        return TypeOfChecklistResource::make($typeOfChecklist);
+        return TypeOfChecklistInfoResource::make($typeOfChecklist);
     }
 }

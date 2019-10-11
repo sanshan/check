@@ -220,7 +220,7 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('gasstations.index') }}',
+                    ajax: '{{ route('gasstations.index.datatable') }}',
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -235,20 +235,42 @@
                         {data: 'id'},
                         {data: 'number'},
                         {
-                            data: 'region.resource.title',
-                            defaultContent: ''
+                            data: 'region',
+                            searchable: false,
+                            orderable: false,
+                            render: function(d){
+                                if(d !== null){
+                                    return '<span class="kt-badge kt-shape-bg-color-1 kt-badge--inline">'+d+'</span>';
+                                }else{
+                                    return '';
+                                }
+                            }
                         },
                         {
-                            data: 'type.resource.abbreviation',
-                            defaultContent: ''
+                            data: 'type',
+                            searchable: false,
+                            orderable: false,
+                            render: function(d){
+                                if(d !== null){
+                                    return '<abbr title="">' + d + '</abbr> ';
+                                }else{
+                                    return '';
+                                }
+                            }
                         },
                         {data: 'address'},
                         {data: 'it_works'},
                         {data: 'is_shop'},
-                        {data: 'full_name'},
+                        {
+                            data: 'dir_full_name',
+                        },
                         {data: 'phone'},
                         {data: 'email'},
-                        {data: '', responsivePriority: -1},
+                        {
+                            data: '',
+                            responsivePriority: -1,
+                            searchable:false
+                        },
                     ],
                     columnDefs: [
                         {
@@ -362,7 +384,6 @@
                 return DTtable;
             };
 
-
             let positionValidate = function (DTtable) {
                 form.validate({
                     // define validation rules
@@ -438,12 +459,12 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Отлично!");
+                                toastr.success(values, "Информация об АЗС сохранена!");
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
                                 let values = Object.keys(errors).map(function (key) { return errors[key] + '<br>'; });
-                                toastr.error(values, 'Ошибка');
+                                toastr.error(values, 'Ошибка!');
                                 KTApp.unblock(modal);
                             }
                         });
@@ -488,7 +509,8 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.title, "Удалён элемент");
+                                let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
+                                toastr.success(values, "АЗС удалена!");
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {
@@ -521,7 +543,7 @@
                         type.val(null).trigger('change');
                         region.val(null).trigger('change');
                         if(response.data.type) {
-                            let currentType = new Option(response.data.type.title, response.data.type.id, true, true);
+                            let currentType = new Option(response.data.type.abbreviation, response.data.type.id, true, true);
                             type.append(currentType).trigger('change');
                         }
                         if(response.data.region) {
@@ -550,7 +572,7 @@
                         },
                         processResults: function (response) {
                             let res = response.data.map(function (item) {
-                                return {id: item.id, text: item.title};
+                                return {id: item.id, text: item.abbreviation};
                             });
                             return {
                                 results: res

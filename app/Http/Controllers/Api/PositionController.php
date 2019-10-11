@@ -2,79 +2,82 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\PositionRequest;
-use App\Http\Resources\PositionResource;
-use App\Position;
-use Exception;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use phpDocumentor\Reflection\Types\Mixed_;
+use App\Http\Requests\Position\PositionIndexRequest;
+use App\Http\Requests\Position\PositionStoreRequest;
+use App\Http\Requests\Position\PositionUpdateRequest;
+use App\Http\Resources\Position\PositionDTResource;
+use App\Http\Resources\Position\PositionInfoResource;
+use App\Http\Resources\Position\PositionResource;
+use App\Http\Resources\Position\PositionSelect2Resource;
+use App\Models\Position;
+
 
 class PositionController extends Controller
 {
-    /**
-     * @param PositionRequest $request
-     * @return mixed
-     * @throws Exception
-     */
-    public function index(PositionRequest $request)
+
+    public function index(PositionIndexRequest $request)
     {
-        $title = $request->input('title');
+        $positions = Position::filter($request)
+            ->take(10)
+            ->get();
 
-        $positions = Position::when($title, function ($query) use ($title){
-           return $query->where('title', 'LIKE', "%$title%")->take(10);
-        })
-        ->get();
-
-        return
-            $title
-                ? PositionResource::collection($positions)
-            : datatables()->of(PositionResource::collection($positions))
-                ->addColumn('DT_RowId', function($row){
-                    return 'row_'.$row['id'];
-                })->toJson();
+        return PositionSelect2Resource::collection($positions);
     }
 
     /**
-     * @param PositionRequest $request
-     * @return PositionResource
+     * @return mixed
+     * @throws \Exception
      */
-    public function store(PositionRequest $request) : PositionResource
+    public function dataTableIndex()
     {
-        $region = Position::create($request->validated());
-        return PositionResource::make($region);
+        $positions = Position::get();
+
+        return datatables()->of(PositionDTResource::collection($positions))
+            ->addColumn('DT_RowId', function ($row) {
+                return 'row_' . $row['id'];
+            })->toJson();
+    }
+
+    /**
+     * @param PositionStoreRequest $request
+     * @return PositionInfoResource
+     */
+    public function store(PositionStoreRequest $request)
+    {
+        $position = Position::create($request->validated());
+        return PositionInfoResource::make($position);
     }
 
     /**
      * @param Position $position
      * @return PositionResource
      */
-    public function show(Position $position) : PositionResource
+    public function show(Position $position): PositionResource
     {
         return PositionResource::make($position);
     }
 
     /**
-     * @param PositionRequest $request
+     * @param PositionUpdateRequest $request
      * @param Position $position
-     * @return PositionResource
+     * @return PositionInfoResource
      */
-    public function update(PositionRequest $request, Position $position) : PositionResource
+    public function update(PositionUpdateRequest $request, Position $position)
     {
         $position->fill($request->except('position_id'));
         $position->save();
-        return PositionResource::make($position);
+        return PositionInfoResource::make($position);
     }
 
     /**
      * @param Position $position
-     * @return PositionResource
-     * @throws Exception
+     * @return PositionInfoResource
+     * @throws \Exception
      */
-    public function destroy(Position $position) : PositionResource
+    public function destroy(Position $position)
     {
         $position->delete();
-        return PositionResource::make($position);
+        return PositionInfoResource::make($position);
     }
 }

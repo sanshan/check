@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <div class="dual-listbox">
-                    <div>
+                    <div style="flex-basis: 0; flex-grow: 1;">
                         <form id="questionsAddedForm" action="" method="post">
                             @method('PUT')
                         </form>
@@ -38,7 +38,7 @@
                         <button id="addQuestionButton" class="dual-listbox__button"><i class="flaticon2-back"></i></button>
                         <button id="removeQuestionButton" class="dual-listbox__button"><i class="flaticon2-next"></i></button>
                     </div>
-                    <div>
+                    <div style="flex-basis: 0; flex-grow: 1;">
                         <form id="unAppliedQuestionsForm" action="" method="post">
                             @method('PATCH')
                         </form>
@@ -112,32 +112,37 @@
                         }
                     },
                     rowGroup: {
-                        dataSrc: 'section.resource.title',
+                        dataSrc: function (row) {
+                            return '{"title": "' +row.section.resource.title+ '", "id": "' +row.section.resource.id+ '"}';
+                        },
                         startRender: function(rows, group) {
+                            let section = JSON.parse(group);
                             // Assign class name to all child rows
-                            var groupName = 'group-' + group.replace(/[^A-Za-z0-9]/g, '');
+                            let sectionTitle = section.title;
+                            let sectionId = section.id;
+                            var groupName = 'group-' + sectionId;
                             var rowNodes = rows.nodes();
                             rowNodes.to$().addClass(groupName);
 
                             // Get selected checkboxes
-                            var checkboxesSelected = $('.dt-checkboxes:checked', rowNodes);
+                            // Все чекбоксы имеют checked false, ПРИЧИНУ НЕ МОГУ ПОНЯТЬ
+                            var checkboxesSelected = $('.dt-checkboxes', rowNodes.to$()).filter(function (index, element) {
+                                return this.ckecked;
+                            }).length;
 
                             // Parent checkbox is selected when all child checkboxes are selected
                             var isSelected = (checkboxesSelected.length === rowNodes.length);
 
-                            return '<div class="group-checkbox__container"><div class="group-checkbox__wrapper">' +
-                                        '<label class="kt-checkbox kt-checkbox--brand"><input class="group-checkbox" type="checkbox" data-group-name="' + groupName + '"' + (isSelected ? ' checked' : '') +'>&nbsp;<span></span></label>'+
-                                    '</div>' +
-                                    '<div class="group-checkbox__title"> ' + group + ' (' + rows.count() + ')</div></div>';
+                            return '<div class="group-checkbox__container d-flex">' +
+                                        '<div class="group-checkbox__wrapper flex-column">' +
+                                            '<label class="kt-checkbox kt-checkbox--brand m-0 pt-0 pb-0 pl-0 pr-3"><input class="group-checkbox" type="checkbox" data-group-name="' + groupName + '"' + (isSelected ? ' checked' : '') +'><span class="position-relative d-block"></span></label>'+
+                                        '</div>' +
+                                        '<div class="group-checkbox__title flex-column">' + sectionTitle + ' (' + rows.count() + ')</div>' +
+                                    '</div>';
                         }
                     },
                     columns: [
-                        {
-                            data: 'DT_RowId',
-                            checkboxes: {
-                                selectRow: true
-                            }
-                        },
+                        {data: 'DT_RowId'},
                         {data: 'id'},
                         {data: 'title'},
                         {data: 'section.resource.title'},
@@ -146,7 +151,21 @@
                         style: 'multi',
                     },
                     columnDefs: [
-                        { "orderable": false, "targets": 0 },
+                        {
+                            targets: 0,
+                            orderable: false,
+                            render: function(data, type, row, meta){
+                                if(type === 'display'){
+                                    data = '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>';
+                                }
+
+                                return data;
+                            },
+                            'checkboxes': {
+                                'selectRow': true,
+                                'selectAllRender': '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>'
+                            }
+                        },
                         {
                             targets: 1,
                             width: '5%',
@@ -200,10 +219,16 @@
                         //$('#unAppliedQuestions_container').unblock();
                     },
                     rowGroup: {
-                        dataSrc: 'section.resource.title',
+                        dataSrc: function (row) {
+                            return '{"title": "' +row.section.resource.title+ '", "id": "' +row.section.resource.id+ '"}';
+                        },
                         startRender: function(rows, group) {
+                            let section = JSON.parse(group);
                             // Assign class name to all child rows
-                            var groupName = 'group-' + group.replace(/[^A-Za-z0-9]/g, '');
+                            let sectionTitle = section.title;
+                            let sectionId = section.id;
+                            var groupName = 'group-' + sectionId;
+
                             var rowNodes = rows.nodes();
                             rowNodes.to$().addClass(groupName);
 
@@ -213,19 +238,16 @@
                             // Parent checkbox is selected when all child checkboxes are selected
                             var isSelected = (checkboxesSelected.length === rowNodes.length);
 
-                            return '<div class="group-checkbox__container"><div class="group-checkbox__wrapper">' +
-                                '<label class="kt-checkbox kt-checkbox--brand"><input class="group-checkbox" type="checkbox" data-group-name="' + groupName + '"' + (isSelected ? ' checked' : '') +'>&nbsp;<span></span></label>'+
+                            return '<div class="group-checkbox__container d-flex">' +
+                                '<div class="group-checkbox__wrapper flex-column">' +
+                                '<label class="kt-checkbox kt-checkbox--brand m-0 pt-0 pb-0 pl-0 pr-3"><input class="group-checkbox" type="checkbox" data-group-name="' + groupName + '"' + (isSelected ? ' checked' : '') +'><span class="position-relative d-block"></span></label>'+
                                 '</div>' +
-                                '<div class="group-checkbox__title"> ' + group + ' (' + rows.count() + ')</div></div>';
+                                '<div class="group-checkbox__title flex-column">' + sectionTitle + ' (' + rows.count() + ')</div>' +
+                                '</div>';
                         }
                     },
                     columns: [
-                        {
-                            data: 'DT_RowId',
-                            checkboxes: {
-                                selectRow: true
-                            }
-                        },
+                        {data: 'DT_RowId'},
                         {data: 'id'},
                         {data: 'title'},
                         {data: 'section.resource.title'},
@@ -234,7 +256,21 @@
                         style: 'multi',
                     },
                     columnDefs: [
-                        { "orderable": false, "targets": 0 },
+                        {
+                            targets: 0,
+                            orderable: false,
+                            render: function(data, type, row, meta){
+                                if(type === 'display'){
+                                    data = '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>';
+                                }
+
+                                return data;
+                            },
+                            'checkboxes': {
+                                'selectRow': true,
+                                'selectAllRender': '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>'
+                            }
+                        },
                         {
                             targets: 1,
                             width: '5%',
@@ -264,7 +300,6 @@
             let addQuestionButton = function() {
                 modalTemplateQuestions.on('click', '#addQuestionButton', function (e) {
                     e.preventDefault();
-                    console.log('Добавить');
                     unAppliedQuestionsForm.submit();
                 })
             };
@@ -272,7 +307,6 @@
             let addQuestionFormSubmit = function(unAppliedTable, questionsAddedTable, modelId) {
                 unAppliedQuestionsForm.off('submit').on('submit', function (e) {
                     e.preventDefault();
-                    //console.log(modelId);
                     let form = this;
                     let rowsSelected = unAppliedTable.column(0).checkboxes.selected();
                     $.each(rowsSelected, function(index, rowId){
@@ -326,7 +360,6 @@
             let removeQuestionButton = function() {
                 modalTemplateQuestions.on('click', '#removeQuestionButton', function (e) {
                     e.preventDefault();
-                    console.log('Удалить');
                     questionsAddedForm.submit();
                 })
             };
