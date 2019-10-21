@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Region\RegionIndexRequest;
 use App\Http\Requests\Region\RegionStoreRequest;
 use App\Http\Requests\Region\RegionUpdateRequest;
 use App\Http\Resources\Region\RegionInfoResource;
 use App\Http\Resources\Region\RegionResource;
 use App\Http\Resources\Region\RegionSelect2Resource;
-use App\Http\Resources\Region\usersFromRegionResource;
 use App\Models\Region;
-use Illuminate\Http\Request;
 
 
-class RegionController extends Controller
+class RegionController extends BaseController
 {
 
+    /**
+     * @param RegionIndexRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegionIndexRequest $request)
     {
         $regions = Region::filter($request)
             ->take(10)
             ->get();
-        return RegionSelect2Resource::collection($regions);
+
+        return $this->sendResponse(RegionSelect2Resource::collection($regions), __('Data retrieved successfully.'));
     }
 
     /**
@@ -40,56 +42,47 @@ class RegionController extends Controller
 
     /**
      * @param RegionStoreRequest $request
-     * @return RegionInfoResource
+     * @return \Illuminate\Http\Response
      */
     public function store(RegionStoreRequest $request)
     {
         $region = Region::create($request->validated());
-        return RegionInfoResource::make($region);
+
+        return $this->sendResponse(RegionInfoResource::make($region), __('Data created successfully.'));
     }
 
 
     /**
      * @param Region $region
-     * @return RegionResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(Region $region): RegionResource
+    public function show(Region $region)
     {
-        return RegionResource::make($region);
+        return $this->sendResponse(RegionResource::make($region), __('Data retrieved successfully.'));
     }
 
     /**
      * @param RegionUpdateRequest $request
      * @param Region $region
-     * @return RegionInfoResource
+     * @return \Illuminate\Http\Response
      */
     public function update(RegionUpdateRequest $request, Region $region)
     {
         $region->fill($request->except(['region_id']));
         $region->save();
-        return RegionInfoResource::make($region);
+
+        return $this->sendResponse(RegionInfoResource::make($region), __('Record updated successfully.'));
     }
 
     /**
      * @param Region $region
-     * @return RegionInfoResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
     public function destroy(Region $region)
     {
         $region->delete();
-        return RegionInfoResource::make($region);
-    }
 
-    // Этот метод не нужен. Надо добавить фильтр и использовать UserController@index
-    public function getUsers(Request $request, Region $region)
-    {
-        $title = $request->input('title');
-
-        $users = $region->profiles()->when('title', function ($query) use ($title) {
-            return $query->where('full_name', 'LIKE', "%{$title}%");
-        })->get();
-
-        return usersFromRegionResource::collection($users);
+        return $this->sendResponse(RegionInfoResource::make($region), __('Record deleted successfully.'));
     }
 }

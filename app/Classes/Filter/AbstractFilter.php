@@ -18,7 +18,7 @@ class AbstractFilter
     public function filter(Builder $builder)
     {
         foreach ($this->getFilters() as $filter => $value) {
-
+            \Log::info($filter);
             $this->resolveFilter($filter)->filter($builder, $value);
         }
         return $builder;

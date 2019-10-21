@@ -25,9 +25,6 @@ class Position extends ListModel
         'to_rate' => 'boolean',
     ];
 
-    /**
-     * @return BelongsToMany
-     */
     public function questions(): BelongsToMany
     {
         return $this->belongsToMany(Question::class);

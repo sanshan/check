@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Position\PositionIndexRequest;
 use App\Http\Requests\Position\PositionStoreRequest;
 use App\Http\Requests\Position\PositionUpdateRequest;
@@ -13,7 +12,7 @@ use App\Http\Resources\Position\PositionSelect2Resource;
 use App\Models\Position;
 
 
-class PositionController extends Controller
+class PositionController extends BaseController
 {
 
     public function index(PositionIndexRequest $request)
@@ -22,7 +21,7 @@ class PositionController extends Controller
             ->take(10)
             ->get();
 
-        return PositionSelect2Resource::collection($positions);
+        return $this->sendResponse(PositionSelect2Resource::collection($positions), __('Data retrieved successfully.'));
     }
 
     /**
@@ -41,43 +40,46 @@ class PositionController extends Controller
 
     /**
      * @param PositionStoreRequest $request
-     * @return PositionInfoResource
+     * @return \Illuminate\Http\Response
      */
     public function store(PositionStoreRequest $request)
     {
         $position = Position::create($request->validated());
-        return PositionInfoResource::make($position);
+
+        return $this->sendResponse(PositionInfoResource::make($position), __('Data created successfully.'));
     }
 
     /**
      * @param Position $position
-     * @return PositionResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(Position $position): PositionResource
+    public function show(Position $position)
     {
-        return PositionResource::make($position);
+        return $this->sendResponse(PositionResource::make($position), __('Data retrieved successfully.'));
     }
 
     /**
      * @param PositionUpdateRequest $request
      * @param Position $position
-     * @return PositionInfoResource
+     * @return \Illuminate\Http\Response
      */
     public function update(PositionUpdateRequest $request, Position $position)
     {
         $position->fill($request->except('position_id'));
         $position->save();
-        return PositionInfoResource::make($position);
+
+        return $this->sendResponse(PositionInfoResource::make($position), __('Record updated successfully.'));
     }
 
     /**
      * @param Position $position
-     * @return PositionInfoResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
     public function destroy(Position $position)
     {
         $position->delete();
-        return PositionInfoResource::make($position);
+
+        return $this->sendResponse(PositionInfoResource::make($position), __('Record deleted successfully.'));
     }
 }

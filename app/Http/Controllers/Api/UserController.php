@@ -9,23 +9,26 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserInfoResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserSelect2Resource;
+use App\Models\User;
 use DB;
 use Hash;
-use App\Http\Controllers\Controller;
-use App\Models\User;
 
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
     /**
-     * @param UserFilter $filters
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @param UserIndexRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function index(UserFilter $filters)
+    public function index(UserIndexRequest $request)
     {
-        $users = User::with('profile')->filter($filters)->take(10)->get();
-        return UserSelect2Resource::collection($users);
+        $users = User::with('profile')
+            ->filter($request)
+            ->take(10)
+            ->get();
+
+        return $this->sendResponse(UserSelect2Resource::collection($users), __('Data retrieved successfully.'));
     }
 
     /**
@@ -37,69 +40,66 @@ class UserController extends Controller
         $users = User::with('profile', 'profile.role', 'profile.regions', 'profile.stations')->get();
 
         return datatables()->of(UserResource::collection($users))
-                ->addColumn('DT_RowId', function($row){
-                    return 'row_'.$row['id'];
-                })->toJson();
+            ->addColumn('DT_RowId', function ($row) {
+                return 'row_' . $row['id'];
+            })->toJson();
     }
-
 
     /**
      * @param UserStoreRequest $request
-     * @return UserInfoResource
-     * @throws \Throwable
+     * @return \Illuminate\Http\Response
      */
-    public function store(UserStoreRequest $request) : UserInfoResource
+    public function store(UserStoreRequest $request)
     {
-        $user = DB::transaction(function () use($request) {
+        $user = DB::transaction(function () use ($request) {
             $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
             $password = substr($random, 0, 10);
             $user = User::create([
-                'email' => $request->email,
+                'email'    => $request->email,
                 'password' => Hash::make($password),
             ]);
             $user->profile()->create([
-                'phone' => $request->phone,
-                'name' => $request->name,
+                'phone'      => $request->phone,
+                'name'       => $request->name,
                 'patronymic' => $request->patronymic,
-                'surname' => $request->surname,
-                'full_name' => $request->name. ' '.$request->patronymic.' '.$request->surname,
-                'role_id' => $request->role_id,
+                'surname'    => $request->surname,
+                'full_name'  => $request->name . ' ' . $request->patronymic . ' ' . $request->surname,
+                'role_id'    => $request->role_id,
             ]);
             $user->profile->regions()->attach($request->region_id);
             $user->profile->stations()->attach($request->gas_station_id);
 
             return $user;
         });
-        return UserInfoResource::make($user);
-    }
 
+        return $this->sendResponse(UserInfoResource::make($user), __('Data created successfully.'));
+    }
 
     /**
      * @param User $user
-     * @return UserResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(User $user) : UserResource
+    public function show(User $user)
     {
         $user->load('profile', 'profile.role', 'profile.stations', 'profile.regions');
-        return UserResource::make($user);
-    }
 
+        return $this->sendResponse(UserResource::make($user), __('Data retrieved successfully.'));
+    }
 
     /**
      * @param UserUpdateRequest $request
      * @param User $user
-     * @return UserInfoResource
-     * @throws \Throwable
+     * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user) : UserInfoResource
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $user = DB::transaction(function () use($request, $user) {
+        $user = DB::transaction(function () use ($request, $user) {
             $user->email = $request->email;
             $user->profile->phone = $request->phone;
             $user->profile->name = $request->name;
             $user->profile->patronymic = $request->patronymic;
             $user->profile->surname = $request->surname;
-            $user->profile->full_name = $request->name. ' '.$request->patronymic.' '.$request->surname;
+            $user->profile->full_name = $request->name . ' ' . $request->patronymic . ' ' . $request->surname;
             $user->profile->role_id = $request->role_id;
             $user->save();
             $user->profile->save();
@@ -108,19 +108,20 @@ class UserController extends Controller
 
             return $user;
         });
-        return UserInfoResource::make($user);
-    }
 
+        return $this->sendResponse(UserInfoResource::make($user), __('Record updated successfully.'));
+    }
 
     /**
      * @param User $user
-     * @return UserInfoResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(User $user) : UserInfoResource
+    public function destroy(User $user)
     {
         $user->delete();
-        return UserInfoResource::make($user);
+
+        return $this->sendResponse(UserInfoResource::make($user), __('Record deleted successfully.'));
     }
 
 }

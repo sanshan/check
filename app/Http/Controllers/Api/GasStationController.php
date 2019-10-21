@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\GasStation\GasStationIndexRequest;
 use App\Http\Requests\GasStation\GasStationStoreRequest;
 use App\Http\Requests\GasStation\GasStationUpdateRequest;
@@ -15,12 +14,12 @@ use Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 
-class GasStationController extends Controller
+class GasStationController extends BaseController
 {
 
     /**
      * @param GasStationIndexRequest $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \Illuminate\Http\Response
      */
     public function index(GasStationIndexRequest $request)
     {
@@ -29,7 +28,7 @@ class GasStationController extends Controller
             ->take(10)
             ->get();
 
-        return GasStationSelect2Resource::collection($gasStations);
+        return $this->sendResponse(GasStationSelect2Resource::collection($gasStations), __('Data retrieved successfully.'));
     }
 
     /**
@@ -71,44 +70,48 @@ class GasStationController extends Controller
 
     /**
      * @param GasStationStoreRequest $request
-     * @return GasStationInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function store(GasStationStoreRequest $request): GasStationInfoResource
+    public function store(GasStationStoreRequest $request)
     {
         $gasStation = GasStation::create($request->validated());
-        return GasStationInfoResource::make($gasStation);
+
+        return $this->sendResponse(GasStationInfoResource::make($gasStation), __('Data created successfully.'));
     }
 
     /**
      * @param GasStation $gasStation
-     * @return GasStationResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(GasStation $gasStation): GasStationResource
+    public function show(GasStation $gasStation)
     {
         $gasStation->load('region', 'type');
-        return GasStationResource::make($gasStation);
+
+        return $this->sendResponse(GasStationResource::make($gasStation), __('Data retrieved successfully.'));
     }
 
     /**
      * @param GasStationUpdateRequest $request
      * @param GasStation $gasStation
-     * @return GasStationInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function update(GasStationUpdateRequest $request, GasStation $gasStation): GasStationInfoResource
+    public function update(GasStationUpdateRequest $request, GasStation $gasStation)
     {
         $gasStation->fill($request->except('gas_station_id'));
         $gasStation->save();
-        return GasStationInfoResource::make($gasStation);
+
+        return $this->sendResponse(GasStationInfoResource::make($gasStation), __('Record updated successfully.'));
     }
 
     /**
      * @param GasStation $gasStation
-     * @return GasStationInfoResource
+     * @return \Illuminate\Http\Response
      * @throws Exception
      */
-    public function destroy(GasStation $gasStation): GasStationInfoResource
+    public function destroy(GasStation $gasStation)
     {
         $gasStation->delete();
-        return GasStationInfoResource::make($gasStation);
+
+        return $this->sendResponse(GasStationInfoResource::make($gasStation), __('Record deleted successfully.'));
     }
 }

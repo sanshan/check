@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\TypeOfChecklist\TypeOfChecklistIndexRequest;
 use App\Http\Requests\TypeOfChecklist\TypeOfChecklistStoreRequest;
 use App\Http\Requests\TypeOfChecklist\TypeOfChecklistUpdateRequest;
@@ -11,12 +10,12 @@ use App\Http\Resources\TypeOfChecklist\TypeOfChecklistResource;
 use App\Http\Resources\TypeOfChecklist\TypeOfChecklistSelect2Resource;
 use App\Models\TypeOfChecklist;
 
-class TypeOfChecklistController extends Controller
+class TypeOfChecklistController extends BaseController
 {
 
     /**
      * @param TypeOfChecklistIndexRequest $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \Illuminate\Http\Response
      */
     public function index(TypeOfChecklistIndexRequest $request)
     {
@@ -24,7 +23,7 @@ class TypeOfChecklistController extends Controller
             ->take(10)
             ->get();
 
-        return TypeOfChecklistSelect2Resource::collection($typeOfChecklists);
+        return $this->sendResponse(TypeOfChecklistSelect2Resource::collection($typeOfChecklists), __('Data retrieved successfully.'));
     }
 
     /**
@@ -43,43 +42,46 @@ class TypeOfChecklistController extends Controller
 
     /**
      * @param TypeOfChecklistStoreRequest $request
-     * @return TypeOfChecklistInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function store(TypeOfChecklistStoreRequest $request): TypeOfChecklistInfoResource
+    public function store(TypeOfChecklistStoreRequest $request)
     {
         $typeOfChecklist = TypeOfChecklist::create($request->validated());
-        return TypeOfChecklistInfoResource::make($typeOfChecklist);
+
+        return $this->sendResponse(TypeOfChecklistInfoResource::make($typeOfChecklist), __('Data created successfully.'));
     }
 
     /**
      * @param TypeOfChecklist $typeOfChecklist
-     * @return TypeOfChecklistResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(TypeOfChecklist $typeOfChecklist): TypeOfChecklistResource
+    public function show(TypeOfChecklist $typeOfChecklist)
     {
-        return TypeOfChecklistResource::make($typeOfChecklist);
+        return $this->sendResponse(TypeOfChecklistResource::make($typeOfChecklist), __('Data retrieved successfully.'));
     }
 
     /**
      * @param TypeOfChecklistUpdateRequest $request
      * @param TypeOfChecklist $typeOfChecklist
-     * @return TypeOfChecklistInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function update(TypeOfChecklistUpdateRequest $request, TypeOfChecklist $typeOfChecklist): TypeOfChecklistInfoResource
+    public function update(TypeOfChecklistUpdateRequest $request, TypeOfChecklist $typeOfChecklist)
     {
         $typeOfChecklist->fill($request->except('type_of_checklist_id'));
         $typeOfChecklist->save();
-        return TypeOfChecklistInfoResource::make($typeOfChecklist);
+
+        return $this->sendResponse(TypeOfChecklistInfoResource::make($typeOfChecklist), __('Record updated successfully.'));
     }
 
     /**
      * @param TypeOfChecklist $typeOfChecklist
-     * @return TypeOfChecklistInfoResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(TypeOfChecklist $typeOfChecklist): TypeOfChecklistInfoResource
+    public function destroy(TypeOfChecklist $typeOfChecklist)
     {
         $typeOfChecklist->delete();
-        return TypeOfChecklistInfoResource::make($typeOfChecklist);
+
+        return $this->sendResponse(TypeOfChecklistInfoResource::make($typeOfChecklist), __('Record deleted successfully.'));
     }
 }

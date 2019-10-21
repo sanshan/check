@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Classes\Filter\ListFilter;
 use App\Traits\CreatedUpdatedDatesModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,14 +71,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    /**
-     * @param $query
-     * @param $filters
-     * @return mixed
-     */
-    public function scopeFilter($query, $filters)
+    //Надо использовать trait
+    public function scopeFilter(Builder $builder, Request $request): Builder
     {
-        return $filters->apply($query);
+        //Возможно, стоит в этом месте использовать фасад.
+        return (new ListFilter($request->validated()))->filter($builder);
     }
 
 }

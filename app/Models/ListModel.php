@@ -12,6 +12,7 @@ abstract class ListModel extends Model
 {
     use SoftDeletes;
 
+    //Надо использовать trait
     public function scopeFilter(Builder $builder, Request $request): Builder
     {
         //Возможно, стоит в этом месте использовать фасад.

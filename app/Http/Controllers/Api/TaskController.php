@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\TaskStoreRequest;
 use App\Http\Requests\Task\TaskUpdateRequest;
 use App\Http\Resources\Task\TaskResource;
 use App\Models\Task;
 use Carbon\Carbon;
 
-class TaskController extends Controller
+class TaskController extends BaseController
 {
+
     /**
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $tasks = Task::with(['region', 'station', 'type', 'user.profile'])->get();
-        return TaskResource::collection($tasks);
+
+        return $this->sendResponse(TaskResource::collection($tasks), __('Data retrieved successfully.'));
     }
 
     /**
@@ -54,9 +55,9 @@ class TaskController extends Controller
 
     /**
      * @param TaskStoreRequest $request
-     * @return TaskResource
+     * @return \Illuminate\Http\Response
      */
-    public function store(TaskStoreRequest $request): TaskResource
+    public function store(TaskStoreRequest $request)
     {
         $gasStation = Task::create([
             'start_date'           => Carbon::make($request->start_date),
@@ -66,25 +67,27 @@ class TaskController extends Controller
             'type_of_checklist_id' => $request->type_of_checklists_id,
             'user_id'              => $request->user_id,
         ]);
-        return TaskResource::make($gasStation);
+
+        return $this->sendResponse(TaskResource::make($gasStation), __('Data created successfully.'));
     }
 
     /**
      * @param Task $task
-     * @return TaskResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(Task $task): TaskResource
+    public function show(Task $task)
     {
         $task->load(['region', 'station', 'type', 'user.profile']);
-        return TaskResource::make($task);
+
+        return $this->sendResponse(TaskResource::make($task), __('Data retrieved successfully.'));
     }
 
     /**
      * @param TaskUpdateRequest $request
      * @param Task $task
-     * @return TaskResource
+     * @return \Illuminate\Http\Response
      */
-    public function update(TaskUpdateRequest $request, Task $task): TaskResource
+    public function update(TaskUpdateRequest $request, Task $task)
     {
         $task->start_date = Carbon::make($request->start_date);
         $task->end_date = Carbon::make($request->end_date);
@@ -93,17 +96,19 @@ class TaskController extends Controller
         $task->type_of_checklist_id = $request->type_of_checklists_id;
         $task->user_id = $request->user_id;
         $task->save();
-        return TaskResource::make($task);
+
+        return $this->sendResponse(TaskResource::make($task), __('Record updated successfully.'));
     }
 
     /**
      * @param Task $task
-     * @return TaskResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Task $task): TaskResource
+    public function destroy(Task $task)
     {
         $task->delete();
-        return TaskResource::make($task);
+
+        return $this->sendResponse(TaskResource::make($task), __('Record deleted successfully.'));
     }
 }

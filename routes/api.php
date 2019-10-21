@@ -20,7 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('users/datatable', 'Api\UserController@dataTableIndex')->name('users.index.datatable');
 Route::apiResource('users', 'Api\UserController');
 
-Route::get('regions/{region}/users', 'Api\RegionController@getUsers');
 Route::get('regions/datatable', 'Api\RegionController@dataTableIndex')->name('regions.index.datatable');
 Route::apiResource('regions', 'Api\RegionController');
 
@@ -50,13 +49,8 @@ Route::apiResource('templates', 'Api\TemplateController');
 Route::get('tasks/datatable', 'Api\TaskController@dataTableIndex')->name('tasks.index.datatable');
 Route::apiResource('tasks', 'Api\TaskController');
 
+Route::post('templates/{template}/questions', 'Api\TemplateQuestionController@store')->name('templates.questions.store');
+Route::delete('templates/{template}/questions', 'Api\TemplateQuestionController@destroy')->name('templates.questions.destroy');
 
-
-Route::get('templates/{template}/questions', 'Api\TemplateController@questions');
-Route::get('templates/{template}/questions/available', 'Api\QuestionController@available');
-Route::patch('templates/{template}/questions/add', 'Api\TemplateController@addQuestion');
-Route::put('templates/{template}/questions/remove', 'Api\TemplateController@removeQuestion');
-//Route::put('templates/{template}/questions/remove', 'Api\TemplateController@removeQuestion');
-Route::patch('templates/{template}/questions/{question}/positions/update', 'Api\TemplateController@updatePositions');
-Route::get('templates/{template}/questions/{question}/positions/index', 'Api\TemplateController@indexPositions');
-
+Route::get('templates/{template}/questions/{question}/positions', 'Api\TemplateQuestionPositionController@index')->name('templates.questions.positions.index');
+Route::post('templates/{template}/questions/{question}/positions', 'Api\TemplateQuestionPositionController@store')->name('templates.questions.positions.store');

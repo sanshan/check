@@ -2,104 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/FullNameFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/GasStationRegionFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/MissingInTemplateFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/NumberFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/SectionFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/TemplateIdFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/TitleFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/UserRegionFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/ListFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStation/GasStationIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStation/GasStationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStation/GasStationStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GasStation/GasStationUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Position/PositionIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Position/PositionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Position/PositionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Position/PositionUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionAvailableRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Region/RegionIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Region/RegionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Region/RegionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Region/RegionUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Role/RoleIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Role/RoleRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Role/RoleStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Role/RoleUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Section/SectionIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Section/SectionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Section/SectionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Section/SectionUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Task/TaskRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Task/TaskStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Task/TaskUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/addQuestionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/removeQuestionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/updatePositionRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklist/TypeOfChecklistIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklist/TypeOfChecklistRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklist/TypeOfChecklistStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklist/TypeOfChecklistUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStation/TypeOfGasStationIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStation/TypeOfGasStationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStation/TypeOfGasStationStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStation/TypeOfGasStationUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/User/UserIndexRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/User/UserStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/User/UserUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationDTResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Position/PositionDTResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Position/PositionInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Position/PositionResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Position/PositionSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Profile/ProfileResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Question/QuestionAvailableResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Question/QuestionDTResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Question/QuestionInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Question/QuestionResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Question/QuestionSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Region/RegionInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Region/RegionSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Region/UsersFromRegionResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Section/SectionDTResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Section/SectionInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Section/SectionSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Task/TaskResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Template/QuestionInTemplateResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateDTResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklist/TypeOfChecklistIndexResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklist/TypeOfChecklistInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklist/TypeOfChecklistSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfGasStation/TypeOfGasStationInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfGasStation/TypeOfGasStationSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/User/UserInfoResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/User/UserSelect2Resource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/ListModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Rules/InRegion.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/CreatedUpdatedDatesModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/media/logos/CheckList.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/ru/validation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/src/theme/app/custom/templates/dual-questions-listbox.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/audit/tasks/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/PresentInTemplate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionPositionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionPositionUpdateRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/ru.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GasStation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/GasStation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/Filters/MissingInTemplateFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/MissingInTemplateFilter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/ListFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/ListFilter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" afterDir="false" />
@@ -111,81 +23,17 @@
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/GasStationRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/PositionRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/QuestionRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RegionRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RoleRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/SectionRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TaskRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionIndexRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionIndexRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionsRequest.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TypeOfChecklistRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TypeOfGasStationRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UserRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/getUsersFromRegionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/ValidateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/GasStationResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PositionResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/ProfileResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/QuestionDTResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/QuestionResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/RegionResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Region/RegionResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/RoleResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Role/RoleResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/SectionResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Section/SectionResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/TaskResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/TemplateCollectionResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/TemplateResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklistResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfChecklist/TypeOfChecklistResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/TypeOfGasStationResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/TypeOfGasStation/TypeOfGasStationResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/User/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/usersFromRegionResource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Position.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/QuestionTemplatePivot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Region.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Section.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Template.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/TypeOfChecklist.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TypeOfChecklist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/TypeOfGasStation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TypeOfGasStation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/GasStationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/GasStationFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/PositionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/PositionFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ProfileFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/QuestionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/QuestionFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/RegionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/RegionFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/RoleFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/RoleFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/SectionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/SectionFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TaskFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TaskFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TemplateFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TemplateFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TypeOfChecklistFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TypeOfChecklistFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TypeOfGasStationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TypeOfGasStationFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/tasks/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/tasks/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/templates/_questions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/templates/_questions.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/templates/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/templates/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/layout/_head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/layout/_head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/aside/_aside-brand.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/aside/_aside-brand.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/footer/_footer-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/footer/_footer-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/header/_header-menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/header/_header-menu.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/header/_subheader-v1.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/header/_subheader-v1.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/header/topbar/_topbar-user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/header/topbar/_topbar-user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/page/header/topbar/topbar-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/page/header/topbar/topbar-base.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/addQuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionStoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/removeQuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionDestroyRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/updatePositionRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ListModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ListModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Position.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ru/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ru/validation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -418,7 +266,8 @@
       <workItem from="1568884451272" duration="24942000" />
       <workItem from="1569844757106" duration="1814000" />
       <workItem from="1569994017356" duration="53369000" />
-      <workItem from="1570433027365" duration="50076000" />
+      <workItem from="1570433027365" duration="62871000" />
+      <workItem from="1571381323844" duration="19861000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -469,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564215084237</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added many pages">
+      <created>1570794623334</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1570794623334</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">

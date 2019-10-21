@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\TypeOfGasStation\TypeOfGasStationIndexRequest;
 use App\Http\Requests\TypeOfGasStation\TypeOfGasStationStoreRequest;
 use App\Http\Requests\TypeOfGasStation\TypeOfGasStationUpdateRequest;
@@ -11,14 +10,20 @@ use App\Http\Resources\TypeOfGasStation\TypeOfGasStationResource;
 use App\Http\Resources\TypeOfGasStation\TypeOfGasStationSelect2Resource;
 use App\Models\TypeOfGasStation;
 
-class TypeOfGasStationController extends Controller
+class TypeOfGasStationController extends BaseController
 {
+
+    /**
+     * @param TypeOfGasStationIndexRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(TypeOfGasStationIndexRequest $request)
     {
         $typeOfGasStations = TypeOfGasStation::filter($request)
             ->take(10)
             ->get();
-        return TypeOfGasStationSelect2Resource::collection($typeOfGasStations);
+
+        return $this->sendResponse(TypeOfGasStationSelect2Resource::collection($typeOfGasStations), __('Data retrieved successfully.'));
     }
 
     /**
@@ -36,43 +41,46 @@ class TypeOfGasStationController extends Controller
 
     /**
      * @param TypeOfGasStationStoreRequest $request
-     * @return TypeOfGasStationInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function store(TypeOfGasStationStoreRequest $request): TypeOfGasStationInfoResource
+    public function store(TypeOfGasStationStoreRequest $request)
     {
         $typeOfGasStation = TypeOfGasStation::create($request->validated());
-        return TypeOfGasStationInfoResource::make($typeOfGasStation);
+
+        return $this->sendResponse(TypeOfGasStationInfoResource::make($typeOfGasStation), __('Data created successfully.'));
     }
 
     /**
      * @param TypeOfGasStation $typeOfGasStation
-     * @return TypeOfGasStationResource
+     * @return \Illuminate\Http\Response
      */
-    public function show(TypeOfGasStation $typeOfGasStation): TypeOfGasStationResource
+    public function show(TypeOfGasStation $typeOfGasStation)
     {
-        return TypeOfGasStationResource::make($typeOfGasStation);
+        return $this->sendResponse(TypeOfGasStationResource::make($typeOfGasStation), __('Data retrieved successfully.'));
     }
 
     /**
      * @param TypeOfGasStationUpdateRequest $request
      * @param TypeOfGasStation $typeOfGasStation
-     * @return TypeOfGasStationInfoResource
+     * @return \Illuminate\Http\Response
      */
-    public function update(TypeOfGasStationUpdateRequest $request, TypeOfGasStation $typeOfGasStation): TypeOfGasStationInfoResource
+    public function update(TypeOfGasStationUpdateRequest $request, TypeOfGasStation $typeOfGasStation)
     {
         $typeOfGasStation->fill($request->except('type_of_gas_station_id'));
         $typeOfGasStation->save();
-        return TypeOfGasStationInfoResource::make($typeOfGasStation);
+
+        return $this->sendResponse(TypeOfGasStationInfoResource::make($typeOfGasStation), __('Record updated successfully.'));
     }
 
     /**
      * @param TypeOfGasStation $typeOfGasStation
-     * @return TypeOfGasStationInfoResource
+     * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(TypeOfGasStation $typeOfGasStation): TypeOfGasStationInfoResource
+    public function destroy(TypeOfGasStation $typeOfGasStation)
     {
         $typeOfGasStation->delete();
-        return TypeOfGasStationInfoResource::make($typeOfGasStation);
+
+        return $this->sendResponse(TypeOfGasStationInfoResource::make($typeOfGasStation), __('Record deleted successfully.'));
     }
 }
