@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Classes\Filter\UserFilter;
 use App\Http\Requests\User\UserIndexRequest;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
@@ -48,6 +47,7 @@ class UserController extends BaseController
     /**
      * @param UserStoreRequest $request
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function store(UserStoreRequest $request)
     {
@@ -90,6 +90,7 @@ class UserController extends BaseController
      * @param UserUpdateRequest $request
      * @param User $user
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function update(UserUpdateRequest $request, User $user)
     {

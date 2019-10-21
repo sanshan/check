@@ -24,8 +24,8 @@ class UserIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'     => 'nullable|string|max:100',
-            'region'    => 'filled|integer|exists:regions,id',
+            'full_name'   => 'nullable|string|max:100',
+            'user_region' => 'filled|integer|exists:regions,id',
         ];
     }
 }

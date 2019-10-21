@@ -10,15 +10,11 @@ class AbstractFilter
     protected $params;
     protected $filters = [];
 
-    public function __construct($params = [])
+    public function filter(Builder $builder, $params = [])
     {
         $this->params = $params;
-    }
 
-    public function filter(Builder $builder)
-    {
         foreach ($this->getFilters() as $filter => $value) {
-            \Log::info($filter);
             $this->resolveFilter($filter)->filter($builder, $value);
         }
         return $builder;

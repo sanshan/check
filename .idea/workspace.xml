@@ -2,39 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/PresentInTemplate.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionPositionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionPositionUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/ru.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Facade/ListFilterFacade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Providers/ListFilterServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Traits/FilterModels.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/Filters/MissingInTemplateFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/MissingInTemplateFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/ListFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/ListFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/Filters/UserRegionFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/UserRegionFilter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionIndexRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionIndexRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionsRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/addQuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionStoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/removeQuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateQuestionDestroyRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/updatePositionRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/User/UserIndexRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/User/UserIndexRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/ListModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ListModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Position.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ru/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ru/validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,26 +169,26 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Classes/Filter/Filters" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Classes/Filter/Facade" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/Classes/Filter" />
-      <recent name="$PROJECT_DIR$/app/Models" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Api" />
-      <recent name="$PROJECT_DIR$/public/assets/app/custom/x-editable/css" />
-      <recent name="$PROJECT_DIR$/app/Http/Requests/Template" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Classes/Filter/Filters" />
       <recent name="$PROJECT_DIR$/app/Classes/Filter" />
       <recent name="$PROJECT_DIR$/public/assets/media/logos" />
       <recent name="$PROJECT_DIR$/public/assets/app/custom/x-editable/img" />
       <recent name="$PROJECT_DIR$/resources/views/audit" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Classes/Filter/Facade" />
+      <recent name="$PROJECT_DIR$/app/Classes/Filter" />
+      <recent name="$PROJECT_DIR$/app/Models" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Api" />
+      <recent name="$PROJECT_DIR$/public/assets/app/custom/x-editable/css" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -267,7 +247,7 @@
       <workItem from="1569844757106" duration="1814000" />
       <workItem from="1569994017356" duration="53369000" />
       <workItem from="1570433027365" duration="62871000" />
-      <workItem from="1571381323844" duration="19861000" />
+      <workItem from="1571381323844" duration="31436000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -325,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570794623334</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Controllers Refactoring">
+      <created>1571635976405</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1571635976405</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -365,6 +352,7 @@
     <MESSAGE value="Add Role" />
     <MESSAGE value="Add GasStation" />
     <MESSAGE value="Added many pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added many pages" />
+    <MESSAGE value="Controllers Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Controllers Refactoring" />
   </component>
 </project>

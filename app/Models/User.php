@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Classes\Filter\ListFilter;
 use App\Traits\CreatedUpdatedDatesModel;
+use App\Traits\FilterModels;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -48,8 +49,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
-    use SoftDeletes;
+    use Notifiable,SoftDeletes,FilterModels;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -69,13 +69,6 @@ class User extends Authenticatable
     public function profile() : HasOne
     {
         return $this->hasOne(Profile::class);
-    }
-
-    //Надо использовать trait
-    public function scopeFilter(Builder $builder, Request $request): Builder
-    {
-        //Возможно, стоит в этом месте использовать фасад.
-        return (new ListFilter($request->validated()))->filter($builder);
     }
 
 }
