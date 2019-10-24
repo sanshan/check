@@ -267,7 +267,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Тип АЗС сохранён!");
+                                toastr.success(values, response.message);
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
@@ -309,7 +309,8 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.title, "Удалён элемент");
+                                let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
+                                toastr.success(values, response.message);
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

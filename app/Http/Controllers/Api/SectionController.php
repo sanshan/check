@@ -55,7 +55,7 @@ class SectionController extends BaseController
     {
         $section = Section::create($request->validated());
 
-        return $this->sendResponse(SectionInfoResource::make($section), __('Data created successfully.'));
+        return $this->sendResponse(SectionInfoResource::make($section), __('Record created successfully.'));
     }
 
     /**

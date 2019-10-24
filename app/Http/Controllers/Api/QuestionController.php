@@ -10,6 +10,7 @@ use App\Http\Resources\Question\QuestionInfoResource;
 use App\Http\Resources\Question\QuestionResource;
 use App\Http\Resources\Question\QuestionSelect2Resource;
 use App\Models\Question;
+use App\Models\Section;
 use DB;
 
 class QuestionController extends BaseController
@@ -37,7 +38,7 @@ class QuestionController extends BaseController
     public function dataTableIndex(QuestionIndexRequest $request)
     {
         $questions = Question::with('positions')
-            ->filter($request)
+            ->from($request->route('section'))
             ->get();
 
         return datatables()->of(QuestionDTResource::collection($questions))
@@ -55,53 +56,68 @@ class QuestionController extends BaseController
     public function store(QuestionStoreRequest $request)
     {
         $question = DB::transaction(function () use ($request) {
-            $question = Question::create($request->validated());
+            $question = Question::create([
+                'title'      => $request->title,
+                'section_id' => $request->route('section'),
+                'required'   => $request->required,
+                'partly'     => $request->partly,
+
+            ]);
             $question->positions()->attach($request->position_id);
+
+            return $question;
         });
 
-        return $this->sendResponse(QuestionInfoResource::make($question), __('Data created successfully.'));
+        return $this->sendResponse(QuestionInfoResource::make($question), __('Record created successfully.'));
     }
 
-    /**
-     * @param Question $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Question $question)
+    public function show($section, $question)
     {
-        $question->load('positions');
+        $question = Question::with('positions')
+            ->from($section)
+            ->findOrFail($question);
 
         return $this->sendResponse(QuestionResource::make($question), __('Data retrieved successfully.'));
     }
 
     /**
      * @param QuestionUpdateRequest $request
+     * @param $section
      * @param Question $question
      * @return \Illuminate\Http\Response
-     * @throws \Throwable
      */
-    public function update(QuestionUpdateRequest $request, Question $question)
+    public function update(QuestionUpdateRequest $request, $section, $question)
     {
+        $question = Question::from($section)
+            ->findOrFail($question);
+
         $question = DB::transaction(function () use ($request, $question) {
             $question->title = $request->title;
             $question->required = $request->required;
             $question->partly = $request->partly;
             $question->save();
             $question->positions()->sync($request->position_id);
+
+            return $question;
         });
 
         return $this->sendResponse(QuestionInfoResource::make($question), __('Record updated successfully.'));
     }
 
     /**
-     * @param Question $question
+     * @param $section
+     * @param $question
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
-    public function destroy(Question $question)
+    public function destroy($section, $question)
     {
+        $question = Question::from($section)
+            ->findOrFail($question);
+        //Можно сразу удалить, но тогда не получается вернуть информацию об удалённой записи
         $question->delete();
 
         return $this->sendResponse(QuestionInfoResource::make($question), __('Record deleted successfully.'));
     }
 
 }
+

@@ -48,7 +48,7 @@ class RegionController extends BaseController
     {
         $region = Region::create($request->validated());
 
-        return $this->sendResponse(RegionInfoResource::make($region), __('Data created successfully.'));
+        return $this->sendResponse(RegionInfoResource::make($region), __('Record created successfully.'));
     }
 
 

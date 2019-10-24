@@ -40,8 +40,8 @@ Route::apiResource('gasstations', 'Api\GasStationController');
 Route::get('sections/datatable', 'Api\SectionController@dataTableIndex')->name('sections.index.datatable');
 Route::apiResource('sections', 'Api\SectionController');
 
-Route::get('questions/datatable', 'Api\QuestionController@dataTableIndex')->name('questions.index.datatable');
-Route::apiResource('questions', 'Api\QuestionController');
+Route::get('sections/{section}/questions/datatable', 'Api\QuestionController@dataTableIndex')->name('sections.questions.index.datatable');
+Route::apiResource('sections/{section}/questions', 'Api\QuestionController');
 
 Route::get('templates/datatable', 'Api\TemplateController@dataTableIndex')->name('templates.index.datatable');
 Route::apiResource('templates', 'Api\TemplateController');

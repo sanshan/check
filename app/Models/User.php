@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
-use App\Classes\Filter\ListFilter;
-use App\Traits\CreatedUpdatedDatesModel;
 use App\Traits\FilterModels;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 
 /**
@@ -49,7 +45,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable,SoftDeletes,FilterModels;
+    use Notifiable, SoftDeletes, FilterModels, HasApiTokens;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -66,7 +62,7 @@ class User extends Authenticatable
     /**
      * @return HasOne
      */
-    public function profile() : HasOne
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }

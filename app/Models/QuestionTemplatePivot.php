@@ -3,17 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class QuestionTemplatePivot extends Pivot
 {
+    use SoftDeletes;
+
     public $incrementing = true;
-    //protected $hidden = ['template_id', 'question_id'];
     protected $fillable = ['id'];
     protected $table = 'question_template';
 
     public static function boot()
     {
         parent::boot();
+
         static::saved(function ($item) {
             $positions = Question::findOrFail($item->question_id)->positions;
             foreach ($positions as $position)

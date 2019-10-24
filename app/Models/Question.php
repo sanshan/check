@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends ListModel
 {
-    use SoftDeletes;
-    use CreatedUpdatedDatesModel;
-    use EagerLoadPivotTrait;
+    use SoftDeletes, CreatedUpdatedDatesModel, EagerLoadPivotTrait;
 
     protected $fillable = [
         'section_id',
@@ -52,5 +50,11 @@ class Question extends ListModel
             ->using('App\Models\QuestionTemplatePivot')
             ->withPivot('id');
     }
+
+    public function scopeFrom($query, $section_id)
+    {
+        return $query->where('section_id', $section_id);
+    }
+
 
 }

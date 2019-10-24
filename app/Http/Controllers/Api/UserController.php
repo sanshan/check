@@ -72,7 +72,7 @@ class UserController extends BaseController
             return $user;
         });
 
-        return $this->sendResponse(UserInfoResource::make($user), __('Data created successfully.'));
+        return $this->sendResponse(UserInfoResource::make($user), __('Record created successfully.'));
     }
 
     /**

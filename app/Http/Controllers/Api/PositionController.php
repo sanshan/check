@@ -46,7 +46,7 @@ class PositionController extends BaseController
     {
         $position = Position::create($request->validated());
 
-        return $this->sendResponse(PositionInfoResource::make($position), __('Data created successfully.'));
+        return $this->sendResponse(PositionInfoResource::make($position), __('Record created successfully.'));
     }
 
     /**

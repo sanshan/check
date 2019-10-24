@@ -76,7 +76,7 @@ class GasStationController extends BaseController
     {
         $gasStation = GasStation::create($request->validated());
 
-        return $this->sendResponse(GasStationInfoResource::make($gasStation), __('Data created successfully.'));
+        return $this->sendResponse(GasStationInfoResource::make($gasStation), __('Record created successfully.'));
     }
 
     /**

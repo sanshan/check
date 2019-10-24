@@ -412,7 +412,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Пользователь сохранён!");
+                                toastr.success(values, response.message);
                             },
                             error: function(xhr, status, errorThrown) {
                                 let toastrTitle = 'Неопознанная ошибка!';
@@ -469,7 +469,7 @@
                             },
                             success: function(response) {
                                 let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
-                                toastr.success(values, "Удалён элемент");
+                                toastr.success(values, response.message);
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

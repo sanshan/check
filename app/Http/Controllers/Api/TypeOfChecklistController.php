@@ -48,7 +48,7 @@ class TypeOfChecklistController extends BaseController
     {
         $typeOfChecklist = TypeOfChecklist::create($request->validated());
 
-        return $this->sendResponse(TypeOfChecklistInfoResource::make($typeOfChecklist), __('Data created successfully.'));
+        return $this->sendResponse(TypeOfChecklistInfoResource::make($typeOfChecklist), __('Record created successfully.'));
     }
 
     /**

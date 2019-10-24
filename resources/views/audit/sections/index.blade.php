@@ -127,21 +127,6 @@
                     processing: true,
                     serverSide: true,
                     ajax: '{{ route('sections.index.datatable') }}',
-                    //order: [[3, 'asc']],
-                    /*drawCallback: function(settings) {
-                        var api = this.api();
-                        var rows = api.rows({page: 'current'}).nodes();
-                        var last = null;
-
-                        api.column(2, {page: 'current'}).data().each(function(group, i) {
-                            if (last !== group) {
-                                $(rows).eq(i).before(
-                                    '<tr class="group"><td colspan="10">' + group + '</td></tr>',
-                                );
-                                last = group;
-                            }
-                        });
-                    },*/
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -159,11 +144,6 @@
                         {data: '', responsivePriority: -1},
                     ],
                     columnDefs: [
-                        /*{
-                            // hide columns by index number
-                            targets: [2],
-                            visible: false,
-                        },*/
                         {
                             targets: 0,
                             width: '5%',
@@ -279,7 +259,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Раздел сохранён!");
+                                toastr.success(values, response.message);
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
@@ -320,7 +300,8 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.title, "Удалён элемент");
+                                let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
+                                toastr.success(values, response.message);
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

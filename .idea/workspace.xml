@@ -2,19 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Classes/Filter/Facade/ListFilterFacade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSection.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Providers/ListFilterServiceProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/FilterModels.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_23_124238_append_soft_delete_to_question_template_pivot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/check.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/check.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/AbstractFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Classes/Filter/Filters/UserRegionFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/Filter/Filters/UserRegionFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/User/UserIndexRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/User/UserIndexRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ListModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ListModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Question.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Template.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Template.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -143,12 +163,6 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
-      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
-      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
-      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper" />
-      <path value="$PROJECT_DIR$/vendor/barryvdh/reflection-docblock" />
-      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
-      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
@@ -156,6 +170,22 @@
       <path value="$PROJECT_DIR$/vendor/ajcastro/eager-load-pivot-relations" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/league/event" />
+      <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
+      <path value="$PROJECT_DIR$/vendor/laravel/passport" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/defuse/php-encryption" />
+      <path value="$PROJECT_DIR$/vendor/iatstuti/laravel-cascade-soft-deletes" />
     </include_path>
   </component>
   <component name="ProjectId" id="1OXONRO2buPDBkvcUjhZLnNTocN" />
@@ -247,7 +277,7 @@
       <workItem from="1569844757106" duration="1814000" />
       <workItem from="1569994017356" duration="53369000" />
       <workItem from="1570433027365" duration="62871000" />
-      <workItem from="1571381323844" duration="31436000" />
+      <workItem from="1571381323844" duration="58495000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -312,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571635976405</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add Filter Facade&#10;Add Filter trait">
+      <created>1571667316923</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1571667316923</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -353,6 +390,7 @@
     <MESSAGE value="Add GasStation" />
     <MESSAGE value="Added many pages" />
     <MESSAGE value="Controllers Refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Controllers Refactoring" />
+    <MESSAGE value="Add Filter Facade&#10;Add Filter trait" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Filter Facade&#10;Add Filter trait" />
   </component>
 </project>

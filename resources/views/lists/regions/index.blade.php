@@ -253,12 +253,12 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Регион сохранён!");
+                                toastr.success(values, response.message);
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
                                 let values = Object.keys(errors).map(function (key) { return errors[key] + '<br>'; });
-                                toastr.error(values, 'Ошибка');
+                                toastr.error(values, xhr.responseJSON.message);
                                 KTApp.unblock(modal);
                             }
                         });
@@ -294,7 +294,8 @@
                                 _method: 'DELETE',
                             },
                             success: function(response) {
-                                toastr.success(response.data.title, "Регион удалён!");
+                                let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
+                                toastr.success(values, response.message);
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

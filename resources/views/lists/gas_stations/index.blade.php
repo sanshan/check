@@ -459,7 +459,7 @@
                                 DTtable.ajax.reload(null, false);
                                 modal.modal('hide');
                                 KTApp.unblock(modal);
-                                toastr.success(values, "Информация об АЗС сохранена!");
+                                toastr.success(values, response.message);
                             },
                             error: function(xhr, status, errorThrown) {
                                 let errors = xhr.responseJSON.errors;
@@ -510,7 +510,7 @@
                             },
                             success: function(response) {
                                 let values = Object.keys(response.data).map(function (key) { return response.data[key] + '<br>'; });
-                                toastr.success(values, "АЗС удалена!");
+                                toastr.success(values, response.message);
                                 DTtable.ajax.reload(null, false);
                             },
                             error: function(xhr, status, errorThrown) {

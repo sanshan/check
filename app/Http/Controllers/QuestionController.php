@@ -9,10 +9,8 @@ use Illuminate\View\View;
 class QuestionController extends Controller
 {
 
-    public function __invoke(Request $request) : View
+    public function __invoke(Request $request, Section $section) : View
     {
-        $section = ($request->exists('section')) ? Section::find($request->section) : false;
-
         return view('audit.questions.index', compact('section'));
     }
 }

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -27,6 +27,6 @@ Route::get('lists/typeofgasstations', 'TypeOfGasStationController');
 Route::get('lists/users', 'UserController');
 Route::get('lists/gasstations', 'GasStationController');
 Route::get('audit/sections', 'SectionController');
-Route::get('audit/questions', 'QuestionController')->name('audit.questions');
+Route::get('audit/sections/{section}/questions', 'QuestionController')->name('audit.questions');
 Route::get('audit/templates', 'TemplateController');
 Route::get('audit/tasks', 'TaskController');
