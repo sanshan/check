@@ -62,7 +62,7 @@ class TemplateController extends BaseController
             ]);
 
             $template->gasStationTypes()->sync($request->type_of_gas_station_id);
-            $template->regions()->sync($request->region_id);
+            $template->regions()->sync($request->regions);
 
             return $template;
         });

@@ -5,5 +5,8 @@
     "Record deleted successfully.": "Запись успешно удалена.",
     "Questions are added to the template.": "Вопросы добавлены в шаблон.",
     "Questions removed from the template.": "Вопросы удалены из шаблона.",
-    "Checked post categories saved.": "Проверяемые категории должностей сохранены."
+    "Checked post categories saved.": "Проверяемые категории должностей сохранены.",
+    "Sections added to the template.": "Разделы добавлены в шаблон.",
+    "Sections removed from the template.": "Разделы удалены из шаблона.",
+    "Positions synced.": "Должности обновлены."
 }

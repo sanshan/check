@@ -2,39 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_23_124238_append_soft_delete_to_question_template_pivot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/check.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/check.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionPositionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionDestroyRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionDestroyRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionPositionSyncRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionStoreRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionStoreRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/TemplateSectionPivot.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/TemplateSectionQuestionPivot.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_074249_create_section_template_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_122240_question_section_template_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_132652_template_section_question_position.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PositionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/RegionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SectionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfChecklistController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TypeOfGasStationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Question/QuestionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionPositionController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Section.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Template.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/questions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/sections/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/gas_stations/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/positions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/regions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_checklists/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/type_of_gas_stations/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/lists/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ru.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TemplateTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Unit/ExampleTest.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -278,6 +272,10 @@
       <workItem from="1569994017356" duration="53369000" />
       <workItem from="1570433027365" duration="62871000" />
       <workItem from="1571381323844" duration="58495000" />
+      <workItem from="1571928948307" duration="740000" />
+      <workItem from="1571934631185" duration="784000" />
+      <workItem from="1572241022430" duration="29581000" />
+      <workItem from="1572276898510" duration="25549000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>

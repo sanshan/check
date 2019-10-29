@@ -41,16 +41,6 @@ class Question extends ListModel
         return $this->belongsToMany(Position::class);
     }
 
-    /**
-     * @return BelongsToMany
-     */
-    public function templates(): BelongsToMany
-    {
-        return $this->belongsToMany(Template::class)
-            ->using('App\Models\QuestionTemplatePivot')
-            ->withPivot('id');
-    }
-
     public function scopeFrom($query, $section_id)
     {
         return $query->where('section_id', $section_id);

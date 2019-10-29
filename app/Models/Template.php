@@ -48,14 +48,10 @@ class Template extends ListModel
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function questions()
+    public function sections()
     {
-        return $this->belongsToMany(Question::class)
-            ->using('App\Models\QuestionTemplatePivot')
-            ->has('section')
+        return $this->belongsToMany(Section::class)
+            ->using('App\Models\TemplateSectionPivot')
             ->withPivot('id');
     }
 

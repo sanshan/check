@@ -25,4 +25,11 @@ class Section extends ListModel
     {
         return $this->hasMany(Question::class);
     }
+
+    public function templates()
+    {
+        return $this->belongsToMany(Template::class)
+            ->using('App\Models\TemplateSectionPivot')
+            ->withPivot('id');
+    }
 }
