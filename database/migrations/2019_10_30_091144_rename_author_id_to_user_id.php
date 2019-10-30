@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AppendSoftDeleteToQuestionTemplatePivot extends Migration
+class RenameAuthorIdToUserId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AppendSoftDeleteToQuestionTemplatePivot extends Migration
      */
     public function up()
     {
-        Schema::table('question_template', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::table('templates', function (Blueprint $table) {
+            $table->renameColumn('author_id', 'user_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AppendSoftDeleteToQuestionTemplatePivot extends Migration
      */
     public function down()
     {
-        Schema::table('question_template', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+        Schema::table('templates', function (Blueprint $table) {
+            $table->renameColumn('user_id', 'author_id');
         });
     }
 }

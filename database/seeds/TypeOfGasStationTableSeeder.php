@@ -11,6 +11,6 @@ class TypeOfGasStationTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\TypeOfGasStation::class, 10)->create();
+        factory(App\Models\TypeOfGasStation::class, 10)->create();
     }
 }

@@ -14,6 +14,9 @@ class Profile extends Model
     protected $fillable = [
         'phone', 'name', 'patronymic', 'surname', 'full_name', 'role_id',
     ];
+    protected $appends = [
+        'full_name',
+    ];
 
     /**
      * @return BelongsTo
@@ -45,6 +48,11 @@ class Profile extends Model
     public function stations() : BelongsToMany
     {
         return $this->belongsToMany(GasStation::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->patronymic} {$this->surname}";
     }
 
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Template extends ListModel
 {
-    use SoftDeletes, CreatedUpdatedDatesModel, EagerLoadPivotTrait;
+    use SoftDeletes, EagerLoadPivotTrait;
 
     protected $fillable = [
         'author_id',

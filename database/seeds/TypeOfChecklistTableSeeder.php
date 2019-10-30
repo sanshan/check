@@ -11,6 +11,6 @@ class TypeOfChecklistTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\TypeOfChecklist::class, 10)->create();
+        factory(App\Models\TypeOfChecklist::class, 10)->create();
     }
 }

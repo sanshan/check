@@ -34,7 +34,7 @@ class TemplateController extends BaseController
      */
     public function dataTableIndex()
     {
-        $templates = Template::with('regions', 'templateTypes', 'gasStationTypes')->withCount('questions')->get();
+        $templates = Template::with('regions', 'templateTypes', 'gasStationTypes')->withCount('sections')->get();
         return datatables()->of(TemplateDTResource::collection($templates))
             ->addColumn('DT_RowId', function ($row) {
                 return 'row_' . $row['id'];

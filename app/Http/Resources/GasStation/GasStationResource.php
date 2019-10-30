@@ -21,7 +21,7 @@ class GasStationResource extends JsonResource
             'number'            => $this->number,
             'region'            => RegionResource::make($this->whenLoaded('region')),
             'type'              => TypeOfGasStationResource::make($this->whenLoaded('type')),
-            'address'           => $this->address,
+            //'address'           => $this->address,
             'is_shop'           => $this->is_shop,
             'it_works'          => $this->it_works,
             'dir_name'          => $this->dir_name,

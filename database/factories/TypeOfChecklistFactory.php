@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(TypeOfChecklist::class, function (Faker $faker) {
     return [
-        'title' => $faker->text(100),
+        'title' => str_replace('.', '', $faker->unique()->text(20)),
     ];
 });

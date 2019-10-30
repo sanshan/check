@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Role::class, function (Faker $faker) {
     return [
-        'title' => $faker->text(100),
+        'title' => str_replace('.', '', $faker->text(20)),
     ];
 });

@@ -2,33 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionPositionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionDestroyRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionDestroyRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionPositionSyncRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionQuestionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateSectionStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/TemplateSectionPivot.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/TemplateSectionQuestionPivot.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_074249_create_section_template_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_122240_question_section_template_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_10_28_132652_template_section_question_position.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/datatables.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateQuestionPositionController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Template/TemplateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/QuestionTemplatePivot.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Section.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/GasStation/GasStationResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateDTResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Template/TemplateDTResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Profile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Template.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ru.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TemplateTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Unit/ExampleTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/PositionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/PositionFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/RoleFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/RoleFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TemplateFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TemplateFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TypeOfChecklistFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TypeOfChecklistFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TypeOfGasStationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TypeOfGasStationFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_20_083742_create_question_template_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_28_133334_create_position_question_template_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_16_075423_append_column_full_name_to_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_30_091144_rename_author_id_to_user_id.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_23_124238_append_soft_delete_to_question_template_pivot.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/PositionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/PositionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RegionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RegionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RoleTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SectionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SectionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TemplateTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TemplateTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TypeOfChecklistTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TypeOfChecklistTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TypeOfGasStationTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TypeOfGasStationTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/TemplateTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TemplateTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -275,7 +275,7 @@
       <workItem from="1571928948307" duration="740000" />
       <workItem from="1571934631185" duration="784000" />
       <workItem from="1572241022430" duration="29581000" />
-      <workItem from="1572276898510" duration="25549000" />
+      <workItem from="1572276898510" duration="43703000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -347,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571667316923</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="New struct for manage Templates&#10;Add unit tests">
+      <created>1572355996830</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1572355996830</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -389,6 +396,7 @@
     <MESSAGE value="Added many pages" />
     <MESSAGE value="Controllers Refactoring" />
     <MESSAGE value="Add Filter Facade&#10;Add Filter trait" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Filter Facade&#10;Add Filter trait" />
+    <MESSAGE value="New struct for manage Templates&#10;Add unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="New struct for manage Templates&#10;Add unit tests" />
   </component>
 </project>

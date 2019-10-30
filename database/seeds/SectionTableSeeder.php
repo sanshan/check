@@ -11,15 +11,13 @@ class SectionTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Section::class, 10)->create()->each(function($r){
-            $r->questions()->saveMany(factory(App\Question::class, 40)->make());
+        factory(App\Models\Section::class, 10)->create()->each(function($r){
+            $r->questions()->saveMany(factory(App\Models\Question::class, 40)->make());
         });
 
-        $positions = App\Position::where('to_rate', 1)->get();
-
-        App\Question::all()->each(function($r) use ($positions){
+        App\Models\Question::all()->each(function($r){
            $r->positions()->attach(
-               $positions->random(rand(1,3))->pluck('id')->toArray()
+               App\Models\Position::where('to_rate', 1)->get()->random(rand(1,3))->pluck('id')->toArray()
            );
         });
     }
