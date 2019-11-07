@@ -15,8 +15,8 @@ class CreateTypeOfGasStationsTable extends Migration
     {
         Schema::create('type_of_gas_stations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 100);
-            $table->string('abbreviation', 10);
+            $table->string('title', 100)->unique();
+            $table->string('abbreviation', 10)->unique();
             $table->softDeletes();
             $table->timestamps();
         });

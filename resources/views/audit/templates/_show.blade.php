@@ -79,17 +79,16 @@
                         </div>
                     </div>
                     <div class="col-12 text-center">
-                        <a id="questionsButton" title="Добавить/удалить вопросы" class="btn btn-secondary btn-square kt-margin-b-20" href="#" data-id="">Добавить/удалить вопросы</a>
+                        <a id="showSectionsManagementModalButton" title="Добавить/удалить разделы" class="btn btn-secondary btn-square kt-margin-b-20" href="#" data-id="">Добавить/удалить разделы</a>
                     </div>
                 </div>
                 <!--begin: Datatable -->
-                <table id="templateQuestionsList" class="table table-bordered table-hover table-checkable">
+                <table id="templateSectionsList" class="table table-bordered table-hover table-checkable">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Вопрос</th>
-                        <th>Код</th>
                         <th>Раздел</th>
+                        <th>Вес</th>
                     </tr>
                     </thead>
                 </table>
@@ -104,4 +103,50 @@
 
 <!--end::Template Show Modal-->
 
+<!-- Template Show Questions -->
+
+<div class="modal" id="templateShowQuestions" tabindex="-1" role="dialog" aria-labelledby="templateShowQuestionsTitle" aria-hidden="true">
+    <div class="modal-dialog mw-100 w-50 modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="templateShowQuestionsTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body kt-scroll" data-scroll="true">
+                <div class="kt-invoice-2">
+                    <div class="col-12 text-center">
+                        <a id="showQuestionsManagementModalButton" title="Добавить/удалить вопросы" class="btn btn-secondary btn-square kt-margin-b-20" href="#" data-id="">Добавить/удалить вопросы</a>
+                    </div>
+                </div>
+                <!--begin: Datatable -->
+                <table id="templateQuestionsList" class="table table-bordered table-hover table-checkable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Вопрос</th>
+                        <th>Должности</th>
+                    </tr>
+                    </thead>
+                </table>
+                <!--end: Datatable -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--end::Template Show Questions-->
+
+@push('page-css')
+    <link href="/assets/app/custom/templates/dual-questions-listbox.default.css" rel="stylesheet" type="text/css"/>
+@endpush
+
+@push('scripts')
+    <script type="text/javascript" src="/assets/app/custom/templates/select.js"></script>
+@endpush
+
+@include('audit.templates._sections')
 @include('audit.templates._questions')

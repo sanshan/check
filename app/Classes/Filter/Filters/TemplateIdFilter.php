@@ -6,6 +6,6 @@ class TemplateIdFilter
 {
     public function filter($builder, $value)
     {
-        $builder->where('id', $value);
+        $builder->where('templates.id', $value);
     }
 }

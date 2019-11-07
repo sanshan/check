@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\Position;
 use App\Models\Question;
+use App\Models\Region;
 use App\Models\Section;
 use App\Models\Template;
 use App\Models\TypeOfChecklist;
+use App\Models\TypeOfGasStation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -34,6 +36,206 @@ class TemplateTest extends TestCase
         $this->_template = $this->_user->templates()->save(
             factory(Template::class)->make()
         );
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_create_template()
+    {
+        $params = [
+            'types_of_gas_station' => factory(TypeOfGasStation::class, 2)->create()->pluck('id')->toArray(),
+            'type_of_checklist'    => factory(TypeOfChecklist::class)->create()->id,
+            'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
+            'status'               => rand(0, 1),
+        ];
+        $this->json(
+            'POST',
+            route('templates.store'),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => __('Record created successfully.'),
+            ]);
+
+        tap(Template::orderBy('id', 'desc')->first(), function ($template) use ($params) {
+            $this->assertEquals($params['types_of_gas_station'], $template->gasStationTypes->pluck('id')->toArray());
+            $this->assertEquals($params['type_of_checklist'], $template->templateTypes->id);
+            $this->assertEquals($params['regions'], $template->regions->pluck('id')->toArray());
+            $this->assertEquals((int)$params['status'], (int)$template->status);
+        });
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_create_template_only_with_correct_type_of_gas_station()
+    {
+        $params = [
+            'types_of_gas_station' => [1000],
+            'type_of_checklist'    => factory(TypeOfChecklist::class)->create()->id,
+            'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
+            'status'               => rand(0, 1),
+        ];
+        $this->json(
+            'POST',
+            route('templates.store'),
+            $params
+        )
+            ->assertStatus(422);
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_create_template_only_with_correct_type_of_checklist()
+    {
+        $params = [
+            'types_of_gas_station' => factory(TypeOfGasStation::class, 2)->create()->pluck('id')->toArray(),
+            'type_of_checklist'    => 1000,
+            'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
+            'status'               => rand(0, 1),
+        ];
+        $this->json(
+            'POST',
+            route('templates.store'),
+            $params
+        )
+            ->assertStatus(422);
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_create_template_only_with_correct_regions()
+    {
+        $params = [
+            'types_of_gas_station' => factory(TypeOfGasStation::class, 2)->create()->pluck('id')->toArray(),
+            'type_of_checklist'    => factory(TypeOfChecklist::class)->create()->id,
+            'regions'              => [1000],
+            'status'               => rand(0, 1),
+        ];
+        $this->json(
+            'POST',
+            route('templates.store'),
+            $params
+        )
+            ->assertStatus(422);
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_create_template_only_with_correct_status()
+    {
+        $params = [
+            'types_of_gas_station' => factory(TypeOfGasStation::class, 2)->create()->pluck('id')->toArray(),
+            'type_of_checklist'    => factory(TypeOfChecklist::class)->create()->id,
+            'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
+            'status'               => 3,
+        ];
+        $this->json(
+            'POST',
+            route('templates.store'),
+            $params
+        )
+            ->assertStatus(422);
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_update_template()
+    {
+        $params = [
+            'types_of_gas_station' => factory(TypeOfGasStation::class, 2)->create()->pluck('id')->toArray(),
+            'type_of_checklist'    => factory(TypeOfChecklist::class)->create()->id,
+            'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
+            'status'               => 1,
+        ];
+        $this->json(
+            'PUT',
+            route('templates.update', ['template' => $this->_template->id]),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => __('Record updated successfully.'),
+            ]);
+
+        tap(Template::find($this->_template->id), function ($template) use ($params) {
+            $this->assertEquals($params['types_of_gas_station'], $template->gasStationTypes->pluck('id')->toArray());
+            $this->assertEquals($params['type_of_checklist'], $template->templateTypes->id);
+            $this->assertEquals($params['regions'], $template->regions->pluck('id')->toArray());
+            $this->assertEquals((int)$params['status'], (int)$template->status);
+        });
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_list_sections_from_the_template()
+    {
+        $sections1 = factory(Section::class, 2)->create();
+        factory(Section::class, 2)->create();
+
+        $this->_template->sections()->attach($sections1);
+
+        $sections = $this->_template->sections->map(function ($section) {
+            return $section->only(['id', 'title']);
+        });
+
+        $params = [
+            'present_in_template' => $this->_template->id,
+        ];
+        $this->json(
+            'GET',
+            route('templates.sections.index.datatable', ['template' => $this->_template->id]),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJsonCount(2, 'data')
+            ->assertJson([
+                'data' => $sections->toArray(),
+            ]);
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_list_non_template_sections()
+    {
+        $sections1 = factory(Section::class, 2)->create();
+        $sections2 = factory(Section::class, 5)->create();
+
+        $this->_template->sections()->attach($sections1);
+
+        $sections = $sections2->map(function ($section) {
+            return $section->only(['id', 'title']);
+        });
+
+        $params = [
+            'missing_in_template' => $this->_template->id,
+        ];
+        $this->json(
+            'GET',
+            route('sections.index.datatable'),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJsonCount(5, 'data')
+            ->assertJson([
+                'data' => $sections->toArray(),
+            ]);
 
     }
 
@@ -79,7 +281,6 @@ class TemplateTest extends TestCase
                 $section1->id,
             ],
         ];
-
         $this->json('POST', route('templates.sections.store', ['template' => $this->_template->id]), $params)
             ->assertStatus(422);
 
@@ -90,19 +291,24 @@ class TemplateTest extends TestCase
      */
     public function user_can_remove_sections_from_template()
     {
-        $section1 = factory(Section::class)->create();
-        $section2 = factory(Section::class)->create();
-        $section3 = factory(Section::class)->create();
+        $this->withoutExceptionHandling();
 
-        $this->_template->sections()->attach([
-            $section1->id,
-            $section2->id,
-            $section3->id,
-        ]);
+        $sections = factory(Section::class, 3)->create()->each(function ($r) {
+            $r->questions()->saveMany(factory(Question::class, 10)->make());
+        });
+        factory(Position::class, 15)->create();
+        $deletingPositionId = $sections->first()->id;
+        Question::all()->each(function ($r) {
+            $r->positions()->attach(
+                Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
+
+        $this->_template->sections()->attach($sections);
 
         $params = [
             'sections' => [
-                $section2->id,
+                $deletingPositionId,
             ],
         ];
         $this->json('DELETE', route('templates.sections.destroy', ['template' => $this->_template->id]), $params)
@@ -112,7 +318,7 @@ class TemplateTest extends TestCase
             ]);
 
         $this->assertEquals(2, $this->_template->sections()->count());
-        $this->assertEquals(0, $this->_template->sections()->where('sections.id', $section2->id)->get()->count());
+        $this->assertEquals(0, $this->_template->sections()->where('sections.id', $deletingPositionId)->get()->count());
 
     }
 
@@ -178,6 +384,63 @@ class TemplateTest extends TestCase
     /**
      * @test
      */
+    public function user_can_list_questions_in_section_from_the_template()
+    {
+        $section = factory(Section::class)->create();
+
+        $section->questions()->saveMany(factory(Question::class, 10)->make());
+
+        $questions = $section->questions->map(function ($question) {
+            return $question->only(['id', 'title']);
+        });
+
+        $this->_template->sections()->attach($section->id);
+
+        $this->json(
+            'GET',
+            route(
+                'templates.sections.questions.index',
+                [
+                    'template' => $this->_template->id,
+                    'section'  => $section->id,
+                ]
+            )
+        )
+            ->assertStatus(200)
+            ->assertJsonCount(10, 'data')
+            ->assertJson([
+                'data' => $questions->toArray(),
+            ]);
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_see_the_list_of_questions_available_for_adding_to_the_template_section()
+    {
+        $section = factory(Section::class)->create();
+        $section->questions()->saveMany(factory(Question::class, 10)->make());
+        $customQuestionsId = $section->questions->random(3)->pluck('id');
+        $this->_template->sections()->attach($section->id);
+
+        $this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->detach($customQuestionsId);
+
+        $params = [
+            'missing_in_section_template' => $this->_template->sections()->where('sections.id', $section->id)->first()->pivot->id,
+        ];
+        $this->json(
+            'GET',
+            route('sections.questions.index.datatable', ['section' => $section->id]),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJsonCount(3, 'data');
+
+    }
+
+    /**
+     * @test
+     */
     public function user_can_remove_questions_from_template()
     {
         $this->withoutExceptionHandling();
@@ -186,6 +449,13 @@ class TemplateTest extends TestCase
         foreach ($sections as $section) {
             $section->questions()->saveMany(factory(Question::class, 5)->make());
         }
+        factory(Position::class, 15)->create();
+        Question::all()->each(function ($question) {
+            $question->positions()->attach(
+                Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
+
         $sectionsID = $sections->take(2)->pluck('id')->toArray();
 
         $this->_template->sections()->attach($sectionsID);
@@ -303,60 +573,6 @@ class TemplateTest extends TestCase
         ];
         $this->json('POST', route('templates.sections.questions.store', ['template' => $this->_template->id, 'section' => $section->id]), $params)
             ->assertStatus(422);
-
-    }
-
-    /**
-     * @test
-     */
-    public function user_can_sync_positions_in_the_template()
-    {
-        $this->withoutExceptionHandling();
-
-        $section = factory(Section::class)->create();
-        $question = $section->questions()
-            ->saveMany(factory(Question::class, 3)->make())
-            ->first();
-        $positions = $question->positions()->saveMany(factory(Position::class, 5)->make());
-
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
-
-        $params = [
-            'positions' => $positions->take(2)->pluck('id')->toArray(),
-        ];
-
-        $this->json(
-            'POST',
-            route(
-                'templates.sections.questions.positions.update',
-                [
-                    'template' => $this->_template->id,
-                    'section'  => $section->id,
-                    'question' => $question->id
-                ]
-            ),
-            $params
-        )
-            ->assertStatus(200)
-            ->assertJson([
-                'message' => __('Positions synced.'),
-            ]);
-
-        $this->assertEquals(
-            $this->_template->sections()
-                ->where('sections.id', $section->id)
-                ->first()
-                ->pivot
-                ->questions()
-                ->where('questions.id', $question->id)
-                ->first()
-                ->pivot
-                ->positions()
-                ->count(),
-            2
-        );
 
     }
 
@@ -527,4 +743,194 @@ class TemplateTest extends TestCase
             ->assertStatus(422);
 
     }
+
+    /**
+     * @test
+     */
+    public function user_can_edit_section_weight()
+    {
+        $section = factory(Section::class)->create();
+        $section->questions()->saveMany(factory(Question::class, 10)->make());
+        factory(Position::class, 20)->create();
+
+        $section->questions->each(function ($question) {
+            $question->positions()->attach(Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray());
+        });
+
+        $this->_template->sections()->attach($section);
+
+        $params = [
+            'weight' => 20,
+        ];
+        $this->json(
+            'PATCH',
+            route(
+                'templates.sections.update',
+                [
+                    'template' => $this->_template->id,
+                    'section'  => $section->id,
+                ]
+            ),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => __('Section weight updated'),
+            ]);
+
+        tap($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->pluck('weight'), function ($weight) use ($params) {
+            $this->assertEquals($weight[0], $params['weight']);
+        });
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_edit_section_weight_only_with_correct_value()
+    {
+        $section = factory(Section::class)->create();
+        $section->questions()->saveMany(factory(Question::class, 10)->make());
+        factory(Position::class, 20)->create();
+
+        $section->questions->each(function ($question) {
+            $question->positions()->attach(Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray());
+        });
+
+        $this->_template->sections()->attach($section);
+
+        $params = [
+            'weight' => 'test',
+        ];
+        $this->json(
+            'PATCH',
+            route(
+                'templates.sections.update',
+                [
+                    'template' => $this->_template->id,
+                    'section'  => $section->id,
+                ]
+            ),
+            $params
+        )
+            ->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_get_positions_from_question_in_template()
+    {
+        $section = factory(Section::class)->create();
+        $section->questions()->saveMany(factory(Question::class, 20)->make());
+        factory(Position::class, 20)->create();
+
+        $section->questions->each(function ($question) {
+            $question->positions()->attach(Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray());
+        });
+
+        $question = $section->questions->first();
+        $positions = $question->positions;
+
+        \Log::info($positions);
+
+        $this->_template->sections()->attach($section);
+
+        $template = $this->_template;
+        $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+        $tsq = $ts->questions()->where('questions.id', $question->id)->first()->pivot;
+        $positionsInTemplate = $tsq->positions;
+
+
+        $params = [
+            'template' => $template->id,
+            'ts'       => $ts->id,
+            'tsq'      => $tsq->id,
+        ];
+
+        $this->json(
+            'GET',
+            route('templates.sections.questions.positions.index',
+                $params
+            )
+        )
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => __('Data retrieved successfully.'),
+            ])
+            ->assertJsonCount($positionsInTemplate->count(), 'data');
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_sync_positions_in_the_template()
+    {
+
+        $section = factory(Section::class)->create();
+        $question = $section->questions()
+            ->saveMany(factory(Question::class, 3)->make())
+            ->first();
+        $positions = $question->positions()->saveMany(factory(Position::class, 5)->make());
+
+        $this->_template->sections()->attach([
+            $section->id,
+        ]);
+
+        $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+        $tsq = $ts->questions()->where('questions.id', $question->id)->first()->pivot;
+
+        $params = [
+            'positions' => $positions->take(2)->pluck('id')->toArray(),
+        ];
+        $this->json(
+            'POST',
+            route(
+                'templates.sections.questions.positions.update',
+                [
+                    'template' => $this->_template->id,
+                    'ts'  => $ts->id,
+                    'tsq' => $tsq->id,
+                ]
+            ),
+            $params
+        )
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => __('Positions synced.'),
+            ]);
+
+        $this->assertEquals(
+            $this->_template->sections()
+                ->where('sections.id', $section->id)
+                ->first()
+                ->pivot
+                ->questions()
+                ->where('questions.id', $question->id)
+                ->first()
+                ->pivot
+                ->positions()
+                ->count(),
+            2
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_access_to_positions_in_questions_from_template_only_with_current_tq_param()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function user_can_access_to_positions_in_questions_from_template_only_with_current_tqs_param()
+    {
+
+    }
+
 }

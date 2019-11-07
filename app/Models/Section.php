@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends ListModel
 {
-    use SoftDeletes;
+    use EagerLoadPivotTrait;
 
     protected $fillable = [
         'title',
@@ -30,6 +30,7 @@ class Section extends ListModel
     {
         return $this->belongsToMany(Template::class)
             ->using('App\Models\TemplateSectionPivot')
-            ->withPivot('id');
+            ->withPivot(['id', 'weight']);
     }
+
 }

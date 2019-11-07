@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -28,6 +28,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('typeofgasstation', \App\Models\TypeOfGasStation::class);
         Route::model('typeofchecklist', \App\Models\TypeOfChecklist::class);
         Route::model('gasstation', \App\Models\GasStation::class);
+        Route::model('ts', \App\Models\TemplateSectionPivot::class);
+        Route::model('tsq', \App\Models\TemplateSectionQuestionPivot::class);
     }
 
     /**

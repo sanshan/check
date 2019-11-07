@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Region::class, function (Faker $faker) {
     return [
-        'title' => $faker->city,
+        'title' => $faker->unique()->city,
     ];
 });

@@ -9,6 +9,10 @@ class TemplateSectionPivot extends Pivot
     public $incrementing = true;
     protected $table = 'section_template';
 
+    protected $fillable = [
+        'weight',
+    ];
+
     public static function boot()
     {
         parent::boot();
@@ -21,6 +25,9 @@ class TemplateSectionPivot extends Pivot
 
         static::deleting(function ($item) {
             $pivot = TemplateSectionPivot::where('section_id', $item->section_id)->where('template_id', $item->template_id)->firstOrFail();
+            $pivot->questions->each(function($question){
+                $question->pivot->positions()->detach();
+            });
             $pivot->questions()->detach();
         });
     }

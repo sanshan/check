@@ -3,25 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Template\TemplateSectionQuestionPositionSyncRequest;
-use App\Models\Question;
-use App\Models\Section;
+use App\Http\Resources\Position\PositionSelect2Resource;
 use App\Models\Template;
+use App\Models\TemplateSectionPivot;
+use App\Models\TemplateSectionQuestionPivot;
 
 class TemplateSectionQuestionPositionController extends BaseController
 {
-    public function update(TemplateSectionQuestionPositionSyncRequest $request, Template $template, Section $section, Question $question)
+    public function index(Template $template, TemplateSectionPivot $ts, TemplateSectionQuestionPivot $tsq)
     {
-        $template->sections()
-            ->where('sections.id',$section->id)
-            ->first()
-            ->pivot
-            ->questions()
-            ->where('questions.id',$question->id)
-            ->first()
-            ->pivot
-            ->positions()
-            ->sync($request->positions);
+        $positions = $tsq->positions;
 
+        return $this->sendResponse(PositionSelect2Resource::collection($positions), __('Data retrieved successfully.'));
+    }
+
+    public function update(TemplateSectionQuestionPositionSyncRequest $request, Template $template, TemplateSectionPivot $ts, TemplateSectionQuestionPivot $tsq)
+    {
+        $tsq->positions()->sync($request->positions);
 
         return $this->sendResponse('', __('Positions synced.'));
     }

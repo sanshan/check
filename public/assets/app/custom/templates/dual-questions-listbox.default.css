@@ -1,0 +1,36 @@
+.dual-listbox {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row; }
+  .dual-listbox .dual-listbox__buttons {
+    margin: 0 1rem;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column; }
+    .dual-listbox .dual-listbox__buttons .dual-listbox__button {
+      border: 0;
+      outline: none !important;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      padding: 0.5rem 1rem;
+      color: #a2a5b9;
+      font-weight: 500;
+      font-size: 0.9rem;
+      background-color: #f2f3f7;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      margin-bottom: 5px; }
+      .dual-listbox .dual-listbox__buttons .dual-listbox__button i {
+        font-size: 0.6rem; }

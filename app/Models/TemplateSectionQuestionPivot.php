@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class TemplateSectionQuestionPivot extends Pivot
 {
     public $incrementing = true;
+    protected $table = 'question_section_template';
 
     public static function boot()
     {
@@ -18,8 +19,8 @@ class TemplateSectionQuestionPivot extends Pivot
         });
 
         static::deleting(function ($item) {
-            //$pivot = TemplateSectionQuestionPivot::where('question_id', $item->section_id)->where('template_id', $item->template_id)->firstOrFail();
-            //$pivot->questions()->detach();
+            $pivot = TemplateSectionQuestionPivot::where('section_template_id', $item->section_template_id)->where('question_id', $item->question_id)->firstOrFail();
+            $pivot->positions()->detach();
         });
     }
 

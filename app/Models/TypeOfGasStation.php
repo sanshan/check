@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TypeOfGasStation extends ListModel
 {
-    use SoftDeletes;
 
     protected $fillable = [
         'title',

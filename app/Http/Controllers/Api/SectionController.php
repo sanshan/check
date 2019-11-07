@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Section\SectionIndexRequest;
 use App\Http\Requests\Section\SectionStoreRequest;
 use App\Http\Requests\Section\SectionUpdateRequest;
+use App\Http\Requests\Template\TemplateSectionIndexRequest;
 use App\Http\Resources\Section\SectionDTResource;
 use App\Http\Resources\Section\SectionInfoResource;
 use App\Http\Resources\Section\SectionResource;
@@ -28,12 +29,13 @@ class SectionController extends BaseController
     }
 
     /**
+     * @param TemplateSectionIndexRequest $request
      * @return mixed
      * @throws \Exception
      */
-    public function dataTableIndex()
+    public function dataTableIndex(TemplateSectionIndexRequest $request)
     {
-        $sections = Section::withCount('questions')->get();
+        $sections = Section::withCount('questions')->filter($request)->get();
 
         return datatables()->of(SectionDTResource::collection($sections))
             ->addColumn('DT_RowId', function ($row) {

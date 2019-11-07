@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends ListModel
 {
-    use SoftDeletes, CreatedUpdatedDatesModel, EagerLoadPivotTrait;
+    use CreatedUpdatedDatesModel, EagerLoadPivotTrait;
 
     protected $fillable = [
         'section_id',
@@ -41,7 +41,7 @@ class Question extends ListModel
         return $this->belongsToMany(Position::class);
     }
 
-    public function scopeFrom($query, $section_id)
+    public function scopeFromSection($query, $section_id)
     {
         return $query->where('section_id', $section_id);
     }

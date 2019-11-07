@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Region extends ListModel
 {
-    use SoftDeletes;
 
     protected $fillable = [
         'title',

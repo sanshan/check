@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Template extends ListModel
 {
-    use SoftDeletes, EagerLoadPivotTrait;
+    use EagerLoadPivotTrait;
 
     protected $fillable = [
-        'author_id',
+        'user_id',
         'editor_id',
         'type_of_gas_station_id',
         'type_of_checklist_id',
         'status',
     ];
     protected $hidden = [
-        'author_id',
+        'user_id',
         'editor_id',
         'type_of_gas_station_id',
         'type_of_checklist_id',
@@ -35,7 +35,7 @@ class Template extends ListModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -52,7 +52,7 @@ class Template extends ListModel
     {
         return $this->belongsToMany(Section::class)
             ->using('App\Models\TemplateSectionPivot')
-            ->withPivot('id');
+            ->withPivot(['id', 'weight']);
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Http\Resources\Template\TemplateInfoResource;
 use App\Http\Resources\Template\TemplateResource;
 use App\Http\Resources\Template\TemplateSelect2Resource;
 use App\Models\Template;
+use App\Models\User;
 use DB;
 
 class TemplateController extends BaseController
@@ -39,9 +40,6 @@ class TemplateController extends BaseController
             ->addColumn('DT_RowId', function ($row) {
                 return 'row_' . $row['id'];
             })
-            ->addColumn('link', function ($row) {
-                return '<a class="model-show font-weight-bold" title="Шаблон №' . $row['id'] . '" href="#" data-id="' . $row['id'] . '">' . $row['title'] . '</a>';
-            })
             ->rawColumns(['link'])
             ->toJson();
     }
@@ -55,28 +53,25 @@ class TemplateController extends BaseController
     {
         $template = DB::transaction(function () use ($request) {
             $template = Template::create([
-                'author_id'            => 1,
-                'editor_id'            => 1,
-                'type_of_checklist_id' => $request->type_of_checklist_id,
-                'status'               => $request->it_works,
+                'user_id'              => User::inRandomOrder()->first()->id,
+                'editor_id'            => User::inRandomOrder()->first()->id,
+                'type_of_checklist_id' => $request->type_of_checklist,
+                'status'               => $request->status,
             ]);
 
-            $template->gasStationTypes()->sync($request->type_of_gas_station_id);
+            $template->gasStationTypes()->sync($request->types_of_gas_station);
             $template->regions()->sync($request->regions);
 
             return $template;
         });
 
-        return $this->sendResponse(TemplateInfoResource::make($template), __('Data created successfully.'));
+        return $this->sendResponse(TemplateInfoResource::make($template), __('Record created successfully.'));
     }
 
-    /**
-     * @param Template $template
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Template $template)
     {
-        $template->load(['author.profile', 'editor.profile', 'gasStationTypes', 'templateTypes', 'regions'])->withCount('questions');
+        $template->load(['user.profile', 'editor.profile', 'gasStationTypes', 'templateTypes', 'regions']);
 
         return $this->sendResponse(TemplateResource::make($template), __('Data retrieved successfully.'));
     }
@@ -90,12 +85,12 @@ class TemplateController extends BaseController
     public function update(TemplateUpdateRequest $request, Template $template)
     {
         $template = DB::transaction(function () use ($request, $template) {
-            $template->editor_id = 2;
-            $template->type_of_checklist_id = $request->type_of_checklist_id;
-            $template->status = $request->it_works;
+            $template->user_id = User::inRandomOrder()->first()->id;
+            $template->type_of_checklist_id = $request->type_of_checklist;
+            $template->status = $request->status;
             $template->save();
-            $template->gasStationTypes()->sync($request->type_of_gas_station_id);
-            $template->regions()->sync($request->region_id);
+            $template->gasStationTypes()->sync($request->types_of_gas_station);
+            $template->regions()->sync($request->regions);
 
             return $template;
         });
@@ -113,7 +108,7 @@ class TemplateController extends BaseController
         $template = DB::transaction(function () use ($template) {
             $template->gasStationTypes()->detach();
             $template->regions()->detach();
-            $template->questions()->detach();
+            //$template->sections()->detach();
             $template->delete();
 
             return $template;

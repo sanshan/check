@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Position extends ListModel
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'title',
         'code',

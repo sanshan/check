@@ -49,10 +49,14 @@ Route::apiResource('templates', 'Api\TemplateController');
 Route::get('tasks/datatable', 'Api\TaskController@dataTableIndex')->name('tasks.index.datatable');
 Route::apiResource('tasks', 'Api\TaskController');
 
+Route::get('templates/{template}/sections', 'Api\TemplateSectionController@dataTableIndex')->name('templates.sections.index.datatable');
 Route::post('templates/{template}/sections', 'Api\TemplateSectionController@store')->name('templates.sections.store');
+Route::patch('templates/{template}/sections/{section}', 'Api\TemplateSectionController@update')->name('templates.sections.update');
 Route::delete('templates/{template}/sections', 'Api\TemplateSectionController@destroy')->name('templates.sections.destroy');
 
+Route::get('templates/{template}/sections/{section}/questions', 'Api\TemplateSectionQuestionController@index')->name('templates.sections.questions.index');
 Route::post('templates/{template}/sections/{section}/questions', 'Api\TemplateSectionQuestionController@store')->name('templates.sections.questions.store');
 Route::delete('templates/{template}/sections/{section}/questions', 'Api\TemplateSectionQuestionController@destroy')->name('templates.sections.questions.destroy');
 
-Route::post('templates/{template}/sections/{section}/questions/{question}/positions', 'Api\TemplateSectionQuestionPositionController@update')->name('templates.sections.questions.positions.update');
+Route::get('templates/{template}/sections/{ts}/questions/{tsq}/positions', 'Api\TemplateSectionQuestionPositionController@index')->name('templates.sections.questions.positions.index');
+Route::post('templates/{template}/sections/{ts}/questions/{tsq}/positions', 'Api\TemplateSectionQuestionPositionController@update')->name('templates.sections.questions.positions.update');

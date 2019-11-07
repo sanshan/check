@@ -17,12 +17,12 @@ class QuestionController extends BaseController
 {
 
     /**
-     * @param QuestionIndexRequest $request
+     * @param Section $section
      * @return \Illuminate\Http\Response
      */
-    public function index(QuestionIndexRequest $request)
+    public function index(Section $section)
     {
-        $questions = Question::filter($request)
+        $questions = Question::fromSection($section->id)
             ->take(10)
             ->get();
 
@@ -31,14 +31,14 @@ class QuestionController extends BaseController
 
     /**
      * @param QuestionIndexRequest $request
+     * @param Section $section
      * @return mixed
      * @throws \Exception
      */
     //Надо убрать это отсюда
-    public function dataTableIndex(QuestionIndexRequest $request)
+    public function dataTableIndex(QuestionIndexRequest $request, Section $section)
     {
-        $questions = Question::with('positions')
-            ->from($request->route('section'))
+        $questions = Question::filter($request)
             ->get();
 
         return datatables()->of(QuestionDTResource::collection($questions))

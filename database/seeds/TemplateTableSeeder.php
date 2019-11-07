@@ -41,20 +41,5 @@ class TemplateTableSeeder extends Seeder
                 );
             });
         });
-
-        /*App\Models\User::inRandomOrder()->take(20)->get()->each(function ($user) {
-            $user->templates()->createMany(factory(App\Models\Template::class, rand(2, 3))->make())
-                ->each(function ($template) {
-                    $template->sections()->sync(App\Models\Section::inRandomOrder()->take(rand(1, 10))->get());
-                    $template->gasStationTypes()->sync(App\Models\TypeOfGasStation::inRandomOrder()->take(rand(1, 3))->get());
-                });
-        });*/
-
-        /*factory(App\Models\Template::class, 10)->create()->each(function($r){
-            $sections = App\Models\Section::inRandomOrder()->take(rand(1,10))->get();
-            $gasStationTypes = App\Models\TypeOfGasStation::inRandomOrder()->take(rand(1,3))->get();
-            $r->sections()->sync($sections);
-            $r->gasStationTypes()->sync($gasStationTypes);
-        });*/
     }
 }
