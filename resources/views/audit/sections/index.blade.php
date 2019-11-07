@@ -57,7 +57,6 @@
                     <tr>
                         <th>#</th>
                         <th>Название</th>
-                        <th>Вопросов</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -140,7 +139,6 @@
                     columns: [
                         {data: 'id'},
                         {data: 'link'},
-                        {data: 'questions_count'},
                         {data: '', responsivePriority: -1},
                     ],
                     columnDefs: [
