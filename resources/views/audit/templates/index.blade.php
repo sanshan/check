@@ -406,6 +406,73 @@
     </div>
     <!--end::Template Positions Edit Modal-->
 
+    <!-- Template Questions Management Modal -->
+    <div class="modal" id="templateQuestionsManagement" tabindex="-1" role="dialog" aria-labelledby="templateQuestionsManagementTitle"
+         aria-hidden="true">
+        <div class="modal-dialog mw-100 w-75 modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateQuestionsManagementTitle">Управление вопросами в разделе шаблона</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="dual-listbox">
+                        <div style="flex-basis: 0; flex-grow: 1;">
+                            <form id="questionsAddedForm" action="" method="post">
+                                @method('DELETE')
+                            </form>
+                            <h4 class="text-center">Вопросы в разделе</h4>
+                            <div id="questionsAdded_container" class="kt-scroll" data-scroll="true"
+                                 style="height: 75vh; overflow: hidden;">
+                                <!--begin: Datatable -->
+                                <table id="questionsAdded" class="table table-bordered table-hover table-checkable">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Раздел</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                <!--end: Datatable -->
+                            </div>
+                        </div>
+                        <div class="dual-listbox__buttons">
+                            <button id="addQuestionButton" class="dual-listbox__button"><i class="flaticon2-back"></i>
+                            </button>
+                            <button id="removeQuestionButton" class="dual-listbox__button"><i class="flaticon2-next"></i>
+                            </button>
+                        </div>
+                        <div style="flex-basis: 0; flex-grow: 1;">
+                            <form id="unAppliedQuestionsForm" action="" method="post">
+                            </form>
+                            <h4 class="text-center">Доступные вопросы</h4>
+                            <div id="unAppliedQuestions_container" class="kt-scroll" data-scroll="true"
+                                 style="height: 75vh; overflow: hidden;">
+                                <!--begin: Datatable -->
+                                <table id="unAppliedQuestions" class="table table-bordered table-hover table-checkable">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Раздел</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                <!--end: Datatable -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Template Questions Management Modal-->
+
     <!-- end:: Content -->
 
 @endsection

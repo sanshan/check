@@ -12,7 +12,6 @@ class TemplateSectionQuestionController extends BaseController
 {
     public function index(Template $template, Section $section)
     {
-
         $template->load('sections.pivot.questions.pivot.positions');
         $questions = $template->sections()->where('sections.id', $section->id)->first()->pivot->questions;
 

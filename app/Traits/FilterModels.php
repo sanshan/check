@@ -11,6 +11,7 @@ trait FilterModels
 {
     public function scopeFilter(Builder $builder, Request $request)
     {
+        \Log::info($request->validated());
         return ListFilterFacade::filter($builder, $request->validated());
     }
 }

@@ -25,6 +25,8 @@ class TemplateManagement {
         this.questions = {};
         this.questions.modal = $(KTUtil.get('showQuestionsModal'));
         this.questions.tableElement = $(KTUtil.get('templateSectionsQuestionsList'));
+        this.questions.unAppliedQuestionsForm = $(KTUtil.get('unAppliedQuestionsForm'));
+        this.questions.questionsAddedForm = $(KTUtil.get('questionsAddedForm'));
         this.positions = {};
         this.positions.positionsModal = $(KTUtil.get('templatePositionsModal'));
         this.positions.select2 = this.initSelect2(KTUtil.get('positions'), '/api/positions');
@@ -49,6 +51,13 @@ class TemplateManagement {
         this.bindTemplateSectionQuestionsCloseEvent();
         this.bindPositionsSaveButtonEvent();
         this.bindPositionsSubmitFormEvent();
+        this.bindOpenQuestionManagementModalEvent();
+        this.bindShowQuestionManagementModalEvent();
+        this.bindTemplateQuestionCloseEvent();
+        this.bindAddQuestionToTemplateEvent();
+        this.bindRemoveQuestionFromTemplateEvent();
+        this.removeQuestionsFromTemplateFormSubmit();
+        this.addQuestionsToTemplateFormSubmit();
     }
 
     bindZIndexModal = () => {
@@ -452,6 +461,10 @@ class TemplateManagement {
         let section_id = event.relatedTarget.dataset.id;
         let ts = event.relatedTarget.dataset.ts;
         let template_id = this.templates.openTemplateId;
+        this.sections.openSectionId = section_id;
+
+        $('#showQuestionsModal').find('#showQuestionsManagementModalButton').attr('data-id', section_id);
+        $('#showQuestionsModal').find('#showQuestionsManagementModalButton').attr('data-ts', ts);
         this.initTemplateSectionQuestions(section_id, template_id, ts);
     };
 
@@ -602,6 +615,255 @@ class TemplateManagement {
                 parent.displayError(xhr, status, errorThrown);
                 KTApp.unblock(parent.sections.management.weightEditModal.find('.modal-content'));
             }
+        });
+    };
+
+    bindOpenQuestionManagementModalEvent = () => {
+        $('#showQuestionsManagementModalButton').on('click', (event) => {
+            event.preventDefault();
+            $('#templateQuestionsManagement').modal('show', event.target);
+        });
+    };
+
+    bindShowQuestionManagementModalEvent = () => {
+        $('#templateQuestionsManagement').on('show.bs.modal', this.renderQuestionManagement);
+    };
+
+    renderQuestionManagement = (event) => {
+        let t = this.templates.openTemplateId;
+        let s = event.relatedTarget.dataset.id;
+        let ts = event.relatedTarget.dataset.ts;
+        console.log('t: ' + t);
+        console.log('s: ' + s);
+        console.log('ts: ' + ts);
+
+        this.initQuestionsAddedTable(t, s);
+        this.initQuestionsUnAppliedTable(s, ts);
+    };
+
+    initQuestionsAddedTable = (t, s) => {
+        this.questions.addedQuestionsTable = $(KTUtil.get('questionsAdded')).DataTable({
+            sPaginationType: 'listbox',
+            async: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '/api/templates/'+ t +'/sections/'+ s +'/questions',
+            },
+
+            order: [[1, 'asc']],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json",
+                select: {
+                    rows: {
+                        '_': 'Вопросов выбрано: %d',
+                        '0': '',
+                        '1': 'Вопросов выбрано: %d'
+                    }
+                }
+            },
+            columns: [
+                {data: 'DT_RowId'},
+                {data: 'id'},
+                {data: 'title'},
+            ],
+            select: {
+                style: 'multi',
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    orderable: false,
+                    render: function (data, type, row, meta) {
+                        if (type === 'display') {
+                            data = '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>';
+                        }
+
+                        return data;
+                    },
+                    'checkboxes': {
+                        'selectRow': true,
+                        'selectAllRender': '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>'
+                    }
+                },
+                {
+                    targets: 1,
+                    width: '5%',
+                },
+            ],
+            drawCallback: (settings) => {
+                KTApp.unblock(KTUtil.get('questionsAdded'));
+            },
+        });
+    };
+
+    initQuestionsUnAppliedTable = (s, ts) => {
+        this.questions.unAppliedQuestionsTable = $(KTUtil.get('unAppliedQuestions')).DataTable({
+            sPaginationType: 'listbox',
+            async: false,
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '/api/sections/'+ s +'/questions/datatable',
+                data: {
+                    'missing_in_section_template': ts
+                },
+            },
+
+            order: [[1, 'asc']],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json",
+                select: {
+                    rows: {
+                        '_': 'Вопросов выбрано: %d',
+                        '0': '',
+                        '1': 'Вопросов выбрано: %d'
+                    }
+                }
+            },
+            columns: [
+                {data: 'DT_RowId'},
+                {data: 'id'},
+                {data: 'title'},
+            ],
+            select: {
+                style: 'multi',
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    orderable: false,
+                    render: function (data, type, row, meta) {
+                        if (type === 'display') {
+                            data = '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>';
+                        }
+
+                        return data;
+                    },
+                    'checkboxes': {
+                        'selectRow': true,
+                        'selectAllRender': '<label class="kt-checkbox m-0 p-0"><input class="dt-checkboxes" type="checkbox"><span class="position-relative d-block"></span></label>'
+                    }
+                },
+                {
+                    targets: 1,
+                    width: '5%',
+                },
+            ],
+            drawCallback: (settings) => {
+                KTApp.unblock(KTUtil.get('unAppliedQuestions'));
+            },
+        });
+    };
+
+    bindTemplateQuestionCloseEvent = () => {
+        let parent = this;
+        $('#templateQuestionsManagement').on('hide.bs.modal', function (event) {
+            parent.questions.addedQuestionsTable.clear();
+            parent.questions.addedQuestionsTable.destroy();
+            parent.questions.unAppliedQuestionsTable.clear();
+            parent.questions.unAppliedQuestionsTable.destroy();
+        })
+    };
+
+    bindAddQuestionToTemplateEvent = () => {
+        $('#addQuestionButton').on('click', this.addQuestionsToTemplate)
+    };
+
+    bindRemoveQuestionFromTemplateEvent = () => {
+        $('#removeQuestionButton').on('click', this.removeQuestionsFromTemplate)
+    };
+
+    addQuestionsToTemplate = () => {
+        this.questions.unAppliedQuestionsForm.submit();
+    };
+
+    removeQuestionsFromTemplate = () => {
+        this.questions.questionsAddedForm.submit();
+    };
+
+    removeQuestionsFromTemplateFormSubmit = (event) => {
+        this.questions.questionsAddedForm.off('submit').on('submit', event => {
+            event.preventDefault();
+            KTApp.block(KTUtil.get('questionsAdded'));
+
+            this.questions.addedQuestionsTable
+                .column(0)
+                .checkboxes
+                .selected()
+                .each((index, rowId) => {
+                    this.questions.questionsAddedForm.append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'questions[]')
+                            .val(index.replace('row_', ''))
+                    );
+                });
+
+            let parent = this;
+
+            this.questions.questionsAddedForm.ajaxSubmit({
+                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/'+ parent.sections.openSectionId +'/questions',
+                success: function (response) {
+                    parent.questions.questionsAddedForm.find("input[name='questions[]']").remove();
+                    parent.questions.unAppliedQuestionsTable.ajax.reload(function (data) {
+                        parent.questions.unAppliedQuestionsTable.column(0).checkboxes.deselectAll();
+                    }, false);
+                    parent.questions.addedQuestionsTable.ajax.reload(function (data) {
+                        parent.questions.addedQuestionsTable.column(0).checkboxes.deselectAll();
+                    }, false);
+                    parent.displaySuccess(response);
+                },
+                error: function (xhr, status, errorThrown) {
+                    parent.questions.questionsAddedForm.find("input[name='questions[]']").remove();
+                    parent.displayError(xhr, status, errorThrown);
+                }
+            })
+
+        });
+    };
+
+    addQuestionsToTemplateFormSubmit = (event) => {
+        this.questions.unAppliedQuestionsForm.off('submit').on('submit', event => {
+            event.preventDefault();
+            KTApp.block(KTUtil.get('unAppliedQuestions'));
+
+            this.questions.unAppliedQuestionsTable
+                .column(0)
+                .checkboxes
+                .selected()
+                .each((index, rowId) => {
+                    this.questions.unAppliedQuestionsForm.append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'questions[]')
+                            .val(index.replace('row_', ''))
+                    );
+                });
+
+            let parent = this;
+
+            this.questions.unAppliedQuestionsForm.ajaxSubmit({
+                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/'+ parent.sections.openSectionId +'/questions',
+                success: function (response) {
+                    parent.questions.unAppliedQuestionsForm.find("input[name='questions[]']").remove();
+
+                    parent.questions.unAppliedQuestionsTable.ajax.reload(function (data) {
+                        parent.questions.unAppliedQuestionsTable.column(0).checkboxes.deselectAll();
+                    }, false);
+                    parent.questions.addedQuestionsTable.ajax.reload(function (data) {
+                        parent.questions.addedQuestionsTable.column(0).checkboxes.deselectAll();
+                    }, false);
+                    parent.displaySuccess(response);
+                },
+                error: function (xhr, status, errorThrown) {
+                    parent.questions.unAppliedQuestionsForm.find("input[name='questions[]']").remove();
+                    parent.displayError(xhr, status, errorThrown);
+                }
+            })
+
         });
     };
 
