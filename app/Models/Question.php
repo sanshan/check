@@ -41,6 +41,11 @@ class Question extends ListModel
         return $this->belongsToMany(Position::class);
     }
 
+    public function tsPivot()
+    {
+        return $this->belongsToMany(TemplateSectionPivot::class, 'question_section_template', 'question_id', 'section_template_id');
+    }
+
     public function scopeFromSection($query, $section_id)
     {
         return $query->where('section_id', $section_id);

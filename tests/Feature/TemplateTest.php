@@ -7,6 +7,8 @@ use App\Models\Question;
 use App\Models\Region;
 use App\Models\Section;
 use App\Models\Template;
+use App\Models\TemplateSectionPivot;
+use App\Models\TemplateSectionQuestionPivot;
 use App\Models\TypeOfChecklist;
 use App\Models\TypeOfGasStation;
 use App\Models\User;
@@ -354,9 +356,29 @@ class TemplateTest extends TestCase
         $section = factory(Section::class)->create();
         $section->questions()->saveMany(factory(Question::class, 2)->make());
 
-        $this->_template->sections()->attach([
+        $sectionInTemplate = TemplateSectionPivot::create([
+            'template_id' => $this->_template->id,
+            'section_id'  => $section->id,
+            'weight'      => 11,
+        ]);
+
+
+
+
+
+        \Log::info('----------------------------------------');
+        \Log::info($sectionInTemplate);
+        \Log::info($this->_template->sections);
+
+        /*$this->_template->sections()->attach([
             $section->id,
         ]);
+
+        $this->_template->sections()->updateExistingPivot($this->_template->id, ['count' => 9]);
+
+        $pivot = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+        $pivot->weight = 11;
+        $pivot->save();*/
 
         $this->assertEquals($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->count(), 2);
 
@@ -890,8 +912,8 @@ class TemplateTest extends TestCase
                 'templates.sections.questions.positions.update',
                 [
                     'template' => $this->_template->id,
-                    'ts'  => $ts->id,
-                    'tsq' => $tsq->id,
+                    'ts'       => $ts->id,
+                    'tsq'      => $tsq->id,
                 ]
             ),
             $params
