@@ -765,6 +765,7 @@ class TemplateManagement {
             parent.questions.addedQuestionsTable.destroy();
             parent.questions.unAppliedQuestionsTable.clear();
             parent.questions.unAppliedQuestionsTable.destroy();
+            parent.questions.questionsTable.ajax.reload();
         })
     };
 

@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TemplateSectionQuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/FilterModels.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/FilterModels.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/audit/templates/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/audit/templates/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -262,7 +259,7 @@
       <workItem from="1572276898510" duration="123784000" />
       <workItem from="1572697069682" duration="62229000" />
       <workItem from="1573045243888" duration="38004000" />
-      <workItem from="1573460555776" duration="10788000" />
+      <workItem from="1573460555776" duration="11187000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -383,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573472030373</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added add/remove question in section from Template">
+      <created>1573479658522</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1573479658522</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -430,6 +434,7 @@
     <MESSAGE value="Template refactoring" />
     <MESSAGE value="fix sections bug" />
     <MESSAGE value="fix questions bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix questions bug" />
+    <MESSAGE value="Added add/remove question in section from Template" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added add/remove question in section from Template" />
   </component>
 </project>
