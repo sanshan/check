@@ -38,7 +38,7 @@ class QuestionController extends BaseController
     //Надо убрать это отсюда
     public function dataTableIndex(QuestionIndexRequest $request, Section $section)
     {
-        $questions = Question::with('positions')->filter($request)
+        $questions = Question::fromSection($section->id)->with('positions')->filter($request)
             ->get();
 
         return datatables()->of(QuestionDTResource::collection($questions))
