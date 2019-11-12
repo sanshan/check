@@ -4,8 +4,7 @@
     <list default="true" id="9a9027ef-f7a4-4fa0-9d81-b1509ebb1643" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GasStationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_24_133746_create_profiles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_27_070455_create_gas_stations_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -261,7 +260,7 @@
       <workItem from="1572276898510" duration="123784000" />
       <workItem from="1572697069682" duration="62229000" />
       <workItem from="1573045243888" duration="38004000" />
-      <workItem from="1573460555776" duration="17686000" />
+      <workItem from="1573460555776" duration="18133000" />
     </task>
     <task id="LOCAL-00001" summary="Install Laravel">
       <created>1563881548235</created>
@@ -396,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573480018345</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fix gas station creating bug">
+      <created>1573556532429</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1573556532429</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -445,6 +451,7 @@
     <MESSAGE value="fix questions bug" />
     <MESSAGE value="Added add/remove question in section from Template" />
     <MESSAGE value="fix bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
+    <MESSAGE value="fix gas station creating bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix gas station creating bug" />
   </component>
 </project>

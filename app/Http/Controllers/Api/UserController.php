@@ -63,7 +63,7 @@ class UserController extends BaseController
                 'name'       => $request->name,
                 'patronymic' => $request->patronymic,
                 'surname'    => $request->surname,
-                'full_name'  => $request->name . ' ' . $request->patronymic . ' ' . $request->surname,
+                //'full_name'  => $request->name . ' ' . $request->patronymic . ' ' . $request->surname,
                 'role_id'    => $request->role_id,
             ]);
             $user->profile->regions()->attach($request->region_id);
