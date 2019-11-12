@@ -100,7 +100,7 @@ class UserController extends BaseController
             $user->profile->name = $request->name;
             $user->profile->patronymic = $request->patronymic;
             $user->profile->surname = $request->surname;
-            $user->profile->full_name = $request->name . ' ' . $request->patronymic . ' ' . $request->surname;
+            //$user->profile->full_name = $request->name . ' ' . $request->patronymic . ' ' . $request->surname;
             $user->profile->role_id = $request->role_id;
             $user->save();
             $user->profile->save();
