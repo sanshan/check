@@ -641,7 +641,7 @@
                             //console.log($('option:selected', GSList));
                             //console.log(GSList);
                             let region = $('option:selected', GSList).data('region');
-                            //console.log(region);
+                            console.log(region);
                             return {
                                 title: params.term,
                                 region: region,

@@ -25,7 +25,7 @@ class UserIndexRequest extends FormRequest
     {
         return [
             'full_name'   => 'nullable|string|max:100',
-            'user_region' => 'filled|integer|exists:regions,id',
+            'region' => 'filled|integer|exists:regions,id',
         ];
     }
 }
