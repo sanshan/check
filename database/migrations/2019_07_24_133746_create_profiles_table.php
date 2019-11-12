@@ -22,7 +22,7 @@ class CreateProfilesTable extends Migration
             $table->string('name', 20);
             $table->string('patronymic', 20);
             $table->string('surname', 20);
-            $table->string('phone', 20);
+            $table->string('phone', 50);
             $table->softDeletes();
             $table->timestamps();
         });

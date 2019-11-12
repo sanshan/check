@@ -19,7 +19,7 @@ class CreateGasStationsTable extends Migration
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('restrict');
             $table->unSignedBigInteger('type_of_gas_station_id');
             $table->foreign('type_of_gas_station_id')->references('id')->on('type_of_gas_stations')->onDelete('restrict');
-            $table->integer('number')->unique();
+            $table->unsignedSmallInteger('number')->unique();
             $table->string('address', 500);
             $table->boolean('is_shop');
             $table->boolean('it_works');

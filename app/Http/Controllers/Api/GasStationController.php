@@ -45,7 +45,7 @@ class GasStationController extends BaseController
             'it_works',
             'region_id',
             'type_of_gas_station_id',
-            DB::raw("CONCAT(dir_name,' ',dir_patronymic,' ',dir_surname) as dir_full_name"),
+            //DB::raw("CONCAT(dir_name,' ',dir_patronymic,' ',dir_surname) as dir_full_name"),
             'email',
             'phone',
         ])->with('region', 'type');
