@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class GasStation extends ListModel
 {
-    use CreatedUpdatedDatesModel;
 
     protected $fillable = [
         'region_id',

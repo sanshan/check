@@ -15,8 +15,9 @@ class TemplateTableSeeder extends Seeder
             $user->templates()->saveMany(
                 factory(App\Models\Template::class, rand(2, 4))->make()
             );
+
             $user->templates->each(function ($template) use ($user) {
-                $template->sections()->attach(
+                $template->attachSections(
                     App\Models\Section::inRandomOrder()
                         ->take(rand(1, 10))
                         ->pluck('id')

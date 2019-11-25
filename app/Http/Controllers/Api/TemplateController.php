@@ -16,24 +16,24 @@ use DB;
 class TemplateController extends BaseController
 {
 
-    /**
-     * @param TemplateIndexRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(TemplateIndexRequest $request)
-    {
-        $templates = Template::filter($request)
-            ->take(10)
-            ->get();
-
-        return $this->sendResponse(TemplateSelect2Resource::collection($templates), __('Data retrieved successfully.'));
-    }
+//    /**
+//     * @param TemplateIndexRequest $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function index(TemplateIndexRequest $request)
+//    {
+//        $templates = Template::filter($request)
+//            ->take(10)
+//            ->get();
+//
+//        return $this->sendResponse(TemplateSelect2Resource::collection($templates), __('Data retrieved successfully.'));
+//    }
 
     /**
      * @return mixed
      * @throws \Exception
      */
-    public function dataTableIndex()
+    public function index()
     {
         $templates = Template::with('regions', 'templateTypes', 'gasStationTypes')->withCount('sections')->get();
         return datatables()->of(TemplateDTResource::collection($templates))
@@ -53,8 +53,8 @@ class TemplateController extends BaseController
     {
         $template = DB::transaction(function () use ($request) {
             $template = Template::create([
-                'user_id'              => User::inRandomOrder()->first()->id,
-                'editor_id'            => User::inRandomOrder()->first()->id,
+                'user_id'              => auth()->user()->id,
+                'editor_id'            => auth()->user()->id,
                 'type_of_checklist_id' => $request->type_of_checklist,
                 'status'               => $request->status,
             ]);
@@ -85,7 +85,7 @@ class TemplateController extends BaseController
     public function update(TemplateUpdateRequest $request, Template $template)
     {
         $template = DB::transaction(function () use ($request, $template) {
-            $template->user_id = User::inRandomOrder()->first()->id;
+            $template->editor_id = auth()->user()->id;
             $template->type_of_checklist_id = $request->type_of_checklist;
             $template->status = $request->status;
             $template->save();
@@ -108,7 +108,6 @@ class TemplateController extends BaseController
         $template = DB::transaction(function () use ($template) {
             $template->gasStationTypes()->detach();
             $template->regions()->detach();
-            //$template->sections()->detach();
             $template->delete();
 
             return $template;

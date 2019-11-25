@@ -59,7 +59,7 @@ class TaskController extends BaseController
      */
     public function store(TaskStoreRequest $request)
     {
-        $gasStation = Task::create([
+        $task = Task::create([
             'start_date'           => Carbon::make($request->start_date),
             'end_date'             => Carbon::make($request->end_date),
             'region_id'            => $request->region_id,
@@ -68,7 +68,7 @@ class TaskController extends BaseController
             'user_id'              => $request->user_id,
         ]);
 
-        return $this->sendResponse(TaskResource::make($gasStation), __('Data created successfully.'));
+        return $this->sendResponse(TaskResource::make($task), __('Data created successfully.'));
     }
 
     /**

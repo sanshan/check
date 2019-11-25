@@ -46,6 +46,12 @@
             <div class="kt-notification__item-time"> billing & statements <span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">2 pending</span> </div>
         </div>
     </a>
-    <div class="kt-notification__custom kt-space-between"> <a href="#" target="_blank" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a> <a href="#" target="_blank" class="btn btn-clean btn-sm btn-bold">Upgrade Plan</a> </div>
+    <div class="kt-notification__custom kt-space-between">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" href="#" target="#" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+            <a href="#" target="_blank" class="btn btn-clean btn-sm btn-bold">Upgrade Plan</a>
+        </form>
+    </div>
 </div>
 <!--end: Navigation -->

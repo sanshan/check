@@ -220,7 +220,12 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('gasstations.index.datatable') }}',
+                    ajax: {
+                        url: '{{ route('gasstations.index.datatable') }}',
+                        headers: {
+                            'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                        }
+                    },
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',

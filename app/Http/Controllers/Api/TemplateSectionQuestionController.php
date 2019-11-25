@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Template\TemplateSectionQuestionDestroyRequest;
 use App\Http\Requests\Template\TemplateSectionQuestionStoreRequest;
 use App\Http\Resources\Template\TemplateSectionQuestionDTIndexResource;
-use App\Models\Section;
 use App\Models\Template;
+use App\Models\TemplateSectionPivot;
 
 class TemplateSectionQuestionController extends BaseController
 {
-    public function index(Template $template, Section $section)
+    public function index(Template $template, TemplateSectionPivot $ts)
     {
-        $template->load('sections.pivot.questions.pivot.positions');
-        $questions = $template->sections()->where('sections.id', $section->id)->first()->pivot->questions;
+        $questions = $ts->questions;
 
         return datatables()->of(TemplateSectionQuestionDTIndexResource::collection($questions))
             ->addColumn('DT_RowId', function ($row) {
@@ -22,16 +21,16 @@ class TemplateSectionQuestionController extends BaseController
             ->toJson();
     }
 
-    public function store(TemplateSectionQuestionStoreRequest $request, Template $template, Section $section)
+    public function store(TemplateSectionQuestionStoreRequest $request, Template $template, TemplateSectionPivot $ts)
     {
-        $template->sections()->where('sections.id', $section->id)->firstOrFail()->pivot->questions()->attach($request->questions);
+        $ts->attachQuestions($request->questions);
 
         return $this->sendResponse('', __('Questions added to the template.'));
     }
 
-    public function destroy(TemplateSectionQuestionDestroyRequest $request, Template $template, Section $section)
+    public function destroy(TemplateSectionQuestionDestroyRequest $request, Template $template, TemplateSectionPivot $ts)
     {
-        $template->sections()->where('sections.id', $section->id)->firstOrFail()->pivot->questions()->detach($request->questions);
+        $ts->detachQuestions($request->questions);
 
         return $this->sendResponse('', __('Questions removed from the template.'));
     }

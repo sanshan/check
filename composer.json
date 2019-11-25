@@ -14,8 +14,8 @@
         "fideloper/proxy": "^4.0",
         "iatstuti/laravel-cascade-soft-deletes": "^2.0",
         "laravel/framework": "^6.0",
-        "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
+        "tymon/jwt-auth": "^1.0.0",
         "yajra/laravel-datatables-oracle": "^9.4"
     },
     "require-dev": {

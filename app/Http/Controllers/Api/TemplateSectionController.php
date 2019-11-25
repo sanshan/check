@@ -8,10 +8,11 @@ use App\Http\Requests\Template\TemplateSectionUpdateRequest;
 use App\Http\Resources\Section\SectionDTResource;
 use App\Models\Section;
 use App\Models\Template;
+use Illuminate\Database\QueryException;
 
 class TemplateSectionController extends BaseController
 {
-    public function dataTableIndex(Template $template)
+    public function index(Template $template)
     {
         $sections = $template->sections;
 
@@ -24,8 +25,8 @@ class TemplateSectionController extends BaseController
 
     public function store(TemplateSectionStoreRequest $request, Template $template)
     {
-        $template->sections()->attach($request->sections);
-
+        try {$template->attachSections($request->sections);}
+        catch(QueryException $exception){return $this->sendError('', '', 500);}
         return $this->sendResponse('', __('Sections added to the template.'));
     }
 

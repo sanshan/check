@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\PassDataToObserver;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class TemplateSectionPivot extends Pivot
 {
+    use PassDataToObserver;
+
     public $incrementing = true;
     protected $table = 'section_template';
 
@@ -13,23 +16,22 @@ class TemplateSectionPivot extends Pivot
         'weight',
     ];
 
+    protected $observables = [
+        'questionsAdded',
+        'questionsRemoved',
+    ];
+
     public static function boot()
     {
         parent::boot();
 
-        static::saved(function ($item) {
-            $questions = Section::findOrFail($item->section_id)->questions;
-            foreach ($questions as $question)
-                $item->questions()->attach($question->id);
-        });
-
-        static::deleting(function ($item) {
-            $pivot = TemplateSectionPivot::where('section_id', $item->section_id)->where('template_id', $item->template_id)->firstOrFail();
-            $pivot->questions->each(function($question){
-                $question->pivot->positions()->detach();
-            });
-            $pivot->questions()->detach();
-        });
+//        static::deleting(function ($item) {
+//            $pivot = TemplateSectionPivot::where('section_id', $item->section_id)->where('template_id', $item->template_id)->firstOrFail();
+//            $pivot->questions->each(function($question){
+//                $question->pivot->positions()->detach();
+//            });
+//            $pivot->questions()->detach();
+//        });
     }
 
     public function questions()
@@ -39,4 +41,17 @@ class TemplateSectionPivot extends Pivot
             ->withPivot('id');
     }
 
+    public function attachQuestions(array $questions)
+    {
+        $this->questions()->attach($questions);
+        $this->fireModelEvent('questionsAdded', false);
+    }
+
+    public function detachQuestions(array $questions)
+    {
+        $this->fireModelEvent('questionsRemoved', false, $questions);
+        $this->questions()->detach($questions);
+    }
+
 }
+

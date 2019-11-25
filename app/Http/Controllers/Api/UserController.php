@@ -125,4 +125,6 @@ class UserController extends BaseController
         return $this->sendResponse(UserInfoResource::make($user), __('Record deleted successfully.'));
     }
 
+
+
 }

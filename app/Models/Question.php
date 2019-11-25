@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends ListModel
 {
-    use CreatedUpdatedDatesModel, EagerLoadPivotTrait;
+    use EagerLoadPivotTrait;
 
     protected $fillable = [
         'section_id',

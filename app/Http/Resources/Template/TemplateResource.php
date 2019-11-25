@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Template;
 
-use App\Http\Resources\Question\QuestionResource;
 use App\Http\Resources\Region\RegionResource;
 use App\Http\Resources\Section\SectionResource;
 use App\Http\Resources\TypeOfChecklist\TypeOfChecklistResource;
@@ -29,9 +28,9 @@ class TemplateResource extends JsonResource
             'sections'            => SectionResource::collection($this->whenLoaded('sections')),
             'status'              => $this->status,
             'user'                => UserResource::make($this->whenLoaded('user')),
-            'created_at'          => $this->created_date,
+            'created_at'          => $this->created_at->toIso8601String(),
             'editor'              => UserResource::make($this->whenLoaded('editor')),
-            'updated_at'          => $this->updated_date,
+            'updated_at'          => $this->updated_at->toIso8601String(),
         ];
     }
 }

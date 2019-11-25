@@ -174,7 +174,12 @@
                     processing: true,
                     serverSide: true,
                     pageLength: 10,
-                    ajax: '{{ route('sections.questions.index.datatable', ['section' => $section->id]) }}',
+                    ajax: {
+                        url: '{{ route('sections.questions.index.datatable', ['section' => $section->id]) }}',
+                        headers: {
+                            'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                        }
+                    },
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',
@@ -397,7 +402,7 @@
 
             let newPosition = function (positions) {
                 newButton.on('click', function (el) {
-                    form.attr('action', '{{ route('questions.store', ['section' => $section->id]) }}');
+                    form.attr('action', '{{ route('sections.questions.store', ['section' => $section->id]) }}');
                     modal.find('input[name=_method]').val('POST');
                     modal.find('input[name=title]').val('');
                     positions.val(null).trigger('change');

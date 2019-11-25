@@ -125,7 +125,12 @@
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route('sections.index.datatable') }}',
+                    ajax: {
+                        url: '{{ route('sections.index.datatable') }}',
+                        headers: {
+                            'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                        }
+                    },
                     language: {
                         buttons: {
                             copyTitle: 'Копировать в буфер обмена',

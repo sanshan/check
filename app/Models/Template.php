@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
-use App\Traits\CreatedUpdatedDatesModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\PassDataToObserver;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 
 class Template extends ListModel
 {
-    use EagerLoadPivotTrait;
+    use EagerLoadPivotTrait, PassDataToObserver;
 
     protected $fillable = [
         'user_id',
@@ -23,13 +24,13 @@ class Template extends ListModel
         'type_of_gas_station_id',
         'type_of_checklist_id',
         'deleted_at',
-        'created_at',
-        'updated_at',
     ];
     protected $appends = [
         'title',
-        'created_date',
-        'updated_date',
+    ];
+    protected $observables = [
+        'sectionsAdded',
+        'sectionsRemoved',
     ];
 
     /**
@@ -87,20 +88,10 @@ class Template extends ListModel
         return 'Ш' . str_pad($this->id, 6, '0', STR_PAD_LEFT);
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedDateAttribute()
+    public function attachSections(array $sections)
     {
-        return \Carbon\Carbon::parse($this->created_at)->format('d.m.Y H:i:s');
-    }
-
-    /**
-     * @return string
-     */
-    public function getUpdatedDateAttribute()
-    {
-        return \Carbon\Carbon::parse($this->created_at)->format('d.m.Y H:i:s');
+            $this->sections()->attach($sections);
+            $this->fireModelEvent('sectionsAdded', false, $sections);
     }
 
 }

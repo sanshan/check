@@ -14,7 +14,9 @@ use App\Models\TypeOfGasStation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Monolog\Formatter\LogglyFormatter;
 use Tests\TestCase;
+use function foo\func;
 
 
 class TemplateTest extends TestCase
@@ -23,6 +25,8 @@ class TemplateTest extends TestCase
 
     protected $_user;
     protected $_template;
+    protected $_token;
+    protected $_headers;
 
     protected function setUp(): void
     {
@@ -30,6 +34,10 @@ class TemplateTest extends TestCase
 
         //Create User
         $this->_user = factory(User::class)->create();
+        $this->_token = auth('api')->login($this->_user);
+        $this->_headers = [
+            'Authorization' => 'bearer ' . $this->_token,
+        ];
 
         //Create Types for Template
         factory(TypeOfChecklist::class)->create();
@@ -52,10 +60,12 @@ class TemplateTest extends TestCase
             'regions'              => factory(Region::class, 3)->create()->pluck('id')->toArray(),
             'status'               => rand(0, 1),
         ];
+
         $this->json(
             'POST',
             route('templates.store'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJson([
@@ -85,7 +95,8 @@ class TemplateTest extends TestCase
         $this->json(
             'POST',
             route('templates.store'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -105,7 +116,8 @@ class TemplateTest extends TestCase
         $this->json(
             'POST',
             route('templates.store'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -125,7 +137,8 @@ class TemplateTest extends TestCase
         $this->json(
             'POST',
             route('templates.store'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -145,7 +158,8 @@ class TemplateTest extends TestCase
         $this->json(
             'POST',
             route('templates.store'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -165,7 +179,8 @@ class TemplateTest extends TestCase
         $this->json(
             'PUT',
             route('templates.update', ['template' => $this->_template->id]),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJson([
@@ -200,8 +215,9 @@ class TemplateTest extends TestCase
         ];
         $this->json(
             'GET',
-            route('templates.sections.index.datatable', ['template' => $this->_template->id]),
-            $params
+            route('templates.sections.index', ['template' => $this->_template->id]),
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJsonCount(2, 'data')
@@ -231,7 +247,8 @@ class TemplateTest extends TestCase
         $this->json(
             'GET',
             route('sections.index.datatable'),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJsonCount(5, 'data')
@@ -256,7 +273,12 @@ class TemplateTest extends TestCase
                 $section2->id,
             ],
         ];
-        $this->json('POST', route('templates.sections.store', ['template' => $this->_template->id]), $params)
+        $this->json(
+            'POST',
+            route('templates.sections.store', ['template' => $this->_template->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Sections added to the template.'),
@@ -283,7 +305,12 @@ class TemplateTest extends TestCase
                 $section1->id,
             ],
         ];
-        $this->json('POST', route('templates.sections.store', ['template' => $this->_template->id]), $params)
+        $this->json(
+            'POST',
+            route('templates.sections.store', ['template' => $this->_template->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(422);
 
     }
@@ -313,7 +340,12 @@ class TemplateTest extends TestCase
                 $deletingPositionId,
             ],
         ];
-        $this->json('DELETE', route('templates.sections.destroy', ['template' => $this->_template->id]), $params)
+        $this->json(
+            'DELETE',
+            route('templates.sections.destroy', ['template' => $this->_template->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Sections removed from the template.'),
@@ -344,7 +376,12 @@ class TemplateTest extends TestCase
                 $section3->id,
             ],
         ];
-        $this->json('DELETE', route('templates.sections.destroy', ['template' => $this->_template->id]), $params)
+        $this->json(
+            'DELETE',
+            route('templates.sections.destroy', ['template' => $this->_template->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(422);
     }
 
@@ -353,34 +390,24 @@ class TemplateTest extends TestCase
      */
     public function questions_from_the_section_are_transferred_to_the_template()
     {
-        $section = factory(Section::class)->create();
-        $section->questions()->saveMany(factory(Question::class, 2)->make());
+        //Создаю 10 разделов. В каждом разделе 40 вопросов.
+        $sections = factory(Section::class, 10)->create()->each(function ($r) {
+            $r->questions()->saveMany(factory(Question::class, 40)->make());
+        });
 
-        $sectionInTemplate = TemplateSectionPivot::create([
-            'template_id' => $this->_template->id,
-            'section_id'  => $section->id,
-            'weight'      => 11,
-        ]);
+        // Для каждого вопроса создаю 3 должности
+        Question::all()->each(function ($r) {
+            $r->positions()->saveMany(factory(Position::class, 3)->make());
+        });
 
+        // Берём случайный раздел
+        $section = $sections->random();
 
+        // Аттачим $section к шаблону
+        $this->_template->attachSections([$section->id]);
 
-
-
-        \Log::info('----------------------------------------');
-        \Log::info($sectionInTemplate);
-        \Log::info($this->_template->sections);
-
-        /*$this->_template->sections()->attach([
-            $section->id,
-        ]);
-
-        $this->_template->sections()->updateExistingPivot($this->_template->id, ['count' => 9]);
-
-        $pivot = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
-        $pivot->weight = 11;
-        $pivot->save();*/
-
-        $this->assertEquals($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->count(), 2);
+        //Сравниваем количество вопросов в разделе шаблона и количество вопросов в разделе
+        $this->assertEquals($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->count(), 40);
 
     }
 
@@ -389,17 +416,38 @@ class TemplateTest extends TestCase
      */
     public function positions_from_the_question_are_transferred_to_the_template()
     {
-        $section = factory(Section::class)->create();
-        $question = $section->questions()
-            ->saveMany(factory(Question::class, 3)->make())
-            ->first();
-        $question->positions()->saveMany(factory(Position::class, 5)->make());
+        //Создаю 10 разделов. В каждом разделе 40 вопросов.
+        $sections = factory(Section::class, 10)->create()->each(function ($r) {
+            $r->questions()->saveMany(factory(Question::class, 40)->make());
+        });
 
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
+        // Для каждого вопроса создаю 3 должности
+        Question::all()->each(function ($r) {
+            $r->positions()->saveMany(factory(Position::class, 3)->make());
+        });
 
-        $this->assertEquals($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->where('questions.id', $question->id)->first()->pivot->positions()->count(), 5);
+        // Берём случайный раздел
+        $section = $sections->random();
+
+        // Берём случайный вопрос из раздела
+        $question = $section->questions->random();
+
+        // Аттачим $section к шаблону
+        $this->_template->attachSections([$section->id]);
+
+        //Сравниваем количество должностей из в вопросе из раздела шаблона и количество вопросов из вопроса
+        $this->assertEquals(
+            $this->_template->sections()
+                ->where('sections.id', $section->id)
+                ->first()
+                ->pivot
+                ->questions()
+                ->where('questions.id', $question->id)
+                ->first()
+                ->pivot
+                ->positions()
+                ->count(),
+            3);
 
     }
 
@@ -408,30 +456,40 @@ class TemplateTest extends TestCase
      */
     public function user_can_list_questions_in_section_from_the_template()
     {
+        // Создаю раздел
         $section = factory(Section::class)->create();
 
+        // Создаю в разделе 10 вопросов
         $section->questions()->saveMany(factory(Question::class, 10)->make());
 
+        // Создаю массив состоящий из id и title созданных вопросов
         $questions = $section->questions->map(function ($question) {
             return $question->only(['id', 'title']);
         });
 
-        $this->_template->sections()->attach($section->id);
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section->id]);
 
+        // Беру добавленный раздел из шаблона
+        $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Отправляю запрос на получение списка вопросов из раздела шаблона
         $this->json(
             'GET',
             route(
                 'templates.sections.questions.index',
                 [
                     'template' => $this->_template->id,
-                    'section'  => $section->id,
+                    'ts'       => $ts->id,
                 ]
-            )
+            ),
+            [],
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJsonCount(10, 'data')
             ->assertJson([
-                'data' => $questions->toArray(),
+                'data' => $questions->toArray(),   // Сравниваю список вопросов с ответом на запрос
             ]);
     }
 
@@ -440,20 +498,32 @@ class TemplateTest extends TestCase
      */
     public function user_can_see_the_list_of_questions_available_for_adding_to_the_template_section()
     {
+        // Создаём раздел
         $section = factory(Section::class)->create();
+
+        // Создаём в разделе 10 вопросов
         $section->questions()->saveMany(factory(Question::class, 10)->make());
-        $customQuestionsId = $section->questions->random(3)->pluck('id');
-        $this->_template->sections()->attach($section->id);
 
-        $this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->detach($customQuestionsId);
+        // Беру 3 случайных ID вопросов из раздела
+        $randomQuestionsId = $section->questions->random(3)->pluck('id')->toArray();
 
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section->id]);
+
+        // Удаляю 3 случайных вопроса из раздела в шаблоне
+        $this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->detach($randomQuestionsId);
+
+        // Подготавливаю параметры для фильтра
         $params = [
             'missing_in_section_template' => $this->_template->sections()->where('sections.id', $section->id)->first()->pivot->id,
         ];
+
+        // Отправляю запрос на получения списка доступных для добавления в шаблон вопросов для раздела
         $this->json(
             'GET',
             route('sections.questions.index.datatable', ['section' => $section->id]),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJsonCount(3, 'data');
@@ -465,43 +535,57 @@ class TemplateTest extends TestCase
      */
     public function user_can_remove_questions_from_template()
     {
-        $this->withoutExceptionHandling();
-
-        $sections = factory(Section::class, 3)->create();
-        foreach ($sections as $section) {
+        // Создаю 10 секции по 5 вопросов в каждой
+        $sections = factory(Section::class, 10)->create()->each(function ($section) {
             $section->questions()->saveMany(factory(Question::class, 5)->make());
-        }
-        factory(Position::class, 15)->create();
+        });
+
+        // Создаю 5 должностей
+        factory(Position::class, 5)->create();
+
+        // К каждому вопросу привязываю до 3 вопросов с 'to_rate' == 1 или ничего
         Question::all()->each(function ($question) {
             $question->positions()->attach(
-                Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray()
+                Position::where('to_rate', 1)->inRandomOrder()->limit(3)->get()->pluck('id')->toArray() ?? []
             );
         });
 
+        // Беру ID двух случайных раздела
         $sectionsID = $sections->take(2)->pluck('id')->toArray();
 
-        $this->_template->sections()->attach($sectionsID);
+        // Добавляю два раздела с вопросами и должностями в шаблон
+        $this->_template->attachSections($sectionsID);
 
-        $questionsID = $this->_template->sections()
-            ->where('sections.id', $sectionsID[0])
-            ->first()
-            ->pivot
-            ->questions()
-            ->take(2)
+        // Беру случайный раздел из шаблона
+        $sectionInTemplate = $this->_template->sections()->inRandomOrder()->first()->pivot;
+
+        // Беру до двух случайных вопросов в случайном разделе из шаблона записываю ID в массив
+        $questionsID = $sectionInTemplate->questions()
+            ->inRandomOrder()
+            ->limit(2)
             ->get()
             ->pluck('id')
             ->toArray();
 
+        // Передаю массив с ID вопросов в качестве параметра в запрос
         $params = [
             'questions' => $questionsID,
         ];
-        $this->json('DELETE', route('templates.sections.questions.destroy', ['template' => $this->_template->id, 'section' => $sectionsID[0]]), $params)
+
+        //Отправляю запрос на удаление вопросов из раздела шаблона, при этом из шаблона должны успешно удалиться привязанные к этим вопросам должности
+        $this->json(
+            'DELETE',
+            route('templates.sections.questions.destroy', ['template' => $this->_template->id, 'ts' => $sectionInTemplate->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Questions removed from the template.'),
             ]);
 
-        $this->assertEquals($this->_template->sections()->where('sections.id', $sectionsID[0])->first()->pivot->questions()->count(), 3);
+        // Проверяю количество оставшихся в разделе шаблона вопросов. Сравниваю количество оставшихся после запроса вопросов с разностью исходного количества и длины $questionsID
+        $this->assertEquals($sectionInTemplate->questions->count(), 5 - count($sectionsID));
     }
 
     /**
@@ -509,25 +593,41 @@ class TemplateTest extends TestCase
      */
     public function user_can_remove_only_present_questions_from_template()
     {
+        // Создаю первый раздел
         $section1 = factory(Section::class)->create();
+
+        // Создаю второй раздел
         $section2 = factory(Section::class)->create();
 
+        // Создаю в первом разделе 5 вопросов
         $section1->questions()->saveMany(factory(Question::class, 5)->make());
+
+        // Создаю во втором разделе 5 вопросов
         $section2->questions()->saveMany(factory(Question::class, 5)->make());
 
-        $this->_template->sections()->attach([
-            $section1->id,
-        ]);
+        // Добавляю первый раздел в шаблон
+        $this->_template->attachSections([$section1->id]);
 
+        // Беру добавленный в шаблон раздел
+        $ts = $this->_template->sections()->where('sections.id', $section1->id)->first()->pivot;
+
+        // Беру первый вопрос из второго раздела (его нет в шаблоне)
         $question = $section2->questions->first();
 
+        // Подготавливаю параметры запроса. Массив ID вопросов
         $params = [
             'questions' => [
                 $question->id,
             ],
         ];
 
-        $this->json('DELETE', route('templates.sections.questions.destroy', ['template' => $this->_template->id, 'section' => $section1->id]), $params)
+        // Отправляю запрос на удаление недобавленного вопроса из раздела шаблона.
+        $this->json(
+            'DELETE',
+            route('templates.sections.questions.destroy', ['template' => $this->_template->id, 'ts' => $ts->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(422);
 
     }
@@ -537,18 +637,16 @@ class TemplateTest extends TestCase
      */
     public function user_can_add_questions_to_template()
     {
-        $this->withoutExceptionHandling();
-
+        // Создаю раздел с десятью вопросами
         $section = factory(Section::class)->create();
-        $section->questions()
-            ->saveMany(
-                factory(Question::class, 10)->make()
-            );
 
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
+        // Добавляю 10 вопросов в раздел
+        $section->questions()->saveMany(factory(Question::class, 10)->make());
 
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section->id]);
+
+        // Создаю ещё два вопроса в разделе и сохраняю их ID в массив
         $newQuestionsID = $section->questions()
             ->saveMany(
                 factory(Question::class, 2)->make()
@@ -556,16 +654,27 @@ class TemplateTest extends TestCase
             ->pluck('id')
             ->toArray();
 
+        // Беру раздел из шаблона
+        $sectionInTemplate = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Подготавливаю параметр для запроса
         $params = [
             'questions' => $newQuestionsID,
         ];
-        $this->json('POST', route('templates.sections.questions.store', ['template' => $this->_template->id, 'section' => $section->id]), $params)
+
+        // Отправляю запрос на добавление вопросов в раздел шаблона с массивом ID
+        $this->json(
+            'POST',
+            route('templates.sections.questions.store', ['template' => $this->_template->id, 'ts' => $sectionInTemplate->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Questions added to the template.'),
             ]);
 
-        $this->assertEquals($this->_template->sections()->where('sections.id', $section->id)->first()->pivot->questions()->count(), 12);
+        $this->assertEquals($sectionInTemplate->questions()->count(), 12);
 
     }
 
@@ -574,26 +683,39 @@ class TemplateTest extends TestCase
      */
     public function user_can_add_only_unique_questions_to_the_template()
     {
+        // Создаю раздел
         $section = factory(Section::class)->create();
-        $section->questions()
-            ->saveMany(
-                factory(Question::class, 10)->make()
-            );
 
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
+        // Создаю в разделе 10 вопросов
+        $section->questions()->saveMany(
+            factory(Question::class, 10)->make()
+        );
 
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section->id]);
+
+        // Беру добавленный раздел из шаблона
+        $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Беру ID двух вопросов из раздела (они уже добавленны в шаблон)
         $newQuestionsID = $section->questions()
             ->take(2)
             ->get()
             ->pluck('id')
             ->toArray();
 
+        // Подготавливаю параметры запроса. Массив с ID добавляемых вопросов.
         $params = [
             'questions' => $newQuestionsID,
         ];
-        $this->json('POST', route('templates.sections.questions.store', ['template' => $this->_template->id, 'section' => $section->id]), $params)
+
+        // Отправляю запрос на повторное добавление вопросов
+        $this->json(
+            'POST',
+            route('templates.sections.questions.store', ['template' => $this->_template->id, 'ts' => $ts->id]),
+            $params,
+            $this->_headers
+        )
             ->assertStatus(422);
 
     }
@@ -603,31 +725,45 @@ class TemplateTest extends TestCase
      */
     public function user_can_sync_only_present_positions_in_the_template()
     {
+        // Создаю раздел
         $section = factory(Section::class)->create();
+
+        // Создаю в в разделе вопрос
         $question = $section->questions()->save(factory(Question::class)->make());
+
+        // Создаю в вопросе 5 должностей
         $question->positions()->saveMany(factory(Position::class, 5)->make());
 
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section->id]);
 
+        // Беру добавленный в шаблон раздел
+        $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Беру добавленный в раздел шаблона вопрос
+        $tsq = $ts->questions()->where('questions.id', $question->id)->first()->pivot;
+
+        // Подготавливаю массив с несуществующими ID вопросов
         $params = [
             'positions' => [
                 100,
                 200,
             ],
         ];
+
+        // Отправляю запрос на добавление несуществующих вопросов в раздел шаблона
         $this->json(
             'POST',
             route(
                 'templates.sections.questions.positions.update',
                 [
                     'template' => $this->_template->id,
-                    'section'  => $section->id,
-                    'question' => $question->id
+                    'ts'       => $ts->id,
+                    'tsq'      => $tsq->id
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -638,29 +774,40 @@ class TemplateTest extends TestCase
      */
     public function user_can_use_only_correct_section_id_when_deleting_questions()
     {
+        // Создаю первый раздел
         $section1 = factory(Section::class)->create();
+
+        // Создаю второй раздел
         $section2 = factory(Section::class)->create();
+
+        // Создаю вопрос в первом разделе
         $question = $section1->questions()->save(factory(Question::class)->make());
 
-        $this->_template->sections()->attach([
-            $section1->id,
-        ]);
+        // Добавляю раздел в шаблон
+        $this->_template->attachSections([$section1->id, $section2->id]);
 
+        // Беру второй добавленный в шаблон раздел
+        $ts2 = $this->_template->sections()->where('sections.id', $section2->id)->first()->pivot;
+
+        // Подготавливаю параметры запроса. Массив с ID удаляемых вопросов
         $params = [
             'questions' => [
                 $question->id,
             ]
         ];
+
+        // Отправляю запрос на удаление вопросов из первого раздела, с указанием ID второго добавленного раздела(неверный запрос)
         $this->json(
             'DELETE',
             route(
                 'templates.sections.questions.destroy',
                 [
                     'template' => $this->_template->id,
-                    'section'  => $section2->id,
+                    'ts'       => $ts2->id,
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -671,28 +818,40 @@ class TemplateTest extends TestCase
      */
     public function user_can_use_only_correct_section_id_when_adding_questions()
     {
+        // Создаю первый раздел
         $section1 = factory(Section::class)->create();
+
+        // Создаю второй раздел
         $section2 = factory(Section::class)->create();
+
+        // Создаю вопрос в первом разделе
         $section1->questions()->save(factory(Question::class)->make());
 
-        $this->_template->sections()->attach([
-            $section1->id,
-        ]);
+        // Добавляю оба зардела в шаблон
+        $this->_template->attachSections([$section1->id, $section2->id]);
 
+        // Создаю ещё один вопрос в первом разделе (сейчас его нет в разделе шаблона)
         $question2 = $section1->questions()->save(factory(Question::class)->make());
 
+        // Беру второй раздел добавленный в шаблон
+        $ts2 = $this->_template->sections()->where('sections.id', $section2->id)->first()->pivot;
+
+        // Подготавливаю параметры для запроса. Массив с ID добавляемых вопросов
         $params = [
             'questions' => [
                 $question2->id,
             ]
         ];
+
+        // Отправляю запрос на добавление вопроса из первого раздела во второй раздел шаблона (это неправильный запрос)
         $this->json(
             'POST',
             route('templates.sections.questions.store', [
                 'template' => $this->_template->id,
-                'section'  => $section2->id,
+                'ts'       => $ts2->id,
             ]),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -701,32 +860,44 @@ class TemplateTest extends TestCase
     /**
      * @test
      */
-    public function user_can_use_only_correct_section_id_when_sync_positions()
+    public function user_can_use_only_correct_section_when_sync_positions()
     {
+        //Создаём два раздела
         $section1 = factory(Section::class)->create();
         $section2 = factory(Section::class)->create();
+
+        // В первом разделе создаём один вопрос
         $question = $section1->questions()->save(factory(Question::class)->make());
+
+        // В вопросе создаём 5 должностей
         $positions = $question->positions()->saveMany(factory(Position::class, 5)->make());
 
-        $this->_template->sections()->attach([
-            $section1->id,
-        ]);
+        // Добавляем в шаблон раздел №1
+        $this->_template->attachSections([$section1->id]);
 
+        //Добавляем в шаблон раздел №2
+        $this->_template->attachSections([$section2->id]);
+
+        // Формируем неправильные параметры для маршрута. Неправльный ID раздела на синхронизацию должностей для вопроса из раздела №1 в шаблоне
+        $routeParams = [
+            'template' => $this->_template->id,
+            'ts'       => $this->_template->sections()->where('sections.id', $section2->id)->first()->pivot->id,
+            'tsq'      => $this->_template->sections()->where('sections.id', $section1->id)->first()->pivot->questions()->where('questions.id', $question->id)->first()->pivot->id,
+        ];
+
+        // Берём две должности из вопроса в разделе №1
         $params = [
             'positions' => $positions->take(2)->pluck('id')->toArray(),
         ];
-
+        // Отправляем POST на обновление должностей в шаблоне
         $this->json(
             'POST',
             route(
                 'templates.sections.questions.positions.update',
-                [
-                    'template' => $this->_template->id,
-                    'section'  => $section2->id,
-                    'question' => $question->id
-                ]
+                $routeParams
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
     }
@@ -736,31 +907,57 @@ class TemplateTest extends TestCase
      */
     public function user_can_use_only_correct_question_id_when_sync_positions()
     {
+        // Создаю первый раздел
         $section1 = factory(Section::class)->create();
+
+        // Создаю второй раздел
         $section2 = factory(Section::class)->create();
+
+        // Создаю первый вопрос в первом разделе
         $question1 = $section1->questions()->save(factory(Question::class)->make());
+
+        // Создаю второй вопрос во втором разделе
         $question2 = $section2->questions()->save(factory(Question::class)->make());
-        $positions = $question1->positions()->saveMany(factory(Position::class, 5)->make());
 
-        $this->_template->sections()->attach([
-            $section1->id,
-        ]);
+        // Создаю 5 должностей в первом вопросе
+        $positions1 = $question1->positions()->saveMany(factory(Position::class, 5)->make());
 
+        // Создаю 5 должностей во втором вопросе
+        $positions2 = $question1->positions()->saveMany(factory(Position::class, 5)->make());
+
+        // Добавляю оба раздела в шаблон
+        $this->_template->attachSections([$section1->id, $section2->id]);
+
+        // Беру первый добавленный в шаблон раздел
+        $ts1 = $this->_template->sections()->where('sections.id', $section1->id)->first()->pivot;
+
+        // Беру второй добавленный в шаблон раздел
+        $ts2 = $this->_template->sections()->where('sections.id', $section2->id)->first()->pivot;
+
+        // Беру первый добавленый вопрос в первом добавленном в шаблон разделе
+        $tsq1 = $ts1->questions()->where('questions.id', $question1->id)->first()->pivot;
+
+        // Беру второй добавленый вопрос во втором добавленном в шаблон разделе
+        $tsq2 = $ts2->questions()->where('questions.id', $question2->id)->first()->pivot;
+
+        // Подготавливаю параметры для запроса. Массив ID двух вопросов. Теперь у вопроса должно стать 2 должности
         $params = [
-            'positions' => $positions->take(2)->pluck('id')->toArray(),
+            'positions' => $positions1->take(2)->pluck('id')->toArray(),
         ];
 
+        // Отправляю запрос на синхронизацию должностей первого вопроса, указав маршруте ID второго вопроса (неправильный запрос)
         $this->json(
             'POST',
             route(
                 'templates.sections.questions.positions.update',
                 [
                     'template' => $this->_template->id,
-                    'section'  => $section1->id,
-                    'question' => $question2->id
+                    'ts'       => $ts1->id,
+                    'tsq'      => $tsq2->id
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
 
@@ -793,7 +990,8 @@ class TemplateTest extends TestCase
                     'section'  => $section->id,
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJson([
@@ -833,7 +1031,8 @@ class TemplateTest extends TestCase
                     'section'  => $section->id,
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(422);
     }
@@ -843,44 +1042,53 @@ class TemplateTest extends TestCase
      */
     public function user_can_get_positions_from_question_in_template()
     {
+        // Создаю раздел
         $section = factory(Section::class)->create();
+
+        // Создаю 20 вопросов в разделе
         $section->questions()->saveMany(factory(Question::class, 20)->make());
+
+        // Создаю 5 должностей
         factory(Position::class, 20)->create();
 
+        // Добавляю должности с "to_rate" = 1 в вопросы
         $section->questions->each(function ($question) {
             $question->positions()->attach(Position::where('to_rate', 1)->get()->random(rand(1, 3))->pluck('id')->toArray());
         });
 
-        $question = $section->questions->first();
-        $positions = $question->positions;
+        // Беру случайный вопрос из раздела
+        $question = $section->questions()->inRandomOrder()->first();
 
-        \Log::info($positions);
+        // Добавляю раздел с вопросами и должностями в шаблон
+        $this->_template->attachSections([$section->id]);
 
-        $this->_template->sections()->attach($section);
-
-        $template = $this->_template;
+        // Беру добавленный раздел из шаблона
         $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Беру добавленный вопрос из раздела шаблона
         $tsq = $ts->questions()->where('questions.id', $question->id)->first()->pivot;
-        $positionsInTemplate = $tsq->positions;
 
-
+        // Подготавливаю параметры для маршрута
         $params = [
-            'template' => $template->id,
+            'template' => $this->_template->id,
             'ts'       => $ts->id,
             'tsq'      => $tsq->id,
         ];
 
+        // Отправляю запрос на получение списка должностей вопроса из раздела шаблона
         $this->json(
             'GET',
             route('templates.sections.questions.positions.index',
                 $params
-            )
+            ),
+            [],
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Data retrieved successfully.'),
             ])
-            ->assertJsonCount($positionsInTemplate->count(), 'data');
+            ->assertJsonCount($tsq->positions->count(), 'data'); // Сравниваю количество должностей из вопроса раздела шаблона, с количеством должностей, которые вернул запрос
 
     }
 
@@ -889,23 +1097,32 @@ class TemplateTest extends TestCase
      */
     public function user_can_sync_positions_in_the_template()
     {
-
+        // Создаю раздел
         $section = factory(Section::class)->create();
+
+        // Добавляю в раздел 3 вопроса и беру первый из них
         $question = $section->questions()
             ->saveMany(factory(Question::class, 3)->make())
             ->first();
+
+        // Добавляю к вопросу 5 должностей
         $positions = $question->positions()->saveMany(factory(Position::class, 5)->make());
 
-        $this->_template->sections()->attach([
-            $section->id,
-        ]);
+        // Добавляю в шаблон раздел с вопросами и должностями
+        $this->_template->attachSections([$section->id]);
 
+        // Беру вервый раздел из шаблона
         $ts = $this->_template->sections()->where('sections.id', $section->id)->first()->pivot;
+
+        // Беру первый вопрос из первого раздела шаблона
         $tsq = $ts->questions()->where('questions.id', $question->id)->first()->pivot;
 
+        // Подготавливаю параметры для запроса. Беру две из пяти созданных должностей
         $params = [
             'positions' => $positions->take(2)->pluck('id')->toArray(),
         ];
+
+        // Отправляю запрос на синхронизацию должностей в вопросе раздела шаблона
         $this->json(
             'POST',
             route(
@@ -916,13 +1133,15 @@ class TemplateTest extends TestCase
                     'tsq'      => $tsq->id,
                 ]
             ),
-            $params
+            $params,
+            $this->_headers
         )
             ->assertStatus(200)
             ->assertJson([
                 'message' => __('Positions synced.'),
             ]);
 
+        // Сравниваю количество должностей первого вопроса, первого раздела в шаблоне с количеством должностей которое вернул запрос
         $this->assertEquals(
             $this->_template->sections()
                 ->where('sections.id', $section->id)
@@ -936,22 +1155,6 @@ class TemplateTest extends TestCase
                 ->count(),
             2
         );
-
-    }
-
-    /**
-     * @test
-     */
-    public function user_can_access_to_positions_in_questions_from_template_only_with_current_tq_param()
-    {
-
-    }
-
-    /**
-     * @test
-     */
-    public function user_can_access_to_positions_in_questions_from_template_only_with_current_tqs_param()
-    {
 
     }
 

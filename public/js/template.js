@@ -115,7 +115,12 @@ class TemplateManagement {
             searchDelay: 500,
             processing: true,
             serverSide: true,
-            ajax: '/api/templates/datatable',
+            ajax: {
+                url: '/api/templates',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                }
+            },
             language: {
                 buttons: {
                     copyTitle: 'Копировать в буфер обмена',
@@ -209,15 +214,8 @@ class TemplateManagement {
                     },
                 },
             ],
-            preDrawCallback: (settings) => {
-                console.log('preDrawCallback');
-            },
-            drawCallback: (settings) => {
-                console.log('drawCallback');
-            },
             fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 let api = this.api();
-                console.log('fnRowCallback');
                 nRow.querySelector('.templateEdit').onclick = (event) => {
                     event.preventDefault();
                     parent.getTemplate(aData.id);
@@ -233,6 +231,9 @@ class TemplateManagement {
                     if (confirm("Удалить элемент")) {
                         $.ajax({
                             url: '/api/templates/' + aData.id,
+                            headers: {
+                                'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                            },
                             method: 'POST',
                             data: {
                                 _method: 'DELETE',
@@ -246,12 +247,6 @@ class TemplateManagement {
                     }
                 };
 
-            },
-            fnInitComplete: (oSettings, json) => {
-                console.log('fnInitComplete');
-            },
-            rowCallback: (ePos, data, index) => {
-                console.log('rowCallback');
             }
         });
         let buttons = new $.fn.dataTable.Buttons(ret, {
@@ -324,6 +319,9 @@ class TemplateManagement {
         parent.templates.openTemplateId = id;
         $.ajax({
             url: '/api/templates/' + id,
+            headers: {
+                'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+            },
             type: 'GET',
             beforeSend: () => {
                 KTApp.block(parent.showTemplateModal.find('.modal-content'),
@@ -349,10 +347,10 @@ class TemplateManagement {
             this.showTemplateModal.find('#updated_at').text('');
             this.showTemplateModal.find('#editor').text('');
             this.showTemplateModal.find('.modal-title').text('Шаблон №' + response.data.title);
-            this.showTemplateModal.find('#created_at').text(response.data.created_at);
+            this.showTemplateModal.find('#created_at').text(new Date(response.data.created_at).toLocaleString('ru'));
             this.showTemplateModal.find('#author').text(response.data.user.profile.full_name);
             if (response.data.editor) {
-                this.showTemplateModal.find('#updated_at').text(response.data.updated_at);
+                this.showTemplateModal.find('#updated_at').text(new Date(response.data.updated_at).toLocaleString('ru'));
                 this.showTemplateModal.find('#editor').text(response.data.editor.profile.full_name);
             }
             if (response.data.type_of_gas_station !== null) {
@@ -392,6 +390,9 @@ class TemplateManagement {
             serverSide: true,
             ajax: {
                 url: '/api/templates/' + id + '/sections',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                }
             },
             order: [[0, 'asc']],
             language: {
@@ -470,7 +471,7 @@ class TemplateManagement {
 
     initTemplateSectionQuestions = (section_id, template_id, ts) => {
         let parent = this;
-        let link = '/api/templates/' + template_id + '/sections/' + section_id + '/questions';
+        let link = '/api/templates/' + template_id + '/sections/' + ts + '/questions';
         this.questions.questionsTable = this.questions.tableElement.DataTable({
             async: false,
             responsive: true,
@@ -478,6 +479,9 @@ class TemplateManagement {
             serverSide: true,
             ajax: {
                 url: link,
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                }
             },
             order: [[0, 'asc']],
             language: {
@@ -529,6 +533,7 @@ class TemplateManagement {
         let tsq = event.target.dataset.rel;
         let positions = this.positions.select2;
         positions.val(null).trigger('change');
+
         this.positions.positionsModal.find('form').attr('action', '/api/templates/' + this.templates.openTemplateId + '/sections/' + ts + '/questions/' + tsq + '/positions');
         $.get('/api/templates/' + this.templates.openTemplateId + '/sections/' + ts + '/questions/' + tsq + '/positions', function (response) {
             if (response.data) {
@@ -571,6 +576,9 @@ class TemplateManagement {
         let parent = this;
         positionsForm.ajaxSubmit({
             url: positionsForm.action,
+            headers: {
+                'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+            },
             type: 'POST',
             success: (response) => {
                 parent.questions.questionsTable.ajax.reload(null, false);
@@ -604,6 +612,9 @@ class TemplateManagement {
         let parent = this;
         weightEditFrom.ajaxSubmit({
             url: weightEditFrom.action,
+            headers: {
+                'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+            },
             type: 'POST',
             success: (response) => {
                 parent.sections.table.ajax.reload(null, false);
@@ -633,15 +644,14 @@ class TemplateManagement {
         let t = this.templates.openTemplateId;
         let s = event.relatedTarget.dataset.id;
         let ts = event.relatedTarget.dataset.ts;
-        console.log('t: ' + t);
-        console.log('s: ' + s);
-        console.log('ts: ' + ts);
 
-        this.initQuestionsAddedTable(t, s);
+        this.sections.ts = ts;
+
+        this.initQuestionsAddedTable(t, ts);
         this.initQuestionsUnAppliedTable(s, ts);
     };
 
-    initQuestionsAddedTable = (t, s) => {
+    initQuestionsAddedTable = (t, ts) => {
         this.questions.addedQuestionsTable = $(KTUtil.get('questionsAdded')).DataTable({
             sPaginationType: 'listbox',
             async: false,
@@ -649,7 +659,10 @@ class TemplateManagement {
             processing: true,
             serverSide: true,
             ajax: {
-                url: '/api/templates/'+ t +'/sections/'+ s +'/questions',
+                url: '/api/templates/' + t + '/sections/' + ts + '/questions',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                }
             },
 
             order: [[1, 'asc']],
@@ -706,7 +719,10 @@ class TemplateManagement {
             processing: true,
             serverSide: true,
             ajax: {
-                url: '/api/sections/'+ s +'/questions/datatable',
+                url: '/api/sections/' + s + '/questions/datatable',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 data: {
                     'missing_in_section_template': ts
                 },
@@ -765,7 +781,7 @@ class TemplateManagement {
             parent.questions.addedQuestionsTable.destroy();
             parent.questions.unAppliedQuestionsTable.clear();
             parent.questions.unAppliedQuestionsTable.destroy();
-            parent.questions.questionsTable.ajax.reload();
+            parent.questions.questionsTable.ajax.reload(null, false);
         })
     };
 
@@ -806,7 +822,10 @@ class TemplateManagement {
             let parent = this;
 
             this.questions.questionsAddedForm.ajaxSubmit({
-                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/'+ parent.sections.openSectionId +'/questions',
+                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/' + parent.sections.ts + '/questions',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 success: function (response) {
                     parent.questions.questionsAddedForm.find("input[name='questions[]']").remove();
                     parent.questions.unAppliedQuestionsTable.ajax.reload(function (data) {
@@ -847,7 +866,10 @@ class TemplateManagement {
             let parent = this;
 
             this.questions.unAppliedQuestionsForm.ajaxSubmit({
-                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/'+ parent.sections.openSectionId +'/questions',
+                url: '/api/templates/' + parent.templates.openTemplateId + '/sections/' + parent.sections.ts + '/questions',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 success: function (response) {
                     parent.questions.unAppliedQuestionsForm.find("input[name='questions[]']").remove();
 
@@ -894,6 +916,9 @@ class TemplateManagement {
             serverSide: true,
             ajax: {
                 url: '/api/templates/' + id + '/sections/',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                }
             },
 
             order: [[1, 'asc']],
@@ -951,6 +976,9 @@ class TemplateManagement {
             serverSide: true,
             ajax: {
                 url: '/api/sections/datatable',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 data: {
                     'missing_in_template': id
                 },
@@ -1007,7 +1035,7 @@ class TemplateManagement {
         this.showTemplateModal.on('hide.bs.modal', function (event) {
             parent.sections.table.clear();
             parent.sections.table.destroy();
-            parent.templates.table.ajax.reload();
+            parent.templates.table.ajax.reload(null, false);
         })
     };
 
@@ -1041,6 +1069,9 @@ class TemplateManagement {
 
             this.sections.management.unAppliedSectionsForm.ajaxSubmit({
                 url: '/api/templates/' + parent.templates.openTemplateId + '/sections',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 success: function (response) {
                     parent.sections.management.unAppliedSectionsForm.find("input[name='sections[]']").remove();
 
@@ -1091,6 +1122,9 @@ class TemplateManagement {
 
             this.sections.management.sectionsAddedForm.ajaxSubmit({
                 url: '/api/templates/' + parent.templates.openTemplateId + '/sections',
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 success: function (response) {
                     parent.sections.management.sectionsAddedForm.find("input[name='sections[]']").remove();
 
@@ -1118,12 +1152,18 @@ class TemplateManagement {
             parent.sections.management.addedSectionsTable.destroy();
             parent.sections.management.unAppliedSectionsTable.clear();
             parent.sections.management.unAppliedSectionsTable.destroy();
-            parent.sections.table.ajax.reload();
+            parent.sections.table.ajax.reload(null, false);
         })
     };
 
     getTemplate = (id) => {
-        $.get('/api/templates/' + id, this.showEditForm)
+        $.get({
+            url: '/api/templates/' + id,
+            headers: {
+                'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+            }
+        })
+            .done(this.showEditForm)
     };
 
     bindCreateTemplateEvent = () => {
@@ -1156,6 +1196,9 @@ class TemplateManagement {
             submitHandler: (form) => {
                 $(form).ajaxSubmit({
                     url: form.action,
+                    headers: {
+                        'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                    },
                     type: 'POST',
                     beforeSend: () => {
                         KTApp.block($(parent.createEditTemplateModal));
@@ -1225,6 +1268,9 @@ class TemplateManagement {
             minimumResultsForSearch: 5,
             ajax: {
                 url: route,
+                headers: {
+                    'Authorization': sessionStorage.getItem('token_type') + ' ' + sessionStorage.getItem('access_token')
+                },
                 type: "get",
                 dataType: 'json',
                 delay: 250,

@@ -12,7 +12,7 @@ class SectionTableSeeder extends Seeder
     public function run()
     {
         factory(App\Models\Section::class, 10)->create()->each(function($r){
-            $r->questions()->saveMany(factory(App\Models\Question::class, 40)->make());
+            $r->questions()->saveMany(factory(App\Models\Question::class, 5)->make());
         });
 
         App\Models\Question::all()->each(function($r){

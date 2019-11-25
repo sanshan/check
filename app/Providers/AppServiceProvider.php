@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Template;
+use App\Models\TemplateSectionPivot;
+use App\Observers\TemplateObserver;
+use App\Observers\TemplateSectionObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Template::observe(TemplateObserver::class);
+        TemplateSectionPivot::observe(TemplateSectionObserver::class);
     }
 }
